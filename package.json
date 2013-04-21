@@ -1,0 +1,39 @@
+{
+  "name": "generator-express",
+  "version": "0.1.0",
+  "description": "A generator for Yeoman",
+  "keywords": [
+    "yeoman-generator",
+    "express",
+    "scaffold"
+  ],
+  "homepage": "https://github.com/petecoop/generator-express",
+  "bugs": "https://github.com/petecoop/generator-express/issues",
+  "author": {
+    "name": "petecoop",
+    "email": "pete@petecoop.co.uk",
+    "url": "http://petecoop.co.uk"
+  },
+  "main": "app/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/petecoop/generator-express.git"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "yeoman-generator": "~0.10.2"
+  },
+  "devDependencies": {
+    "mocha": "~1.9.0"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ]
+}

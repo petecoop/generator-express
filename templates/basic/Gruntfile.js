@@ -1,12 +1,12 @@
 module.exports = function(grunt){
 
-	grunt.initConfig({
-		pkg: grunt.file.readJSON('package.json'),
-		develop: {
-			server: {
-				file: 'app.js'
-			}
-		},
+  grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+    develop: {
+      server: {
+        file: 'app.js'
+      }
+    },
     regarde: {
       js: {
         files: [
@@ -37,5 +37,4 @@ module.exports = function(grunt){
   grunt.loadNpmTasks('grunt-contrib-livereload');
 
 	grunt.registerTask('default', ['livereload-start', 'develop', 'regarde']);
-
 };

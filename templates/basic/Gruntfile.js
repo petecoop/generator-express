@@ -1,12 +1,12 @@
-module.exports = function(grunt){
+module.exports = function (grunt) {
 
-	grunt.initConfig({
-		pkg: grunt.file.readJSON('package.json'),
-		develop: {
-			server: {
-				file: 'app.js'
-			}
-		},
+  grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+    develop: {
+      server: {
+        file: 'app.js'
+      }
+    },
     regarde: {
       js: {
         files: [
@@ -25,9 +25,9 @@ module.exports = function(grunt){
       }
     }
 	});
-  grunt.registerTask('delayed-livereload', 'delayed livereload', function(){
+  grunt.registerTask('delayed-livereload', 'delayed livereload', function () {
     var done = this.async();
-    setTimeout(function(){
+    setTimeout(function () {
       grunt.task.run('livereload');
       done();
     }, 500);
@@ -36,6 +36,5 @@ module.exports = function(grunt){
   grunt.loadNpmTasks('grunt-regarde');
   grunt.loadNpmTasks('grunt-contrib-livereload');
 
-	grunt.registerTask('default', ['livereload-start', 'develop', 'regarde']);
-
+  grunt.registerTask('default', ['livereload-start', 'develop', 'regarde']);
 };

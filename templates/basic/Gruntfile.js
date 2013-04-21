@@ -36,5 +36,5 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-regarde');
   grunt.loadNpmTasks('grunt-contrib-livereload');
 
-	grunt.registerTask('default', ['livereload-start', 'develop', 'regarde']);
+  grunt.registerTask('default', ['livereload-start', 'develop', 'regarde']);
 };

@@ -1,4 +1,4 @@
-module.exports = function(grunt){
+module.exports = function (grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -25,9 +25,9 @@ module.exports = function(grunt){
       }
     }
 	});
-  grunt.registerTask('delayed-livereload', 'delayed livereload', function(){
+  grunt.registerTask('delayed-livereload', 'delayed livereload', function () {
     var done = this.async();
-    setTimeout(function(){
+    setTimeout(function () {
       grunt.task.run('livereload');
       done();
     }, 500);

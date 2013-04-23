@@ -28,6 +28,7 @@ describe('express generator', function () {
       '.jshintrc',
       '.editorconfig',
       '.bowerrc',
+      '.gitignore',
       'component.json',
       'app.js',
       'public/images',

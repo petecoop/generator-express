@@ -29,7 +29,7 @@ describe('express generator', function () {
       '.editorconfig',
       '.bowerrc',
       '.gitignore',
-      'component.json',
+      'bower.json',
       'app.js',
       'public/images',
       'public/components',

@@ -8,7 +8,7 @@ module.exports = function (grunt) {
         file: 'app.js'
       }
     },
-    regarde: {
+    watch: {
       js: {
         files: [
           'app.js',
@@ -31,8 +31,8 @@ module.exports = function (grunt) {
     }, 500);
   });
   grunt.loadNpmTasks('grunt-develop');
-  grunt.loadNpmTasks('grunt-regarde');
+  grunt.loadNpmTasks('grunt-watch');
   grunt.loadNpmTasks('grunt-contrib-livereload');
 
-  grunt.registerTask('default', ['livereload-start', 'develop', 'regarde']);
+  grunt.registerTask('default', ['livereload-start', 'develop', 'watch']);
 };

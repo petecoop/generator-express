@@ -9,6 +9,9 @@ module.exports = function (grunt) {
       }
     },
     watch: {
+      options: {
+        livereload: true
+      },
       js: {
         files: [
           'app.js',
@@ -18,21 +21,28 @@ module.exports = function (grunt) {
         tasks: ['develop', 'delayed-livereload']
       },
       jade: {
-        files: ['app/views/**/*.jade'],
-        tasks: ['livereload']
-      }
+        files: ['app/views/**/*.jade']
+      },
     }
   });
-  grunt.registerTask('delayed-livereload', 'delayed livereload', function () {
+
+  // todo get files and port from options
+  grunt.registerTask('delayed-livereload', 'Live reload after the node server has restarted.', function () {
     var done = this.async();
     setTimeout(function () {
-      grunt.task.run('livereload');
-      done();
+      require('request').get("http://localhost:35729/changed?files=app.js",  function(err, res) {
+          var reloaded = !err && res.statusCode === 200;
+          if (reloaded)
+            grunt.log.ok('Delayed live reload successful.');
+          else
+            grunt.log.error('Unable to make a delayed live reload.');
+          done(reloaded);
+        });
     }, 500);
   });
-  grunt.loadNpmTasks('grunt-develop');
-  grunt.loadNpmTasks('grunt-watch');
-  grunt.loadNpmTasks('grunt-contrib-livereload');
 
-  grunt.registerTask('default', ['livereload-start', 'develop', 'watch']);
+  grunt.loadNpmTasks('grunt-develop');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+
+  grunt.registerTask('default', ['develop', 'watch']);
 };

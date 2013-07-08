@@ -13,8 +13,8 @@
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-develop": "0.0.2",
-    "grunt-contrib-livereload": "~0.1.2",
     "grunt-contrib-watch": "~0.4.4",
-    "grunt-contrib-compass": "~0.2.0"
+    "grunt-contrib-compass": "~0.2.0",
+    "request": "~2.22.0"
   }
 }

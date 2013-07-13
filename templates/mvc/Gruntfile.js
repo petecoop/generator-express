@@ -9,9 +9,7 @@ module.exports = function (grunt) {
       }
     },
     watch: {
-      options: {
-        livereload: true
-      },
+      options: { nospawn: true },
       js: {
         files: [
           'app.js',
@@ -21,13 +19,16 @@ module.exports = function (grunt) {
         tasks: ['develop', 'delayed-livereload']
       },
       jade: {
-        files: ['app/views/**/*.jade']
+        files: ['app/views/**/*.jade'],
+        options: { livereload: true },
       },
     }
   });
 
-  // todo get files and port from options
   grunt.registerTask('delayed-livereload', 'Live reload after the node server has restarted.', function () {
+    // This is a temporarily solution until https://github.com/edwardhotchkiss/grunt-develop/pull/9
+    // gets merged into grunt-develop.  Once that happens we can more accurately bind to the restart
+    // of the node server and get rid of this timeout and delayed-livereload altogether.
     var done = this.async();
     setTimeout(function () {
       require('request').get("http://localhost:35729/changed?files=app.js",  function(err, res) {

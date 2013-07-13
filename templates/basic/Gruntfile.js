@@ -1,4 +1,9 @@
+'use strict';
+
+var request = require('request');
+
 module.exports = function (grunt) {
+  var reloadPort = 35729, files;
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -31,13 +36,14 @@ module.exports = function (grunt) {
     }
   });
 
+  grunt.config.requires('watch.js.files');
+  files = grunt.config('watch.js.files');
+  files = grunt.file.expand(files);
+
   grunt.registerTask('delayed-livereload', 'Live reload after the node server has restarted.', function () {
-    // This is a temporarily solution until https://github.com/edwardhotchkiss/grunt-develop/pull/9
-    // gets merged into grunt-develop.  Once that happens we can more accurately bind to the restart
-    // of the node server and get rid of this timeout and delayed-livereload altogether.
     var done = this.async();
     setTimeout(function () {
-      require('request').get("http://localhost:35729/changed?files=app.js",  function(err, res) {
+      request.get('http://localhost:' + reloadPort + '/changed?files=' + files.join(','),  function(err, res) {
           var reloaded = !err && res.statusCode === 200;
           if (reloaded)
             grunt.log.ok('Delayed live reload successful.');

@@ -21,5 +21,5 @@ ExpressGenerator.prototype.setupEnv = function setupEnv() {
 };
 
 ExpressGenerator.prototype.packageJSON = function packageJSON() {
-  this.template('_package.json', 'package.json');
+  this.template('package.json', 'package.json');
 };

@@ -13,7 +13,11 @@ function ExpressGenerator() {
 util.inherits(ExpressGenerator, yeoman.generators.Base);
 
 ExpressGenerator.prototype.projectfiles = function projectfiles() {
-	this.sourceRoot(path.join(__dirname, '../templates/common'));
+  this.sourceRoot(path.join(__dirname, '../templates/common'));
   this.copy('bowerrc', '.bowerrc');
   this.copy('gitignore', '.gitignore');
+};
+
+ExpressGenerator.prototype.packageJSON = function packageJSON() {
+  this.template('_package.json', 'package.json');
 };

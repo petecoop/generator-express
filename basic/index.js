@@ -19,7 +19,3 @@ ExpressGenerator.prototype.setupEnv = function setupEnv() {
   this.mkdir('public/components');
   this.mkdir('public/javascripts');
 };
-
-ExpressGenerator.prototype.packageJSON = function packageJSON() {
-  this.template('_package.json', 'package.json');
-};

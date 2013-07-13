@@ -36,8 +36,8 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.config.requires('watch.js.files');
-  files = grunt.config('watch.js.files');
+  grunt.config.requires('watch.server.files');
+  files = grunt.config('watch.server.files');
   files = grunt.file.expand(files);
 
   grunt.registerTask('delayed-livereload', 'Live reload after the node server has restarted.', function () {

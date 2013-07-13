@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "grunt": "~0.4.1",
-    "grunt-develop": "~0.0.2",
+    "grunt-develop": "~0.1.0",
     "grunt-contrib-watch": "~0.4.4",
     "request": "~2.22.0"
   }

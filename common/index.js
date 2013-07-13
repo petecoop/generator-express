@@ -17,7 +17,3 @@ ExpressGenerator.prototype.projectfiles = function projectfiles() {
   this.copy('bowerrc', '.bowerrc');
   this.copy('gitignore', '.gitignore');
 };
-
-ExpressGenerator.prototype.packageJSON = function packageJSON() {
-  this.template('_package.json', 'package.json');
-};

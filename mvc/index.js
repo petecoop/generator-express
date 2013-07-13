@@ -30,3 +30,7 @@ ExpressGenerator.prototype.setupEnv = function setupEnv() {
   this.mkdir('app/models');
   this.mkdir('app/views');
 };
+
+ExpressGenerator.prototype.packageJSON = function packageJSON() {
+  this.template('_package.json', 'package.json');
+};

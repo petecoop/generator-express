@@ -14,6 +14,12 @@
     "email": "pete@petecoop.co.uk",
     "url": "http://petecoop.co.uk"
   },
+  "contributors": [
+    {
+      "name": "nategood",
+      "url": "http://nategood.com"
+    }
+  ],
   "main": "app/index.js",
   "repository": {
     "type": "git",

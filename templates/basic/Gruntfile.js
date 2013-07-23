@@ -13,7 +13,10 @@ module.exports = function (grunt) {
       }
     },
     watch: {
-      options: { nospawn: true },
+      options: {
+        nospawn: true,
+        livereload: reloadPort
+      },
       server: {
         files: [
           'app.js',
@@ -23,15 +26,15 @@ module.exports = function (grunt) {
       },
       js: {
         files: ['public/javascripts/*.js'],
-        options: { livereload: true},
+        options: { livereload: reloadPort},
       },
       css: {
         files: ['public/stylesheets/*.css'],
-        options: { livereload: true},
+        options: { livereload: reloadPort},
       },
       jade: {
         files: ['views/*.jade'],
-        options: { livereload: true},
+        options: { livereload: reloadPort},
       }
     }
   });

@@ -21,10 +21,6 @@ util.inherits(ExpressGenerator, yeoman.generators.NamedBase);
 
 ExpressGenerator.prototype.setupEnv = function setupEnv() {
   this.directory('.', '.', true);
-  this.mkdir('public/img');
-  this.mkdir('public/components');
-  this.mkdir('public/js');
-  this.mkdir('public/css');
   this.mkdir('app/controllers');
   this.mkdir('app/models');
   this.mkdir('app/views');

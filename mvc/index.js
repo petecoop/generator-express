@@ -20,7 +20,6 @@ function ExpressGenerator(args, options, config) {
 util.inherits(ExpressGenerator, yeoman.generators.NamedBase);
 
 ExpressGenerator.prototype.setupEnv = function setupEnv() {
-  this.sourceRoot(path.join(__dirname, '../templates/mvc'));
   this.directory('.', '.', true);
   this.mkdir('public/img');
   this.mkdir('public/components');

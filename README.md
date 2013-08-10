@@ -17,7 +17,7 @@ To get going:
 - Make sure you have [yo](https://github.com/yeoman/yo) installed:
     `npm install -g yo`
 - Install the generator **locally**: `npm install generator-express`
-- Run: `yo express:mvc`
+- Run: `yo express --mvc`
 - Run: `grunt` to run the local server - defaults to `localhost:3000` - port can be changed in `config/config.js`. The grunt tasks include live reloading as before.
 
 ##Options

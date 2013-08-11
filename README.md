@@ -26,6 +26,9 @@ To get going:
   Skips the automatic execution of `bower` and `npm` after
   scaffolding has finished.
 
+* `--mvc`
+
+  Installs MVC style scaffolding.
 
 ## License
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)

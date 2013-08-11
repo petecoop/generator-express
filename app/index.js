@@ -6,10 +6,7 @@ var yeoman = require('yeoman-generator');
 function ExpressGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
 
-  console.log(options['skip-install']);
-
   this.on('end', function () {
-    console.log(options['skip-install']);
     this.installDependencies({ skipInstall: options['skip-install'] });
   });
 

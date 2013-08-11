@@ -18,15 +18,20 @@ To get going:
 - Make sure you have [yo](https://github.com/yeoman/yo) installed:
     `npm install -g yo`
 - Install the generator **locally**: `npm install generator-express`
-- Run: `yo express:mvc`
 - Ensure that MongoDB is running on your machine, if running elsewhere the connection string can be changed in `config/config.js`
+- Run: `yo express --mvc`
 - Run: `grunt` to run the local server - defaults to `localhost:3000` - port can be changed in `config/config.js`. The grunt tasks include live reloading as before.
 
 ##Options
-* `--skip-install`
+
+- `--skip-install`
 
   Skips the automatic execution of `bower` and `npm` after
   scaffolding has finished.
+
+- `--mvc`
+
+  Installs MVC style scaffolding.
 
 ##Testing
 Tests are written with mocha.

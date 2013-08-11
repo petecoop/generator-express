@@ -1,21 +1,17 @@
 // Example model
 
-var MongoClient = require('mongodb').MongoClient,
-  Db = require('../../config/database');
+var mongoose = require('mongoose'),
+  Schema = mongoose.Schema;
 
-module.exports = new Article();
+var ArticleSchema = new Schema({
+  title: String,
+  url: String,
+  text: String
+});
 
-function Article(){
-  this.collection_name = "articles";
-}
-
-Article.prototype.findAll = function(callback){
-  Db.getCollection(this.collection_name, function(collection){
-    collection.find().toArray(function(err, items){
-      items.forEach(function(item){
-        item.date = getDate(item._id);
-      });
-      callback(items);
-    });
+ArticleSchema.virtual('date')
+  .get(function(){
+    return this._id.getTimestamp();
   });
-};
+
+mongoose.model('Article', ArticleSchema);

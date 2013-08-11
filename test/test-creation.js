@@ -13,9 +13,7 @@ describe('express generator', function () {
       }
 
       this.app = helpers.createGenerator('express:app', [
-        '../../app',
-        '../../common',
-        '../../basic'
+        '../../app'
       ]);
       done();
     }.bind(this));
@@ -29,10 +27,10 @@ describe('express generator', function () {
       '.gitignore',
       'bower.json',
       'app.js',
-      'public/images',
+      'public/img',
       'public/components',
-      'public/javascripts',
-      'public/stylesheets/style.css',
+      'public/js',
+      'public/css/style.css',
       'package.json',
       'routes/index.js',
       'routes/user.js',
@@ -54,10 +52,10 @@ describe('express MVC generator', function () {
         return done(err);
       }
 
-      this.app = helpers.createGenerator('express:mvc', [
-        '../../mvc',
-        '../../common'
+      this.app = helpers.createGenerator('express:app', [
+        '../../app'
       ]);
+
       done();
     }.bind(this));
   });
@@ -86,6 +84,8 @@ describe('express MVC generator', function () {
       'app/views/404.jade',
       'app/views/home/index.jade'
     ];
+
+    this.app.options.mvc = true;
     this.app.options['skip-install'] = true;
     this.app.run({}, function () {
       helpers.assertFiles(expected);

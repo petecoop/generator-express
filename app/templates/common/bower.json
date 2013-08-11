@@ -1,6 +1,6 @@
 {
-  "name": "application-name",
-  "version": "0.0.0",
+  "name": "<%= _.slugify(appname) %>",
+  "version": "0.0.1",
   "ignore": [
     "**/.*",
     "node_modules",

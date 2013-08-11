@@ -14,6 +14,7 @@ An Expressjs generator for Yeoman, based on the express command line tool.
 I've created a new generator for creating MVC style apps in express, it's based around [nodejs-express-mongoose-demo](https://github.com/madhums/nodejs-express-mongoose-demo). It uses [MongoDB](http://www.mongodb.org/) as it's default database, you will need to have it installed and running to get the default app running.
 
 To get going:
+
 - Make sure you have [yo](https://github.com/yeoman/yo) installed:
     `npm install -g yo`
 - Install the generator **locally**: `npm install generator-express`
@@ -22,12 +23,13 @@ To get going:
 - Run: `grunt` to run the local server - defaults to `localhost:3000` - port can be changed in `config/config.js`. The grunt tasks include live reloading as before.
 
 ##Options
-* `--skip-install`
+
+- `--skip-install`
 
   Skips the automatic execution of `bower` and `npm` after
   scaffolding has finished.
 
-* `--mvc`
+- `--mvc`
 
   Installs MVC style scaffolding.
 
@@ -38,7 +40,6 @@ Tests are written with mocha.
 
 ##Contributing
 Contributors are welcome, please fork and send pull requests! If you have any ideas on how to make this project better then please submit an issue.
-
 
 ## License
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)

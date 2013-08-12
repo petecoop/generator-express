@@ -37,6 +37,7 @@ describe('express generator', function () {
       'views/index.jade',
       'views/layout.jade'
     ];
+    this.app.options.basic = true;
     this.app.options['skip-install'] = true;
     this.app.run({}, function () {
       helpers.assertFiles(expected);

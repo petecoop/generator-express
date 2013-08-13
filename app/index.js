@@ -33,7 +33,7 @@ ExpressGenerator.prototype.promptType = function promptType() {
   }];
 
   this.prompt(prompt, function (responses) {
-    this.options.mvc = responses.type === 'MVC';
+    this.options.mvc = responses.type.match(/^MVC$/i) !== null;
     done();
   }.bind(this));
 };

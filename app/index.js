@@ -15,6 +15,29 @@ function ExpressGenerator(args, options, config) {
 
 util.inherits(ExpressGenerator, yeoman.generators.NamedBase);
 
+ExpressGenerator.prototype.promptType = function promptType() {
+  // Short circuit if an option was explicitly specified
+  if (this.options.mvc || this.options.basic) {
+    return true;
+  }
+
+  var done = this.async();
+  var prompt = [{
+    type: 'list',
+    name: 'type',
+    message: 'Select a version to install:',
+    choices: [
+      'Basic',
+      'MVC'
+    ]
+  }];
+
+  this.prompt(prompt, function (responses) {
+    this.options.mvc = responses.type === 'MVC';
+    done();
+  }.bind(this));
+};
+
 ExpressGenerator.prototype.buildEnv = function buildEnv() {
   this.sourceRoot(path.join(__dirname, 'templates', 'common'));
   this.directory('.', '.');

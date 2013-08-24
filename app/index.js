@@ -13,7 +13,7 @@ function ExpressGenerator(args, options, config) {
   this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
 }
 
-util.inherits(ExpressGenerator, yeoman.generators.NamedBase);
+util.inherits(ExpressGenerator, yeoman.generators.Base);
 
 ExpressGenerator.prototype.promptType = function promptType() {
   // Short circuit if an option was explicitly specified

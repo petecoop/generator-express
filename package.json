@@ -29,10 +29,10 @@
     "test": "mocha"
   },
   "dependencies": {
-    "yeoman-generator": "~0.12.0"
+    "yeoman-generator": "~0.13.3"
   },
   "devDependencies": {
-    "mocha": "~1.9.0"
+    "mocha": "~1.12.0"
   },
   "engines": {
     "node": ">=0.8.0"

@@ -28,19 +28,19 @@ module.exports = function (grunt) {
         files: ['public/js/*.js'],
         options: {
           livereload: reloadPort
-        },
+        }
       },
       css: {
         files: ['public/css/*.css'],
         options: {
           livereload: reloadPort
-        },
+        }
       },
       jade: {
         files: ['views/*.jade'],
         options: {
           livereload: reloadPort
-        },
+        }
       }
     }
   });

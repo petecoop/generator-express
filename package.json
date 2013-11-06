@@ -1,6 +1,6 @@
 {
   "name": "generator-express",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A nodejs express generator for Yeoman",
   "keywords": [
     "yeoman-generator",

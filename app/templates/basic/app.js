@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies.
  */
@@ -19,6 +18,11 @@ app.configure(function(){
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
+  /*
+    //If you're going to use sessions, use them before you use the router, or req.session will be undefined.
+  	app.use(express.cookieParser());
+  	app.use(express.session({secret:'my secret session key'}));
+  */
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
 });

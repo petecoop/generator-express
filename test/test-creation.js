@@ -76,7 +76,6 @@ describe('express MVC generator', function () {
       'package.json',
       'config/config.js',
       'config/express.js',
-      'config/routes.js',
       'app/controllers',
       'app/controllers/home.js',
       'app/models',

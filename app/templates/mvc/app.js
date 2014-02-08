@@ -19,6 +19,12 @@ fs.readdirSync(modelsPath).forEach(function (file) {
 var app = express();
 
 require('./config/express')(app, config);
-require('./config/routes')(app);
+
+var controllersPath = __dirname + '/app/controllers';
+fs.readdirSync(controllersPath).forEach(function (file) {
+  if (file.indexOf('.js') >= 0) {
+    require(controllersPath + '/' + file)(app);
+  }
+});
 
 app.listen(config.port);

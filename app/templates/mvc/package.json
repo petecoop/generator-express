@@ -6,17 +6,17 @@
     "start": "app.js"
   },
   "dependencies": {
-    "express": "~3.3.4",
-    "jade": "~0.34.0",
-    "mongoose": "~3.6.14"
+    "express": "~3.4.8",
+    "jade": "~1.1.5",
+    "mongoose": "~3.8.6"
   },
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-develop": "~0.2.2",
+    "grunt": "~0.4.2",
+    "grunt-develop": "~0.3.0",
     "grunt-contrib-watch": "~0.5.3",
-    "grunt-contrib-compass": "~0.6.0",
-    "request": "~2.27.0",
-    "time-grunt": "~0.1.1",
-    "load-grunt-tasks": "~0.2.0"
+    "grunt-contrib-compass": "~0.7.1",
+    "request": "~2.33.0",
+    "time-grunt": "~0.2.9",
+    "load-grunt-tasks": "~0.3.0"
   }
 }

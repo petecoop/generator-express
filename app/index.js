@@ -39,6 +39,11 @@ ExpressGenerator.prototype.promptType = function promptType() {
 };
 
 ExpressGenerator.prototype.promptViewEngine = function () {
+
+  if (this.options.viewEngine) {
+    return true;
+  }
+
   var done = this.async();
   var prompt = [{
     type: 'list',
@@ -51,18 +56,22 @@ ExpressGenerator.prototype.promptViewEngine = function () {
   }];
 
   this.prompt(prompt, function (response) {
-    this.viewEnginePackages = [];
-    if (response.viewEngine === 'Jade') {
-      this.viewEnginePackages = ['"jade": "~1.1.5"'];
-    } else if (response.viewEngine === 'EJS') {
-      this.viewEnginePackages = [
-        '"ejs": "~0.8.5"',
-        '"ejs-locals": "~1.0.2"'
-      ];
-    }
-    this.viewEnginePackages.join(',\n');
+    this.options.viewEngine = response.viewEngine;
     done();
   }.bind(this));
+};
+
+ExpressGenerator.prototype.processViewEngineChoice = function () {
+  this.viewEnginePackages = [];
+  if (this.options.viewEngine === 'Jade') {
+    this.viewEnginePackages = ['"jade": "~1.1.5"'];
+  } else if (this.options.viewEngine === 'EJS') {
+    this.viewEnginePackages = [
+      '"ejs": "~0.8.5"',
+      '"ejs-locals": "~1.0.2"'
+    ];
+  }
+  this.viewEnginePackages.join(',\n');
 };
 
 ExpressGenerator.prototype.buildEnv = function buildEnv() {
@@ -72,6 +81,14 @@ ExpressGenerator.prototype.buildEnv = function buildEnv() {
   var name = this.options.mvc ? 'mvc' : 'basic';
   this.sourceRoot(path.join(__dirname, 'templates', name));
   this.directory('.', '.');
+
+  var views = this.options.viewEngine.toLowerCase();
+  this.sourceRoot(path.join(__dirname, 'templates', 'views', views));
+  if (this.options.mvc) {
+    this.directory('.', 'app/views');
+  } else {
+    this.directory('.', 'views');
+  }
 };
 
 ExpressGenerator.prototype.assetsDirs = function assetsDirs() {

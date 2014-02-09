@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "express": "~3.4.8",
-    "jade": "~1.1.5"
+    <%= viewEnginePackages %>
   },
   "devDependencies": {
     "grunt": "~0.4.2",

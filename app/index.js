@@ -38,6 +38,33 @@ ExpressGenerator.prototype.promptType = function promptType() {
   }.bind(this));
 };
 
+ExpressGenerator.prototype.promptViewEngine = function () {
+  var done = this.async();
+  var prompt = [{
+    type: 'list',
+    name: 'viewEngine',
+    message: 'Select a view engine to use:',
+    choices: [
+      'Jade',
+      'EJS'
+    ]
+  }];
+
+  this.prompt(prompt, function (response) {
+    this.viewEnginePackages = [];
+    if (response.viewEngine === 'Jade') {
+      this.viewEnginePackages = ['"jade": "~1.1.5"'];
+    } else if (response.viewEngine === 'EJS') {
+      this.viewEnginePackages = [
+        '"ejs": "~0.8.5"',
+        '"ejs-locals": "~1.0.2"'
+      ];
+    }
+    this.viewEnginePackages.join(',\n');
+    done();
+  }.bind(this));
+};
+
 ExpressGenerator.prototype.buildEnv = function buildEnv() {
   this.sourceRoot(path.join(__dirname, 'templates', 'common'));
   this.directory('.', '.');

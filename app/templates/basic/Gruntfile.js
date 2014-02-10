@@ -41,8 +41,8 @@ module.exports = function (grunt) {
           livereload: reloadPort
         }
       },
-      jade: {
-        files: ['views/*.jade'],
+      views: {
+        files: ['views/*.<%= options.viewEngine %>'],
         options: {
           livereload: reloadPort
         }

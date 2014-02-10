@@ -40,7 +40,38 @@ describe('Basic generator with Jade', function () {
     ];
     var allExpected = expected.concat(basicExpected);
     this.app.options.basic = true;
-    this.app.options.viewEngine = 'Jade';
+    this.app.options.viewEngine = 'jade';
+    this.app.options['skip-install'] = true;
+    this.app.run({}, function () {
+      helpers.assertFiles(allExpected);
+      done();
+    });
+  });
+});
+
+describe('Basic generator with EJS', function () {
+  beforeEach(function (done) {
+    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
+      if (err) {
+        return done(err);
+      }
+
+      this.app = helpers.createGenerator('express:app', [
+        '../../app'
+      ]);
+      done();
+    }.bind(this));
+  });
+
+  it('creates expected files', function (done) {
+    var expected = [
+      'views/index.ejs',
+      'views/layout.ejs',
+      'views/404.ejs'
+    ];
+    var allExpected = expected.concat(basicExpected);
+    this.app.options.basic = true;
+    this.app.options.viewEngine = 'ejs';
     this.app.options['skip-install'] = true;
     this.app.run({}, function () {
       helpers.assertFiles(allExpected);
@@ -92,7 +123,40 @@ describe('MVC generator with Jade', function () {
     var allExpected = expected.concat(MVCExpected);
 
     this.app.options.mvc = true;
-    this.app.options.viewEngine = 'Jade';
+    this.app.options.viewEngine = 'jade';
+    this.app.options['skip-install'] = true;
+    this.app.run({}, function () {
+      helpers.assertFiles(allExpected);
+      done();
+    });
+  });
+});
+
+describe('MVC generator with EJS', function () {
+  beforeEach(function (done) {
+    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
+      if (err) {
+        return done(err);
+      }
+
+      this.app = helpers.createGenerator('express:app', [
+        '../../app'
+      ]);
+
+      done();
+    }.bind(this));
+  });
+
+  it('creates expected files', function (done) {
+    var expected = [
+      'app/views/layout.ejs',
+      'app/views/404.ejs',
+      'app/views/index.ejs'
+    ];
+    var allExpected = expected.concat(MVCExpected);
+
+    this.app.options.mvc = true;
+    this.app.options.viewEngine = 'ejs';
     this.app.options['skip-install'] = true;
     this.app.run({}, function () {
       helpers.assertFiles(allExpected);

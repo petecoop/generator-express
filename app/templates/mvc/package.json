@@ -7,8 +7,10 @@
   },
   "dependencies": {
     "express": "~3.4.8",
-    "mongoose": "~3.8.6",
-    <%= viewEnginePackages %>
+    "mongoose": "~3.8.6"<% if(options.viewEngine == 'jade'){ %>,
+    "jade": "~1.1.5"<% } %><% if(options.viewEngine == 'ejs'){ %>,
+    "ejs": "~0.8.5",
+    "ejs-locals": "~1.0.2"<% } %>
   },
   "devDependencies": {
     "grunt": "~0.4.2",

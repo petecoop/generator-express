@@ -14,7 +14,10 @@ var app = express();
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
-  app.set('view engine', 'jade');
+  <% if (options.viewEngine == 'ejs') { %>
+    app.engine('ejs', require('ejs-locals'));
+  <% } %>
+  app.set('view engine', '<%= options.viewEngine %>');
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());

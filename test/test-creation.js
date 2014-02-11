@@ -124,6 +124,7 @@ describe('MVC generator with Jade', function () {
 
     this.app.options.mvc = true;
     this.app.options.viewEngine = 'jade';
+    this.app.options.database = 'none';
     this.app.options['skip-install'] = true;
     this.app.run({}, function () {
       helpers.assertFiles(allExpected);
@@ -157,6 +158,7 @@ describe('MVC generator with EJS', function () {
 
     this.app.options.mvc = true;
     this.app.options.viewEngine = 'ejs';
+    this.app.options.database = 'none';
     this.app.options['skip-install'] = true;
     this.app.run({}, function () {
       helpers.assertFiles(allExpected);

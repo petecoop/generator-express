@@ -61,6 +61,30 @@ ExpressGenerator.prototype.promptViewEngine = function () {
   }.bind(this));
 };
 
+ExpressGenerator.prototype.promptDatabase = function () {
+
+  if (this.options.database || this.options.basic) {
+    return true;
+  }
+
+  var done = this.async();
+  var prompt = [{
+    type: 'list',
+    name: 'database',
+    message: 'Select a database to use:',
+    choices: [
+      'None',
+      'MongoDB',
+      'MySQL',
+      'PostgreSQL'
+    ]
+  }];
+  this.prompt(prompt, function (response) {
+    this.options.database = response.database.toLowerCase();
+    done();
+  }.bind(this));
+};
+
 ExpressGenerator.prototype.buildEnv = function buildEnv() {
   this.sourceRoot(path.join(__dirname, 'templates', 'common'));
   this.directory('.', '.');

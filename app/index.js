@@ -63,7 +63,7 @@ ExpressGenerator.prototype.promptViewEngine = function () {
 
 ExpressGenerator.prototype.promptDatabase = function () {
 
-  if (this.options.database || this.options.basic) {
+  if (this.options.database || !this.options.mvc) {
     return true;
   }
 

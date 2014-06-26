@@ -3,11 +3,16 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node app"
+    "start": "node ./bin/www"
   },
   "dependencies": {
-    "express": "~3.4.8"<% if(options.viewEngine == 'jade'){ %>,
-    "jade": "~1.1.5"<% } %><% if(options.viewEngine == 'ejs'){ %>,
+    "express": "~4.2.0",
+    "static-favicon": "~1.0.0",
+    "morgan": "~1.0.0",
+    "cookie-parser": "~1.0.1",
+    "body-parser": "~1.0.0",
+    "debug": "~0.7.4"<% if(options.viewEngine == 'jade'){ %>,
+    "jade": "~1.3.0"<% } %><% if(options.viewEngine == 'ejs'){ %>,
     "ejs": "~0.8.5",
     "ejs-locals": "~1.0.2"<% } %>
   },

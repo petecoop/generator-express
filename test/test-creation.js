@@ -16,7 +16,8 @@ var basicExpected = [
   'public/css/style.css',
   'package.json',
   'routes/index.js',
-  'routes/user.js'
+  'routes/user.js',
+  'bin/www'
 ];
 describe('Basic generator with Jade', function () {
   beforeEach(function (done) {
@@ -36,7 +37,7 @@ describe('Basic generator with Jade', function () {
     var expected = [
       'views/index.jade',
       'views/layout.jade',
-      'views/404.jade'
+      'views/error.jade'
     ];
     var allExpected = expected.concat(basicExpected);
     this.app.options.basic = true;
@@ -66,8 +67,9 @@ describe('Basic generator with EJS', function () {
   it('creates expected files', function (done) {
     var expected = [
       'views/index.ejs',
-      'views/layout.ejs',
-      'views/404.ejs'
+      'views/header.ejs',
+      'views/footer.ejs',
+      'views/error.ejs',
     ];
     var allExpected = expected.concat(basicExpected);
     this.app.options.basic = true;
@@ -117,7 +119,7 @@ describe('MVC generator with Jade', function () {
   it('creates expected files', function (done) {
     var expected = [
       'app/views/layout.jade',
-      'app/views/404.jade',
+      'app/views/error.jade',
       'app/views/index.jade'
     ];
     var allExpected = expected.concat(MVCExpected);
@@ -150,8 +152,9 @@ describe('MVC generator with EJS', function () {
 
   it('creates expected files', function (done) {
     var expected = [
-      'app/views/layout.ejs',
-      'app/views/404.ejs',
+      'app/views/header.ejs',
+      'app/views/footer.ejs',
+      'app/views/error.ejs',
       'app/views/index.ejs'
     ];
     var allExpected = expected.concat(MVCExpected);

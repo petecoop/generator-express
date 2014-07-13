@@ -4,6 +4,14 @@
 var path    = require('path');
 var helpers = require('yeoman-generator').test;
 
+var toCoffeeFileArray = function (fileArray) {
+  var newArray = [];
+  for (var i in fileArray) {
+    newArray.push(fileArray[i].replace(/(.*?)\.js$/, '$1.coffee'));
+  }
+  return newArray;
+};
+
 var basicExpected = [
   'Gruntfile.js',
   '.bowerrc',
@@ -48,6 +56,23 @@ describe('Basic generator with Jade', function () {
       done();
     });
   });
+
+  it('works with coffee', function (done) {
+    var expected = [
+      'views/index.jade',
+      'views/layout.jade',
+      'views/error.jade'
+    ];
+    var allExpected = toCoffeeFileArray(expected.concat(basicExpected));
+    this.app.options.basic = true;
+    this.app.options.coffee = true;
+    this.app.options.viewEngine = 'jade';
+    this.app.options['skip-install'] = true;
+    this.app.run({}, function () {
+      helpers.assertFiles(allExpected);
+      done();
+    });
+  });
 });
 
 describe('Basic generator with EJS', function () {
@@ -73,6 +98,24 @@ describe('Basic generator with EJS', function () {
     ];
     var allExpected = expected.concat(basicExpected);
     this.app.options.basic = true;
+    this.app.options.viewEngine = 'ejs';
+    this.app.options['skip-install'] = true;
+    this.app.run({}, function () {
+      helpers.assertFiles(allExpected);
+      done();
+    });
+  });
+
+  it('works with coffee', function (done) {
+    var expected = [
+      'views/index.ejs',
+      'views/header.ejs',
+      'views/footer.ejs',
+      'views/error.ejs',
+    ];
+    var allExpected = toCoffeeFileArray(expected.concat(basicExpected));
+    this.app.options.basic = true;
+    this.app.options.coffee = true;
     this.app.options.viewEngine = 'ejs';
     this.app.options['skip-install'] = true;
     this.app.run({}, function () {
@@ -133,6 +176,25 @@ describe('MVC generator with Jade', function () {
       done();
     });
   });
+
+  it('works with coffee', function (done) {
+    var expected = [
+      'app/views/layout.jade',
+      'app/views/error.jade',
+      'app/views/index.jade'
+    ];
+    var allExpected = toCoffeeFileArray(expected.concat(MVCExpected));
+
+    this.app.options.mvc = true;
+    this.app.options.coffee = true;
+    this.app.options.viewEngine = 'jade';
+    this.app.options.database = 'none';
+    this.app.options['skip-install'] = true;
+    this.app.run({}, function () {
+      helpers.assertFiles(allExpected);
+      done();
+    });
+  });
 });
 
 describe('MVC generator with EJS', function () {
@@ -160,6 +222,26 @@ describe('MVC generator with EJS', function () {
     var allExpected = expected.concat(MVCExpected);
 
     this.app.options.mvc = true;
+    this.app.options.viewEngine = 'ejs';
+    this.app.options.database = 'none';
+    this.app.options['skip-install'] = true;
+    this.app.run({}, function () {
+      helpers.assertFiles(allExpected);
+      done();
+    });
+  });
+
+  it('works with coffee', function (done) {
+    var expected = [
+      'app/views/header.ejs',
+      'app/views/footer.ejs',
+      'app/views/error.ejs',
+      'app/views/index.ejs'
+    ];
+    var allExpected = toCoffeeFileArray(expected.concat(MVCExpected));
+
+    this.app.options.mvc = true;
+    this.app.options.coffee = true;
     this.app.options.viewEngine = 'ejs';
     this.app.options.database = 'none';
     this.app.options['skip-install'] = true;

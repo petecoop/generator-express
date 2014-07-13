@@ -15,11 +15,11 @@ fs.readdirSync(modelsPath).forEach (file) ->
 
 app = express()
 
-require('./config/express')(app, config)
-
 controllersPath = __dirname + '/app/controllers'
 fs.readdirSync(controllersPath).forEach (file) ->
   if  file.indexOf('.coffee') >= 0
     require(controllersPath + '/' + file)(app)
+
+require('./config/express')(app, config)
 
 app.listen config.port

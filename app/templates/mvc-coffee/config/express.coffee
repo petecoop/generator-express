@@ -1,19 +1,41 @@
 express = require 'express'
 
+favicon = require 'serve-favicon'
+logger = require 'morgan'
+cookieParser = require 'cookie-parser'
+bodyParser = require 'body-parser'
+compress = require 'compression'
+methodOverride = require 'method-override'
+
 module.exports = (app, config) ->
-  app.configure ->
-    app.use express.compress()
-    app.use express.static(config.root + '/public')
-    app.set 'port', config.port
     app.set 'views', config.root + '/app/views'
-    <% if (options.viewEngine == 'ejs') { %>
-    app.engine 'ejs', require('ejs-locals')
-    <% } %>
     app.set 'view engine', '<%= options.viewEngine %>'
-    app.use express.favicon(config.root + '/public/img/favicon.ico')
-    app.use express.logger('dev')
-    app.use express.bodyParser()
-    app.use express.methodOverride()
-    app.use app.router
-    app.use (req, res) ->
-      res.status(404).render '404', { title: '404' }
+
+    # app.use(favicon(config.root + '/public/img/favicon.ico'));
+    app.use logger 'dev'
+    app.use bodyParser.json
+    app.use bodyParser.urlencoded
+    app.use cookieParser
+    app.use compress
+    app.use express.static config.root + '/public'
+    app.use methodOverride
+
+    app.use (req, res, next) ->
+        err = new Error 'Not Found'
+        err.status = 404
+        next err
+
+    if app.get 'env' == 'development'
+        app.use (err, req, res) ->
+            res.status err.status || 500
+            res.render 'error',
+                message: err.message,
+                error: err,
+                title: 'error'
+
+    app.use (err, req, res) ->
+        res.status err.status || 500
+        res.render 'error',
+            message: err.message,
+            error: {},
+            title: 'error'

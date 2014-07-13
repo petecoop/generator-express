@@ -1,22 +1,49 @@
 var express = require('express');
 
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var compress = require('compression');
+var methodOverride = require('method-override');
+
 module.exports = function(app, config) {
-  app.configure(function () {
-    app.use(express.compress());
-    app.use(express.static(config.root + '/public'));
-    app.set('port', config.port);
-    app.set('views', config.root + '/app/views');
-    <% if (options.viewEngine == 'ejs') { %>
-        app.engine('ejs', require('ejs-locals'));
-    <% } %>
-    app.set('view engine', '<%= options.viewEngine %>');
-    app.use(express.favicon(config.root + '/public/img/favicon.ico'));
-    app.use(express.logger('dev'));
-    app.use(express.bodyParser());
-    app.use(express.methodOverride());
-    app.use(app.router);
-    app.use(function (req, res) {
-      res.status(404).render('404', { title: '404' });
+  app.set('views', config.root + '/app/views');
+  app.set('view engine', '<%= options.viewEngine %>');
+
+  // app.use(favicon(config.root + '/public/img/favicon.ico'));
+  app.use(logger('dev'));
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded());
+  app.use(cookieParser());
+  app.use(compress());
+  app.use(express.static(config.root + '/public'));
+  app.use(methodOverride());
+
+  app.use(function (req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+  });
+
+  if(app.get('env') === 'development'){
+    app.use(function (err, req, res) {
+      res.status(err.status || 500);
+      res.render('error', {
+        message: err.message,
+        error: err,
+        title: 'error'
+      });
+    });
+  }
+
+  app.use(function (err, req, res) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: {},
+      title: 'error'
     });
   });
+
 };

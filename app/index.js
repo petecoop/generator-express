@@ -90,6 +90,9 @@ ExpressGenerator.prototype.buildEnv = function buildEnv() {
   this.directory('.', '.');
 
   var name = this.options.mvc ? 'mvc' : 'basic';
+  if (this.options.coffee) {
+    name += '-coffee';
+  }
   this.sourceRoot(path.join(__dirname, 'templates', name));
   this.directory('.', '.');
 

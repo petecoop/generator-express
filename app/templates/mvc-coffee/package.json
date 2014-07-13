@@ -1,0 +1,25 @@
+{
+  "name": "<%= _.slugify(appname) %>",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "coffee app.coffee"
+  },
+  "dependencies": {
+    "express": "~3.4.8",
+    "mongoose": "~3.8.6"<% if(options.viewEngine == 'jade'){ %>,
+    "jade": "~1.1.5"<% } %><% if(options.viewEngine == 'ejs'){ %>,
+    "ejs": "~0.8.5",
+    "ejs-locals": "~1.0.2"<% } %>
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-develop": "~0.3.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-compass": "~0.7.1",
+    "coffee-script": "^1.7.1",
+    "request": "~2.33.0",
+    "time-grunt": "~0.2.9",
+    "load-grunt-tasks": "~0.3.0"
+  }
+}

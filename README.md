@@ -33,6 +33,10 @@ To get going:
 
   Installs MVC style scaffolding.
 
+- `--coffee`
+
+  Uses CoffeeScript.
+
 ##Testing
 Tests are written with mocha.
 - Install: `npm install -g mocha`

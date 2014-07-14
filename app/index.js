@@ -90,8 +90,10 @@ ExpressGenerator.prototype.buildEnv = function buildEnv() {
   this.directory('.', '.');
 
   var name = this.options.mvc ? 'mvc' : 'basic';
+  var filetype = 'js';
   if (this.options.coffee) {
     name += '-coffee';
+    filetype = 'coffee';
   }
   this.sourceRoot(path.join(__dirname, 'templates', name));
   this.directory('.', '.');
@@ -102,6 +104,9 @@ ExpressGenerator.prototype.buildEnv = function buildEnv() {
     this.directory('.', 'app/views');
   } else {
     this.directory('.', 'views');
+  }
+  if (this.options.database === 'mysql' || this.options.database === 'postgresql') {
+    // this.copy(path.join(__dirname, 'templates', 'extras', name, 'model-index.' + filetype), 'app/models/index.' + filetype);
   }
 };
 

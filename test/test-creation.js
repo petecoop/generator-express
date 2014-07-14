@@ -53,11 +53,11 @@ var toCoffeeFileArray = function (fileArray) {
   return newArray;
 };
 
-var runGenerationTest = function (extraFiles, type, engine, coffee, callback) {
+var runGenerationTest = function (extraFiles, type, engine, coffee, database, callback) {
   var expectedFiles;
   this.app.options[type] = true;
   this.app.options['skip-install'] = true;
-  this.app.options.database = 'none';
+  this.app.options.database = database;
   this.app.options.viewEngine = engine;
   this.app.options.coffee = coffee;
   expectedFiles = extraFiles.concat(appFiles[type]);
@@ -92,11 +92,11 @@ describe('Express generator', function () {
     ];
 
     it('creates expected files', function (done) {
-      runGenerationTest.call(this, expected, 'basic', 'jade', false, done);
+      runGenerationTest.call(this, expected, 'basic', 'jade', false, 'none', done);
     });
 
     it('works with coffee', function (done) {
-      runGenerationTest.call(this, expected, 'basic', 'jade', true, done);
+      runGenerationTest.call(this, expected, 'basic', 'jade', true, 'none', done);
     });
   });
 
@@ -109,11 +109,11 @@ describe('Express generator', function () {
     ];
 
     it('creates expected files', function (done) {
-      runGenerationTest.call(this, expected, 'basic', 'ejs', false, done);
+      runGenerationTest.call(this, expected, 'basic', 'ejs', false, 'none', done);
     });
 
     it('works with coffee', function (done) {
-      runGenerationTest.call(this, expected, 'basic', 'ejs', true, done);
+      runGenerationTest.call(this, expected, 'basic', 'ejs', true, 'none', done);
     });
   });
 
@@ -125,7 +125,7 @@ describe('Express generator', function () {
       'app/views/index.jade'
     ];
     it('creates expected files', function (done) {
-      runGenerationTest.call(this, expected, 'mvc', 'jade', false, done);
+      runGenerationTest.call(this, expected, 'mvc', 'jade', false, 'none', done);
     });
 
     it('works with coffee', function (done) {
@@ -134,7 +134,7 @@ describe('Express generator', function () {
         'app/views/error.jade',
         'app/views/index.jade'
       ];
-      runGenerationTest.call(this, expected, 'mvc', 'jade', true, done);
+      runGenerationTest.call(this, expected, 'mvc', 'jade', true, 'none', done);
     });
   });
 
@@ -146,7 +146,7 @@ describe('Express generator', function () {
         'app/views/error.ejs',
         'app/views/index.ejs'
       ];
-      runGenerationTest.call(this, expected, 'mvc', 'ejs', false, done);
+      runGenerationTest.call(this, expected, 'mvc', 'ejs', false, 'none', done);
     });
 
     it('works with coffee', function (done) {
@@ -156,7 +156,23 @@ describe('Express generator', function () {
         'app/views/error.ejs',
         'app/views/index.ejs'
       ];
-      runGenerationTest.call(this, expected, 'mvc', 'ejs', true, done);
+      runGenerationTest.call(this, expected, 'mvc', 'ejs', true, 'none', done);
+    });
+  });
+
+  describe('MVC generator with MySQL', function () {
+    it('creates expected files', function (done) {
+      var expected = [
+        'app/models/index.js'
+      ];
+      runGenerationTest.call(this, expected, 'mvc', 'jade', false, 'mysql', done);
+    });
+
+    it('works with coffee', function (done) {
+      var expected = [
+        'app/models/index.js'
+      ];
+      runGenerationTest.call(this, expected, 'mvc', 'jade', true, 'mysql', done);
     });
   });
 });

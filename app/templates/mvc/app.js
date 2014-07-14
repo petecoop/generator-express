@@ -1,8 +1,9 @@
 var express = require('express'),
-  mongoose = require('mongoose'),
   fs = require('fs'),
-  config = require('./config/config');
-
+  config = require('./config/config')<% if(options.database == 'none'){ %>;<% } %><% if(options.database == 'mongodb'){ %>,
+  mongoose = require('mongoose');<% } %><% if(options.database == 'mysql' || options.database == 'postgresql'){ %>,
+  db = require('./app/models');<% } %>
+<% if(options.database == 'mongodb'){ %>
 mongoose.connect(config.db);
 var db = mongoose.connection;
 db.on('error', function () {
@@ -14,8 +15,7 @@ fs.readdirSync(modelsPath).forEach(function (file) {
   if (file.indexOf('.js') >= 0) {
     require(modelsPath + '/' + file);
   }
-});
-
+});<% } %>
 var app = express();
 
 var controllersPath = __dirname + '/app/controllers';
@@ -26,5 +26,16 @@ fs.readdirSync(controllersPath).forEach(function (file) {
 });
 
 require('./config/express')(app, config);
-
+<% if(options.database == 'mysql' || options.database == 'postgresql'){ %>
+db.sequelize
+  .sync()
+  .complete(function (err) {
+    if(err){
+      throw err[0];
+    }else{
+      app.listen(config.port);
+    }
+  });
+<% } else { %>
 app.listen(config.port);
+<% } %>

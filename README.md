@@ -40,7 +40,7 @@ To get going:
 ##Testing
 Tests are written with mocha.
 - Install: `npm install -g mocha`
-- Run: `mocha`
+- Run: `mocha` or `npm test`
 
 ##Contributing
 Contributors are welcome, please fork and send pull requests! If you have any ideas on how to make this project better then please submit an issue.

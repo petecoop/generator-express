@@ -1,16 +1,9 @@
 /*global describe, beforeEach, it*/
 'use strict';
 
+var assert  = require('yeoman-generator').assert;
 var path    = require('path');
 var helpers = require('yeoman-generator').test;
-
-var toCoffeeFileArray = function (fileArray) {
-  var newArray = [];
-  for (var i in fileArray) {
-    newArray.push(fileArray[i].replace(/(.*?)\.js$/, '$1.coffee'));
-  }
-  return newArray;
-};
 
 var basicExpected = [
   'Gruntfile.js',
@@ -27,103 +20,6 @@ var basicExpected = [
   'routes/user.js',
   'bin/www'
 ];
-describe('Basic generator with Jade', function () {
-  beforeEach(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
-      if (err) {
-        return done(err);
-      }
-
-      this.app = helpers.createGenerator('express:app', [
-        '../../app'
-      ]);
-      done();
-    }.bind(this));
-  });
-
-  it('creates expected files', function (done) {
-    var expected = [
-      'views/index.jade',
-      'views/layout.jade',
-      'views/error.jade'
-    ];
-    var allExpected = expected.concat(basicExpected);
-    this.app.options.basic = true;
-    this.app.options.viewEngine = 'jade';
-    this.app.options['skip-install'] = true;
-    this.app.run({}, function () {
-      helpers.assertFiles(allExpected);
-      done();
-    });
-  });
-
-  it('works with coffee', function (done) {
-    var expected = [
-      'views/index.jade',
-      'views/layout.jade',
-      'views/error.jade'
-    ];
-    var allExpected = toCoffeeFileArray(expected.concat(basicExpected));
-    this.app.options.basic = true;
-    this.app.options.coffee = true;
-    this.app.options.viewEngine = 'jade';
-    this.app.options['skip-install'] = true;
-    this.app.run({}, function () {
-      helpers.assertFiles(allExpected);
-      done();
-    });
-  });
-});
-
-describe('Basic generator with EJS', function () {
-  beforeEach(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
-      if (err) {
-        return done(err);
-      }
-
-      this.app = helpers.createGenerator('express:app', [
-        '../../app'
-      ]);
-      done();
-    }.bind(this));
-  });
-
-  it('creates expected files', function (done) {
-    var expected = [
-      'views/index.ejs',
-      'views/header.ejs',
-      'views/footer.ejs',
-      'views/error.ejs',
-    ];
-    var allExpected = expected.concat(basicExpected);
-    this.app.options.basic = true;
-    this.app.options.viewEngine = 'ejs';
-    this.app.options['skip-install'] = true;
-    this.app.run({}, function () {
-      helpers.assertFiles(allExpected);
-      done();
-    });
-  });
-
-  it('works with coffee', function (done) {
-    var expected = [
-      'views/index.ejs',
-      'views/header.ejs',
-      'views/footer.ejs',
-      'views/error.ejs',
-    ];
-    var allExpected = toCoffeeFileArray(expected.concat(basicExpected));
-    this.app.options.basic = true;
-    this.app.options.coffee = true;
-    this.app.options.viewEngine = 'ejs';
-    this.app.options['skip-install'] = true;
-    this.app.run({}, function () {
-      helpers.assertFiles(allExpected);
-      done();
-    });
-  });
-});
 
 var MVCExpected = [
   'Gruntfile.js',
@@ -144,7 +40,37 @@ var MVCExpected = [
   'app/views'
 ];
 
-describe('MVC generator with Jade', function () {
+var appFiles = {
+  basic: basicExpected,
+  mvc: MVCExpected
+};
+
+var toCoffeeFileArray = function (fileArray) {
+  var newArray = [];
+  for (var i in fileArray) {
+    newArray.push(fileArray[i].replace(/(.*?)\.js$/, '$1.coffee'));
+  }
+  return newArray;
+};
+
+var runGenerationTest = function (extraFiles, type, engine, coffee, callback) {
+  var expectedFiles;
+  this.app.options[type] = true;
+  this.app.options['skip-install'] = true;
+  this.app.options.database = 'none';
+  this.app.options.viewEngine = engine;
+  this.app.options.coffee = coffee;
+  expectedFiles = extraFiles.concat(appFiles[type]);
+  if (this.app.options.coffee) {
+    expectedFiles = toCoffeeFileArray(expectedFiles);
+  }
+  this.app.run({}, function () {
+    assert.file(expectedFiles);
+    callback();
+  });
+};
+
+describe('Express generator', function () {
   beforeEach(function (done) {
     helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
       if (err) {
@@ -154,100 +80,83 @@ describe('MVC generator with Jade', function () {
       this.app = helpers.createGenerator('express:app', [
         '../../app'
       ]);
-
       done();
     }.bind(this));
   });
 
-  it('creates expected files', function (done) {
+  describe('Basic generator with Jade', function () {
+    var expected = [
+      'views/index.jade',
+      'views/layout.jade',
+      'views/error.jade'
+    ];
+
+    it('creates expected files', function (done) {
+      runGenerationTest.call(this, expected, 'basic', 'jade', false, done);
+    });
+
+    it('works with coffee', function (done) {
+      runGenerationTest.call(this, expected, 'basic', 'jade', true, done);
+    });
+  });
+
+  describe('Basic generator with EJS', function () {
+    var expected = [
+      'views/index.ejs',
+      'views/header.ejs',
+      'views/footer.ejs',
+      'views/error.ejs',
+    ];
+
+    it('creates expected files', function (done) {
+      runGenerationTest.call(this, expected, 'basic', 'ejs', false, done);
+    });
+
+    it('works with coffee', function (done) {
+      runGenerationTest.call(this, expected, 'basic', 'ejs', true, done);
+    });
+  });
+
+
+  describe('MVC generator with Jade', function () {
     var expected = [
       'app/views/layout.jade',
       'app/views/error.jade',
       'app/views/index.jade'
     ];
-    var allExpected = expected.concat(MVCExpected);
+    it('creates expected files', function (done) {
+      runGenerationTest.call(this, expected, 'mvc', 'jade', false, done);
+    });
 
-    this.app.options.mvc = true;
-    this.app.options.viewEngine = 'jade';
-    this.app.options.database = 'none';
-    this.app.options['skip-install'] = true;
-    this.app.run({}, function () {
-      helpers.assertFiles(allExpected);
-      done();
+    it('works with coffee', function (done) {
+      var expected = [
+        'app/views/layout.jade',
+        'app/views/error.jade',
+        'app/views/index.jade'
+      ];
+      runGenerationTest.call(this, expected, 'mvc', 'jade', true, done);
     });
   });
 
-  it('works with coffee', function (done) {
-    var expected = [
-      'app/views/layout.jade',
-      'app/views/error.jade',
-      'app/views/index.jade'
-    ];
-    var allExpected = toCoffeeFileArray(expected.concat(MVCExpected));
-
-    this.app.options.mvc = true;
-    this.app.options.coffee = true;
-    this.app.options.viewEngine = 'jade';
-    this.app.options.database = 'none';
-    this.app.options['skip-install'] = true;
-    this.app.run({}, function () {
-      helpers.assertFiles(allExpected);
-      done();
+  describe('MVC generator with EJS', function () {
+    it('creates expected files', function (done) {
+      var expected = [
+        'app/views/header.ejs',
+        'app/views/footer.ejs',
+        'app/views/error.ejs',
+        'app/views/index.ejs'
+      ];
+      runGenerationTest.call(this, expected, 'mvc', 'ejs', false, done);
     });
-  });
-});
 
-describe('MVC generator with EJS', function () {
-  beforeEach(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
-      if (err) {
-        return done(err);
-      }
-
-      this.app = helpers.createGenerator('express:app', [
-        '../../app'
-      ]);
-
-      done();
-    }.bind(this));
-  });
-
-  it('creates expected files', function (done) {
-    var expected = [
-      'app/views/header.ejs',
-      'app/views/footer.ejs',
-      'app/views/error.ejs',
-      'app/views/index.ejs'
-    ];
-    var allExpected = expected.concat(MVCExpected);
-
-    this.app.options.mvc = true;
-    this.app.options.viewEngine = 'ejs';
-    this.app.options.database = 'none';
-    this.app.options['skip-install'] = true;
-    this.app.run({}, function () {
-      helpers.assertFiles(allExpected);
-      done();
-    });
-  });
-
-  it('works with coffee', function (done) {
-    var expected = [
-      'app/views/header.ejs',
-      'app/views/footer.ejs',
-      'app/views/error.ejs',
-      'app/views/index.ejs'
-    ];
-    var allExpected = toCoffeeFileArray(expected.concat(MVCExpected));
-
-    this.app.options.mvc = true;
-    this.app.options.coffee = true;
-    this.app.options.viewEngine = 'ejs';
-    this.app.options.database = 'none';
-    this.app.options['skip-install'] = true;
-    this.app.run({}, function () {
-      helpers.assertFiles(allExpected);
-      done();
+    it('works with coffee', function (done) {
+      var expected = [
+        'app/views/header.ejs',
+        'app/views/footer.ejs',
+        'app/views/error.ejs',
+        'app/views/index.ejs'
+      ];
+      runGenerationTest.call(this, expected, 'mvc', 'ejs', true, done);
     });
   });
 });

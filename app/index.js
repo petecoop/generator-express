@@ -106,7 +106,7 @@ ExpressGenerator.prototype.buildEnv = function buildEnv() {
     this.directory('.', 'views');
   }
   if (this.options.database === 'mysql' || this.options.database === 'postgresql') {
-    // this.copy(path.join(__dirname, 'templates', 'extras', name, 'model-index.' + filetype), 'app/models/index.' + filetype);
+    this.copy(path.join(__dirname, 'templates', 'extras', name, 'model-index.' + filetype), 'app/models/index.' + filetype);
   }
 };
 

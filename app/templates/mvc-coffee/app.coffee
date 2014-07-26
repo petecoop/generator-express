@@ -1,5 +1,4 @@
 express  = require 'express'
-fs       = require 'fs'
 config   = require './config/config'<% if(options.database == 'mongodb'){ %>
 mongoose = require 'mongoose'<% } %><% if(options.database == 'mysql' || options.database == 'postgresql'){ %>
 db = require './app/models'<% } %>
@@ -15,11 +14,6 @@ fs.readdirSync(modelsPath).forEach (file) ->
     require modelsPath + '/' + file
 <% } %>
 app = express()
-
-controllersPath = __dirname + '/app/controllers'
-fs.readdirSync(controllersPath).forEach (file) ->
-  if  file.indexOf('.coffee') >= 0
-    require(controllersPath + '/' + file)(app)
 
 require('./config/express')(app, config)
 <% if(options.database == 'mysql' || options.database == 'postgresql'){ %>

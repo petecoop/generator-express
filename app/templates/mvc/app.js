@@ -1,5 +1,4 @@
 var express = require('express'),
-  fs = require('fs'),
   config = require('./config/config')<% if(options.database == 'none'){ %>;<% } %><% if(options.database == 'mongodb'){ %>,
   mongoose = require('mongoose');<% } %><% if(options.database == 'mysql' || options.database == 'postgresql'){ %>,
   db = require('./app/models');<% } %>
@@ -17,13 +16,6 @@ fs.readdirSync(modelsPath).forEach(function (file) {
   }
 });<% } %>
 var app = express();
-
-var controllersPath = __dirname + '/app/controllers';
-fs.readdirSync(controllersPath).forEach(function (file) {
-  if (file.indexOf('.js') >= 0) {
-    require(controllersPath + '/' + file)(app);
-  }
-});
 
 require('./config/express')(app, config);
 <% if(options.database == 'mysql' || options.database == 'postgresql'){ %>

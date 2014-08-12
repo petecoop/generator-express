@@ -1,4 +1,6 @@
 express = require 'express'
+fs = require 'fs'
+path = require 'path'
 
 favicon = require 'serve-favicon'
 logger = require 'morgan'
@@ -13,14 +15,19 @@ module.exports = (app, config) ->
 
     # app.use(favicon(config.root + '/public/img/favicon.ico'));
     app.use logger 'dev'
-    app.use bodyParser.json
+    app.use bodyParser.json()
     app.use bodyParser.urlencoded(
         extended: true
     )
-    app.use cookieParser
-    app.use compress
+    app.use cookieParser()
+    app.use compress()
     app.use express.static config.root + '/public'
-    app.use methodOverride
+    app.use methodOverride()
+
+    controllersPath = path.join __dirname, '../app/controllers'
+    fs.readdirSync(controllersPath).forEach (file) ->
+        if file.indexOf('.coffee') >= 0
+            require(controllersPath + '/' + file)(app)
 
     app.use (req, res, next) ->
         err = new Error 'Not Found'

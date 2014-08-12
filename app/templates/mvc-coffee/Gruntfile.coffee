@@ -13,8 +13,7 @@ module.exports = (grunt) ->
     pkg: grunt.file.readJSON('package.json')
     develop:
       server:
-        file: 'app.coffee'
-        cmd: 'coffee'
+        file: 'app.js'
     watch:
       options:
         nospawn: true

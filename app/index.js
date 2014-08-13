@@ -87,7 +87,9 @@ ExpressGenerator.prototype.promptDatabase = function () {
 
 ExpressGenerator.prototype.buildEnv = function buildEnv() {
   this.sourceRoot(path.join(__dirname, 'templates', 'common'));
-  this.directory('.', '.');
+  this.expandFiles('**', { cwd: this.sourceRoot() }).map(function(file) {
+      this.template(file, file.replace(/^_/, ''));
+  }, this);
 
   var name = this.options.mvc ? 'mvc' : 'basic';
   var filetype = 'js';

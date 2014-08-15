@@ -11,7 +11,7 @@ db.on 'error', ->
 
 modelsPath = __dirname + '/app/models'
 fs.readdirSync(modelsPath).forEach (file) ->
-  if  file.indexOf('.coffee') >= 0
+  if file.match(/\.coffee$/) >= 0
     require modelsPath + '/' + file
 <% } %>
 app = express()

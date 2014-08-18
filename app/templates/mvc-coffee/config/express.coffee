@@ -26,7 +26,7 @@ module.exports = (app, config) ->
 
   controllersPath = path.join __dirname, '../app/controllers'
   fs.readdirSync(controllersPath).forEach (file) ->
-    if file.match(/\.coffee$/) >= 0
+    if file.indexOf('.coffee') >= 0
       require(controllersPath + '/' + file)(app)
 
   # catch 404 and forward to error handler

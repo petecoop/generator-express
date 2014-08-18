@@ -48,8 +48,13 @@ var appFiles = {
 var toCoffeeFileArray = function (fileArray) {
   var newArray = [];
   for (var i in fileArray) {
-    newArray.push(fileArray[i].replace(/(.*?)\.js$/, '$1.coffee'));
+    if (fileArray[i] == 'app.js' || fileArray[i] == 'Gruntfile.js') {
+      newArray.push(fileArray[i]);
+    } else {
+      newArray.push(fileArray[i].replace(/(.*?)\.js$/, '$1.coffee'));
+    }
   }
+  console.log("ctodo((((newArray))))") || console.log(newArray);
   return newArray;
 };
 

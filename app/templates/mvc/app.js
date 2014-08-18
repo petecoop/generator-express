@@ -12,7 +12,7 @@ db.on('error', function () {
 
 var modelsPath = __dirname + '/app/models';
 fs.readdirSync(modelsPath).forEach(function (file) {
-  if (file.match(/\.js$/) >= 0) {
+  if (/\.js$/.test(file)) {
     require(modelsPath + '/' + file);
   }
 });<% } %>

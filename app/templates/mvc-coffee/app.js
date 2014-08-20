@@ -14,7 +14,7 @@ db.on('error', function () {
 
 var modelsPath = __dirname + '/app/models';
 fs.readdirSync(modelsPath).forEach(function (file) {
-  if (/\.js$/.test(file)) {
+  if (/\.coffee$/.test(file)) {
     require(modelsPath + '/' + file);
   }
 });<% } %>

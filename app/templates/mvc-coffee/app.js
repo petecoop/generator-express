@@ -12,11 +12,9 @@ db.on('error', function () {
   throw new Error('unable to connect to database at ' + config.db);
 });
 
-var modelsPath = __dirname + '/app/models';
-fs.readdirSync(modelsPath).forEach(function (file) {
-  if (/\.coffee$/.test(file)) {
-    require(modelsPath + '/' + file);
-  }
+var models = glob.sync(config.root + '/app/models/*.js');
+models.forEach(function (model) {
+  require(model);
 });<% } %>
 var app = express();
 

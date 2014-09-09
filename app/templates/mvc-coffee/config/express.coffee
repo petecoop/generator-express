@@ -1,6 +1,5 @@
 express = require 'express'
-fs = require 'fs'
-path = require 'path'
+glob = require 'glob'
 
 favicon = require 'serve-favicon'
 logger = require 'morgan'
@@ -24,10 +23,9 @@ module.exports = (app, config) ->
   app.use express.static config.root + '/public'
   app.use methodOverride()
 
-  controllersPath = path.join __dirname, '../app/controllers'
-  fs.readdirSync(controllersPath).forEach (file) ->
-    if file.indexOf('.coffee') >= 0
-      require(controllersPath + '/' + file)(app)
+  controllers = glob.sync config.root + '/app/controllers/**/*.js'
+  controllers.forEach (controller) ->
+    require(controller)(app);
 
   # catch 404 and forward to error handler
   app.use (req, res, next) ->

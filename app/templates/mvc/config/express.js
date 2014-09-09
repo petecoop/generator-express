@@ -1,6 +1,5 @@
 var express = require('express');
-var fs = require('fs');
-var path = require('path');
+var glob = require('glob');
 
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -24,11 +23,9 @@ module.exports = function(app, config) {
   app.use(express.static(config.root + '/public'));
   app.use(methodOverride());
 
-  var controllersPath = path.join(__dirname, '../app/controllers');
-  fs.readdirSync(controllersPath).forEach(function (file) {
-    if (/\.js$/.test(file)) {
-      require(controllersPath + '/' + file)(app);
-    }
+  var controllers = glob.sync(config.root + '/app/controllers/*.js');
+  controllers.forEach(function (controller) {
+    require(controller)(app);
   });
 
   app.use(function (req, res, next) {

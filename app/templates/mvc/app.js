@@ -1,6 +1,7 @@
 var express = require('express'),
   config = require('./config/config')<% if(options.database == 'none'){ %>;<% } %><% if(options.database == 'mongodb'){ %>,
   fs = require('fs'),
+  glob = require('glob'),
   mongoose = require('mongoose');<% } %><% if(options.database == 'mysql' || options.database == 'postgresql'){ %>,
   db = require('./app/models');<% } %>
 <% if(options.database == 'mongodb'){ %>

@@ -23,7 +23,7 @@ module.exports = (app, config) ->
   app.use express.static config.root + '/public'
   app.use methodOverride()
 
-  controllers = glob.sync config.root + '/app/controllers/**/*.js'
+  controllers = glob.sync config.root + '/app/controllers/**/*.coffee'
   controllers.forEach (controller) ->
     require(controller)(app);
 

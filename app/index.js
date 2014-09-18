@@ -85,9 +85,27 @@ ExpressGenerator.prototype.promptDatabase = function () {
   }.bind(this));
 };
 
+ExpressGenerator.prototype.promptBuildTool = function () {
+  var done = this.async();
+  var prompt = [{
+    type: 'list',
+    name: 'buildTool',
+    message: 'Select a build tool to use:',
+    choices: [
+      'Grunt',
+      'Gulp'
+    ]
+  }];
+
+  this.prompt(prompt, function (response) {
+    this.options.buildTool = response.buildTool.toLowerCase();
+    done();
+  }.bind(this));
+};
+
 ExpressGenerator.prototype.buildEnv = function buildEnv() {
   this.sourceRoot(path.join(__dirname, 'templates', 'common'));
-  this.expandFiles('**', { cwd: this.sourceRoot() }).map(function(file) {
+  this.expandFiles('**', { cwd: this.sourceRoot() }).map(function (file) {
       this.template(file, file.replace(/^_/, ''));
   }, this);
 

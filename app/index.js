@@ -86,6 +86,11 @@ ExpressGenerator.prototype.promptDatabase = function () {
 };
 
 ExpressGenerator.prototype.promptBuildTool = function () {
+
+  if (this.options.buildTool) {
+    return true;
+  }
+
   var done = this.async();
   var prompt = [{
     type: 'list',
@@ -106,7 +111,7 @@ ExpressGenerator.prototype.promptBuildTool = function () {
 ExpressGenerator.prototype.buildEnv = function buildEnv() {
   this.sourceRoot(path.join(__dirname, 'templates', 'common'));
   this.expandFiles('**', { cwd: this.sourceRoot() }).map(function (file) {
-      this.template(file, file.replace(/^_/, ''));
+    this.template(file, file.replace(/^_/, ''));
   }, this);
 
   var name = this.options.mvc ? 'mvc' : 'basic';
@@ -128,6 +133,8 @@ ExpressGenerator.prototype.buildEnv = function buildEnv() {
   if (this.options.database === 'mysql' || this.options.database === 'postgresql') {
     this.copy(path.join(__dirname, 'templates', 'extras', name, 'model-index.' + filetype), 'app/models/index.' + filetype);
   }
+  var buildFile = this.options.buildTool === 'grunt' ? 'Gruntfile.js' : 'gulpfile.js';
+  this.copy(path.join(__dirname, 'templates', 'extras', name, buildFile), buildFile);
 };
 
 ExpressGenerator.prototype.assetsDirs = function assetsDirs() {

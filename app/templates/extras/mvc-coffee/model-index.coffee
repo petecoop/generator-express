@@ -9,7 +9,7 @@ sequelize = new Sequelize config.db
 
 fs.readdirSync(__dirname)
   .filter (file) ->
-    ~file.indexOf('.') and file != 'index.coffee'
+    file.indexOf('.') != 0 and file != 'index.coffee'
   .forEach (file) ->
     model = sequelize.import path.join(__dirname, file)
     db[model.name] = model

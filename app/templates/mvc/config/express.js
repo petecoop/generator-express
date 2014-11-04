@@ -18,7 +18,8 @@ module.exports = function(app, config) {
   app.use(bodyParser.urlencoded({
     extended: true
   }));
-  app.use(cookieParser());
+  app.use(cookieParser());<% if(options.cssPreprocessor == 'sass'){ %>
+  app.use(require('node-compass')({mode: 'expanded'}));<% } %>
   app.use(compress());
   app.use(express.static(config.root + '/public'));
   app.use(methodOverride());

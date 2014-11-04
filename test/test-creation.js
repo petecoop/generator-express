@@ -67,7 +67,6 @@ var runGenerationTest = function (extraFiles, type, engine, preprocessor, coffee
   expectedFiles = extraFiles.concat(appFiles[type]);
   if (this.app.options.cssPreprocessor === 'none') {
     expectedFiles.push('public/stylesheets/style.css');
-  
   } else if (this.app.options.cssPreprocessor === 'scss') {
     expectedFiles.push('public/stylesheets/style.scss');
   }

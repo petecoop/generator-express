@@ -1,8 +1,8 @@
 var gulp = require('gulp'),
   nodemon = require('gulp-nodemon'),
-  livereload = require('gulp-livereload');<% if(options.cssPreprocessor == 'sass'){ %>
-  var sass = require('gulp-ruby-sass');<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>
-  var sass = require('gulp-sass');<% } %>
+  livereload = require('gulp-livereload')<% if(options.cssPreprocessor == 'sass'){ %>,
+  sass = require('gulp-ruby-sass')<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>,
+  sass = require('gulp-sass')<% } %>;
 <% if(options.cssPreprocessor == 'sass'){ %>
 gulp.task('sass', function () {
     return gulp.src('./public/css/*.scss')

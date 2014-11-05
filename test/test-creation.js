@@ -10,9 +10,9 @@ var basicExpected = [
   '.gitignore',
   'bower.json',
   'app.js',
-  'public/images',
+  'public/img',
   'public/components',
-  'public/javascripts',
+  'public/js',
   'package.json',
   'routes/index.js',
   'routes/user.js',
@@ -24,10 +24,10 @@ var MVCExpected = [
   '.gitignore',
   'bower.json',
   'app.js',
-  'public/images',
+  'public/img',
   'public/components',
-  'public/javascripts',
-  'public/stylesheets',
+  'public/js',
+  'public/css',
   'package.json',
   'config/config.js',
   'config/express.js',
@@ -65,12 +65,12 @@ var runGenerationTest = function (extraFiles, type, engine, preprocessor, coffee
   this.app.options.coffee = coffee;
   this.app.options.buildTool = buildTool;
   expectedFiles = extraFiles.concat(appFiles[type]);
-  if (this.app.options.cssPreprocessor === 'none') {
-    expectedFiles.push('public/stylesheets/style.css');
-  } else if (this.app.options.cssPreprocessor === 'scss') {
-    expectedFiles.push('public/stylesheets/style.scss');
+  if (preprocessor === 'sass' || preprocessor == 'node-sass') {
+    expectedFiles.push('public/css/style.scss');
+  } else {
+    expectedFiles.push('public/css/style.css');
   }
-  if (this.app.options.coffee) {
+  if (coffee) {
     expectedFiles = toCoffeeFileArray(expectedFiles);
   }
   expectedFiles.push(buildTool === 'grunt' ? 'Gruntfile.js' : 'gulpfile.js');
@@ -132,6 +132,22 @@ describe('Express generator', function () {
     it('works with coffee and gulp and sass', function (done) {
       runGenerationTest.call(this, expected, 'basic', 'jade', 'sass', false, 'none', 'grunt', done);
     });
+    
+    it('creates expected files with node-sass', function (done) {
+      runGenerationTest.call(this, expected, 'basic', 'jade', 'node-sass', false, 'none', 'grunt', done);
+    });
+
+    it('works with coffee and node-sass', function (done) {
+      runGenerationTest.call(this, expected, 'basic', 'jade', 'node-sass', false, 'none', 'grunt', done);
+    });
+
+    it('works with gulp and node-sass', function (done) {
+      runGenerationTest.call(this, expected, 'basic', 'jade', 'node-sass', false, 'none', 'grunt', done);
+    });
+
+    it('works with coffee and gulp and node-sass', function (done) {
+      runGenerationTest.call(this, expected, 'basic', 'jade', 'node-sass', false, 'none', 'grunt', done);
+    });
   });
 
   describe('Basic generator with EJS', function () {
@@ -155,6 +171,13 @@ describe('Express generator', function () {
 
     it('works with coffee and sass', function (done) {
       runGenerationTest.call(this, expected, 'basic', 'ejs', 'sass', false, 'none', 'grunt', done);
+    });
+    it('creates expected files with node-sass', function (done) {
+      runGenerationTest.call(this, expected, 'basic', 'ejs', 'node-sass', false, 'none', 'grunt', done);
+    });
+
+    it('works with coffee and node-sass', function (done) {
+      runGenerationTest.call(this, expected, 'basic', 'ejs', 'node-sass', false, 'none', 'grunt', done);
     });
   });
 
@@ -195,6 +218,22 @@ describe('Express generator', function () {
 
     it('works with coffee and gulp and sass', function (done) {
       runGenerationTest.call(this, expected, 'mvc', 'jade', 'sass', false, 'none', 'grunt', done);
+    });
+    
+    it('creates expected files with node-sass', function (done) {
+      runGenerationTest.call(this, expected, 'mvc', 'jade', 'node-sass', false, 'none', 'grunt', done);
+    });
+
+    it('works with coffee and node-sass', function (done) {
+      runGenerationTest.call(this, expected, 'mvc', 'jade', 'node-sass', false, 'none', 'grunt', done);
+    });
+
+    it('works with gulp and node-sass', function (done) {
+      runGenerationTest.call(this, expected, 'mvc', 'jade', 'node-sass', false, 'none', 'grunt', done);
+    });
+
+    it('works with coffee and gulp and node-sass', function (done) {
+      runGenerationTest.call(this, expected, 'mvc', 'jade', 'node-sass', false, 'none', 'grunt', done);
     });
   });
 
@@ -238,6 +277,26 @@ describe('Express generator', function () {
       ];
       runGenerationTest.call(this, expected, 'mvc', 'ejs', 'sass', false, 'none', 'grunt', done);
     });
+    
+    it('creates expected files with node-sass', function (done) {
+      var expected = [
+        'app/views/header.ejs',
+        'app/views/footer.ejs',
+        'app/views/error.ejs',
+        'app/views/index.ejs'
+      ];
+      runGenerationTest.call(this, expected, 'mvc', 'ejs', 'node-sass', false, 'none', 'grunt', done);
+    });
+
+    it('works with coffee and node-sass', function (done) {
+      var expected = [
+        'app/views/header.ejs',
+        'app/views/footer.ejs',
+        'app/views/error.ejs',
+        'app/views/index.ejs'
+      ];
+      runGenerationTest.call(this, expected, 'mvc', 'ejs', 'node-sass', false, 'none', 'grunt', done);
+    });
   });
 
   describe('MVC generator with MySQL', function () {
@@ -267,6 +326,20 @@ describe('Express generator', function () {
         'app/models/index.js'
       ];
       runGenerationTest.call(this, expected, 'mvc', 'jade', 'sass', false, 'mysql', 'grunt', done);
+    });
+    
+    it('creates expected files with node-sass', function (done) {
+      var expected = [
+        'app/models/index.js'
+      ];
+      runGenerationTest.call(this, expected, 'mvc', 'jade', 'node-sass', false, 'mysql', 'grunt', done);
+    });
+
+    it('works with coffee and node-sass', function (done) {
+      var expected = [
+        'app/models/index.js'
+      ];
+      runGenerationTest.call(this, expected, 'mvc', 'jade', 'node-sass', false, 'mysql', 'grunt', done);
     });
   });
 });

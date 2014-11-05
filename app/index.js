@@ -74,6 +74,7 @@ ExpressGenerator.prototype.promptCssPreprocessor = function () {
     message: 'Select a css preprocessor to use (Sass Requirs Ruby Compass):' ,
     choices: [
       'None',
+      'Node-Sass',
       'Sass'
     ]
   }];
@@ -155,8 +156,12 @@ ExpressGenerator.prototype.buildEnv = function buildEnv() {
   }
   
   var stylesheets = this.options.cssPreprocessor;
-  this.sourceRoot(path.join(__dirname, 'templates', 'stylesheets', stylesheets));
-  this.directory('.', 'public/stylesheets');
+  if (stylesheets === 'sass' || stylesheets === 'node-sass') {
+    this.sourceRoot(path.join(__dirname, 'templates', 'css', 'sass'));
+  } else {
+    this.sourceRoot(path.join(__dirname, 'templates', 'css', 'css'));
+  }
+  this.directory('.', 'public/css');
   
   if (this.options.database === 'mysql' || this.options.database === 'postgresql') {
     this.copy(path.join(__dirname, 'templates', 'extras', name, 'model-index.' + filetype), 'app/models/index.' + filetype);
@@ -168,9 +173,9 @@ ExpressGenerator.prototype.buildEnv = function buildEnv() {
 ExpressGenerator.prototype.assetsDirs = function assetsDirs() {
   this.mkdir('public');
   this.mkdir('public/components');
-  this.mkdir('public/javascripts');
-  this.mkdir('public/stylesheets');
-  this.mkdir('public/images');
+  this.mkdir('public/js');
+  this.mkdir('public/css');
+  this.mkdir('public/img');
 };
 
 module.exports = ExpressGenerator;

@@ -22,8 +22,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-app.use(cookieParser());<% if(options.cssPreprocessor == 'sass'){ %>
-app.use(require('node-compass')({mode: 'expanded'}));<% } %>
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);

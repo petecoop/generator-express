@@ -16,7 +16,21 @@ module.exports = function (grunt) {
       server: {
         file: 'app.js'
       }
-    },
+    },<% if(options.cssPreprocessor == 'sass'){ %>
+    sass: {
+      dist: {
+        files: {
+          'public/css/style.css': 'public/css/style.scss'
+        }
+      }
+    },<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>
+    sass: {
+      dist: {
+        files: {
+          'public/css/style.css': 'public/css/style.scss'
+        }
+      }
+    },<% } %>
     watch: {
       options: {
         nospawn: true,
@@ -58,5 +72,10 @@ module.exports = function (grunt) {
     }, 500);
   });
 
-  grunt.registerTask('default', ['develop', 'watch']);
+  grunt.registerTask('default', [
+    <% if(options.cssPreprocessor == 'sass'){ %>'sass',<% } %>
+    <% if(options.cssPreprocessor == 'node-sass'){ %>'sass',<% } %>
+    'develop', 
+    'watch'
+  ]);
 };

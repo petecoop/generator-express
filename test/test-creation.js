@@ -57,14 +57,22 @@ var toCoffeeFileArray = function (fileArray) {
 
 var runGenerationTest = function (extraFiles, type, engine, preprocessor, coffee, database, buildTool, callback) {
   var expectedFiles;
-  this.app.options[type] = true;
+  
+  // Never install dependencies 
   this.app.options['skip-install'] = true;
+  
+  // Set generator options
+  this.app.options[type] = true;
   this.app.options.database = database;
   this.app.options.viewEngine = engine;
   this.app.options.cssPreprocessor = preprocessor;
   this.app.options.coffee = coffee;
   this.app.options.buildTool = buildTool;
+  
+  // Set up initial file list Basic or MVC
   expectedFiles = extraFiles.concat(appFiles[type]);
+  
+  // Set optional files, CSS preprocessor
   if (preprocessor === 'sass') {
     expectedFiles.push('public/css/style.scss');
   } else if (preprocessor === 'node-sass') {
@@ -74,10 +82,20 @@ var runGenerationTest = function (extraFiles, type, engine, preprocessor, coffee
   } else {
     expectedFiles.push('public/css/style.css');
   }
+  
+  // Set optional files, Coffee
   if (coffee) {
     expectedFiles = toCoffeeFileArray(expectedFiles);
   }
-  expectedFiles.push(buildTool === 'grunt' ? 'Gruntfile.js' : 'gulpfile.js');
+  
+  // Set optional files, Build tool
+  if (buildTool === 'grunt') {
+    expectedFiles.push('Gruntfile.js');
+  } else {
+    expectedFiles.push('gulpfile.js');
+  }
+  
+  // Test files generation
   this.app.run({}, function () {
     assert.file(expectedFiles);
     callback();

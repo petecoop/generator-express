@@ -44,6 +44,18 @@ module.exports = function (grunt) {
         ],
         tasks: ['develop', 'delayed-livereload']
       },
+      css: {
+        files: [<% if(options.cssPreprocessor == 'none'){ %>
+          'public/css/*.css'<% } %><% if(options.cssPreprocessor == 'sass'){ %>
+          'public/css/*.scss'<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>
+          'public/css/*.scss'<% } %>
+        ],<% if(options.cssPreprocessor == 'sass'){ %>
+        tasks: ['sass'],<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>
+        tasks: ['sass'],<% } %>
+        options: {
+          livereload: reloadPort
+        }
+      },
       views: {
         files: [
           'app/views/*.<%= options.viewEngine %>',
@@ -72,9 +84,9 @@ module.exports = function (grunt) {
     }, 500);
   });
 
-  grunt.registerTask('default', [
-    <% if(options.cssPreprocessor == 'sass'){ %>'sass',<% } %>
-    <% if(options.cssPreprocessor == 'node-sass'){ %>'sass',<% } %>
+  grunt.registerTask('default', [<% if(options.cssPreprocessor == 'sass'){ %>
+    'sass',<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>
+    'sass',<% } %>
     'develop', 
     'watch'
   ]);

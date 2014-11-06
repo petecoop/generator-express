@@ -65,7 +65,7 @@ module.exports = function (grunt) {
           'public/css/*.less'<% } %>
         ],<% if(options.cssPreprocessor == 'sass'){ %>
         tasks: ['sass'],<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>
-        tasks: ['sass'],<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>
+        tasks: ['sass'],<% } %><% if(options.cssPreprocessor == 'less'){ %>
         tasks: ['less'],<% } %>
         options: {
           livereload: reloadPort

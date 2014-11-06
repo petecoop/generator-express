@@ -30,6 +30,13 @@ module.exports = function (grunt) {
           'public/css/style.css': 'public/css/style.scss'
         }
       }
+    },<% } %><% if(options.cssPreprocessor == 'less'){ %>
+    less: {
+      dist: {
+        files: {
+          'public/css/style.css': 'public/css/style.less'
+        }
+      }
     },<% } %>
     watch: {
       options: {
@@ -54,10 +61,12 @@ module.exports = function (grunt) {
         files: [<% if(options.cssPreprocessor == 'none'){ %>
           'public/css/*.css'<% } %><% if(options.cssPreprocessor == 'sass'){ %>
           'public/css/*.scss'<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>
-          'public/css/*.scss'<% } %>
+          'public/css/*.scss'<% } %><% if(options.cssPreprocessor == 'less'){ %>
+          'public/css/*.less'<% } %>
         ],<% if(options.cssPreprocessor == 'sass'){ %>
         tasks: ['sass'],<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>
-        tasks: ['sass'],<% } %>
+        tasks: ['sass'],<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>
+        tasks: ['less'],<% } %>
         options: {
           livereload: reloadPort
         }
@@ -92,7 +101,8 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', [<% if(options.cssPreprocessor == 'sass'){ %>
     'sass',<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>
-    'sass',<% } %>
+    'sass',<% } %><% if(options.cssPreprocessor == 'less'){ %>
+    'less',<% } %>
     'develop', 
     'watch'
   ]);

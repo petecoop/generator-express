@@ -75,7 +75,8 @@ ExpressGenerator.prototype.promptCssPreprocessor = function () {
     choices: [
       'None',
       'Node-Sass',
-      'Sass'
+      'Sass',
+      'less'
     ]
   }];
 
@@ -156,9 +157,13 @@ ExpressGenerator.prototype.buildEnv = function buildEnv() {
   }
   
   var stylesheets = this.options.cssPreprocessor;
-  if (stylesheets === 'sass' || stylesheets === 'node-sass') {
+  if (stylesheets === 'sass') {
     this.sourceRoot(path.join(__dirname, 'templates', 'css', 'sass'));
-  } else {
+  } else if (stylesheets === 'node-sass') {
+    this.sourceRoot(path.join(__dirname, 'templates', 'css', 'sass'));
+  } else if (stylesheets === 'less') {
+    this.sourceRoot(path.join(__dirname, 'templates', 'css', 'less'));
+  } else if (stylesheets === 'none') {
     this.sourceRoot(path.join(__dirname, 'templates', 'css', 'css'));
   }
   this.directory('.', 'public/css');

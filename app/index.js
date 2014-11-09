@@ -71,7 +71,7 @@ ExpressGenerator.prototype.promptCssPreprocessor = function () {
   var prompt = [{
     type: 'list',
     name: 'cssPreprocessor',
-    message: 'Select a css preprocessor to use (Sass Requirs Ruby Compass):' ,
+    message: 'Select a css preprocessor to use (Sass Requires Ruby):' ,
     choices: [
       'None',
       'Node-Sass',
@@ -155,7 +155,7 @@ ExpressGenerator.prototype.buildEnv = function buildEnv() {
   } else {
     this.directory('.', 'views');
   }
-  
+
   var stylesheets = this.options.cssPreprocessor;
   if (stylesheets === 'sass') {
     this.sourceRoot(path.join(__dirname, 'templates', 'css', 'sass'));
@@ -167,7 +167,7 @@ ExpressGenerator.prototype.buildEnv = function buildEnv() {
     this.sourceRoot(path.join(__dirname, 'templates', 'css', 'css'));
   }
   this.directory('.', 'public/css');
-  
+
   if (this.options.database === 'mysql' || this.options.database === 'postgresql') {
     this.copy(path.join(__dirname, 'templates', 'extras', name, 'model-index.' + filetype), 'app/models/index.' + filetype);
   }

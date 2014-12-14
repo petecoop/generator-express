@@ -47,6 +47,7 @@ module.exports = generators.Base.extend({
         message: 'Select a view engine to use:',
         choices: [
           'Jade',
+          'Swig',
           'EJS'
         ]
       }];

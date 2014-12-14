@@ -5,7 +5,8 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+var bodyParser = require('body-parser');<% if(options.viewEngine == 'swig'){ %>
+var swig = require('swig');<% } %>
 
 var routes = require('./routes/index');
 var users = require('./routes/user');
@@ -13,6 +14,7 @@ var users = require('./routes/user');
 var app = express();
 
 // view engine setup
+<% if(options.viewEngine == 'swig'){ %>app.engine('swig', swig.renderFile)<% } %>
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', '<%= options.viewEngine %>');
 

@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="http://localhost:35729/livereload.js"></script>
+</head>
+<body>
+  {% block content %}{% endblock %}
+</body>
+</html>

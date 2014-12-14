@@ -6,9 +6,11 @@ logger = require 'morgan'
 cookieParser = require 'cookie-parser'
 bodyParser = require 'body-parser'
 compress = require 'compression'
-methodOverride = require 'method-override'
+methodOverride = require 'method-override'<% if(options.viewEngine == 'swig'){ %>
+swig = require 'swig'<% } %>
 
-module.exports = (app, config) ->
+module.exports = (app, config) -><% if(options.viewEngine == 'swig'){ %>
+  app.engine 'swig', swig.renderFile<% } %>
   app.set 'views', config.root + '/app/views'
   app.set 'view engine', '<%= options.viewEngine %>'
 

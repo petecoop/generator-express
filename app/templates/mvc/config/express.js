@@ -6,9 +6,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var compress = require('compression');
-var methodOverride = require('method-override');
+var methodOverride = require('method-override');<% if(options.viewEngine == 'swig'){ %>
+var swig = require('swig');<% } %>
 
-module.exports = function(app, config) {
+module.exports = function(app, config) {<% if(options.viewEngine == 'swig'){ %>
+  app.engine('swig', swig.renderFile)<% } %>
   app.set('views', config.root + '/app/views');
   app.set('view engine', '<%= options.viewEngine %>');
 

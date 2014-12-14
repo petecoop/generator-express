@@ -28,18 +28,18 @@
     "grunt": "~0.4.5",
     "grunt-develop": "~0.4.0"<% if(options.cssPreprocessor == 'sass'){ %>,
     "grunt-contrib-sass": "^0.8.1"<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>,
-    "grunt-sass": "^0.16.1"<% } %><% if(options.cssPreprocessor == 'less'){ %>,
+    "grunt-sass": "^0.17.0"<% } %><% if(options.cssPreprocessor == 'less'){ %>,
     "grunt-contrib-less": "^0.12.0"<% } %>,
     "grunt-contrib-watch": "~0.6.1",
     "grunt-contrib-compass": "~0.9.0",
-    "request": "~2.36.0",
-    "time-grunt": "~0.3.2",
-    "load-grunt-tasks": "~0.6.0",
-    "coffee-script": "^1.7.1"<% } %><% if(options.buildTool == 'gulp'){ %>
-    "gulp": "~3.8.8"<% if(options.cssPreprocessor == 'sass'){ %>,
+    "request": "~2.51.0",
+    "time-grunt": "~1.0.0",
+    "load-grunt-tasks": "~1.0.0",
+    "coffee-script": "^1.8.0"<% } %><% if(options.buildTool == 'gulp'){ %>
+    "gulp": "~3.8.10"<% if(options.cssPreprocessor == 'sass'){ %>,
     "gulp-ruby-sass": "^0.7.1"<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>,
-    "gulp-sass": "^1.2.2"<% } %><% if(options.cssPreprocessor == 'less'){ %>,
-    "gulp-less": "^1.3.6"<% } %>,
+    "gulp-sass": "^1.2.4"<% } %><% if(options.cssPreprocessor == 'less'){ %>,
+    "gulp-less": "^2.0.1"<% } %>,
     "gulp-nodemon": "~1.0.4",
     "gulp-livereload": "~2.1.1"<% } %>
   }

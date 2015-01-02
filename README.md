@@ -6,7 +6,7 @@ An Expressjs generator for Yeoman, based on the express command line tool.
 ## Getting started
 - Make sure you have [yo](https://github.com/yeoman/yo) installed:
     `npm install -g yo`
-- Install the generator **locally**: `npm install generator-express`
+- Install the generator **globally**: `npm install -g generator-express`
 - Run: `yo express` and select Basic
 - Run: `grunt` or `gulp` to run the local server at `localhost:3000`, the grunt/gulp tasks include live reloading for views, css in public/css and restarting the server for changes to app.js or js in routes/
 

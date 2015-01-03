@@ -8,9 +8,17 @@ var bodyParser = require('body-parser');
 var compress = require('compression');
 var methodOverride = require('method-override');<% if(options.viewEngine == 'swig'){ %>
 var swig = require('swig');<% } %>
+<% if(options.viewEngine == 'handlebars'){ %>
+var exphbs  = require('express-handlebars');<% } %>
 
 module.exports = function(app, config) {<% if(options.viewEngine == 'swig'){ %>
   app.engine('swig', swig.renderFile)<% } %>
+  <% if(options.viewEngine == 'handlebars'){ %>
+  app.engine('handlebars', exphbs({
+    layoutsDir: config.root + '/app/views/layouts/',
+    defaultLayout: 'main',
+    partialsDir: [config.root + '/app/views/partials/']
+  }));<% } %>
   app.set('views', config.root + '/app/views');
   app.set('view engine', '<%= options.viewEngine %>');
 

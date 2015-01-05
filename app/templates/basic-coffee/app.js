@@ -18,14 +18,12 @@ var app = express();
 
 // view engine setup
 <% if(options.viewEngine == 'swig'){ %>app.engine('swig', swig.renderFile)<% } %>
-
 <% if(options.viewEngine == 'handlebars'){ %>
 app.engine('handlebars', exphbs({
   defaultLayout: 'main',
   partialsDir: ['views/partials/']
 }));
 <% } %>
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', '<%= options.viewEngine %>');
 

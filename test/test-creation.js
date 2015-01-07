@@ -244,11 +244,11 @@ describe('Express generator', function () {
 
   describe('Basic generator with Handlebars', function () {
     var expected = [
-      'app/views/layouts/main.handlebars',
-      'app/views/partials/footer.handlebars',
-      'app/views/partials/header.handlebars',
-      'app/views/index.handlebars',
-      'app/views/error.handlebars'
+      'views/layouts/main.handlebars',
+      'views/partials/footer.handlebars',
+      'views/partials/header.handlebars',
+      'views/index.handlebars',
+      'views/error.handlebars'
     ];
 
     it('creates expected files', function (done) {

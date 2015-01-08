@@ -7,13 +7,11 @@ cookieParser = require 'cookie-parser'
 bodyParser = require 'body-parser'
 compress = require 'compression'
 methodOverride = require 'method-override'<% if(options.viewEngine == 'swig'){ %>
-swig = require 'swig'<% } %>
-<% if(options.viewEngine == 'handlebars'){ %>
+swig = require 'swig'<% } %><% if(options.viewEngine == 'handlebars'){ %>
 exphbs  = require 'express-handlebars'<% } %>
 
 module.exports = (app, config) -><% if(options.viewEngine == 'swig'){ %>
-  app.engine 'swig', swig.renderFile<% } %>
-  <% if(options.viewEngine == 'handlebars'){ %>
+  app.engine 'swig', swig.renderFile<% } %><% if(options.viewEngine == 'handlebars'){ %>
   app.engine 'handlebars', exphbs(
     layoutsDir: config.root + '/app/views/layouts/'
     defaultLayout: 'main'

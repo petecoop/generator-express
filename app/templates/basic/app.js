@@ -4,10 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');<% if(options.viewEngine == 'swig'){ %>
-var swig = require('swig');<% } %>
-<% if(options.viewEngine == 'handlebars'){ %>
-var exphbs  = require('express-handlebars');
-<% } %>
+var swig = require('swig');<% } %><% if(options.viewEngine == 'handlebars'){ %>
+var exphbs  = require('express-handlebars');<% } %>
 
 var routes = require('./routes/index');
 var users = require('./routes/user');
@@ -15,13 +13,11 @@ var users = require('./routes/user');
 var app = express();
 
 // view engine setup
-<% if(options.viewEngine == 'swig'){ %>app.engine('swig', swig.renderFile)<% } %>
-<% if(options.viewEngine == 'handlebars'){ %>
+<% if(options.viewEngine == 'swig'){ %>app.engine('swig', swig.renderFile)<% } %><% if(options.viewEngine == 'handlebars'){ %>
 app.engine('handlebars', exphbs({
   defaultLayout: 'main',
   partialsDir: ['views/partials/']
-}));
-<% } %>
+}));<% } %>
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', '<%= options.viewEngine %>');
 

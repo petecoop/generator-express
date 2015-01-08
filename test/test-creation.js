@@ -242,6 +242,21 @@ describe('Express generator', function () {
   });
 
 
+  describe('Basic generator with Handlebars', function () {
+    var expected = [
+      'views/layouts/main.handlebars',
+      'views/partials/welcome.handlebars',
+      'views/index.handlebars',
+      'views/error.handlebars'
+    ];
+
+    it('creates expected files', function (done) {
+      runGenerationTest.call(this, expected, 'basic', 'handlebars', 'none', false, 'none', 'grunt', done);
+    });
+  });
+
+
+
   describe('MVC generator with Jade', function () {
     var expected = [
       'app/views/layout.jade',
@@ -363,6 +378,19 @@ describe('Express generator', function () {
 
     it('creates expected files', function (done) {
       runGenerationTest.call(this, expected, 'mvc', 'swig', 'none', false, 'none', 'grunt', done);
+    });
+  });
+
+  describe('MVC generator with Handlebars', function () {
+    var expected = [
+      'app/views/layouts/main.handlebars',
+      'app/views/partials/welcome.handlebars',
+      'app/views/index.handlebars',
+      'app/views/error.handlebars',
+    ];
+
+    it('creates expected files', function (done) {
+      runGenerationTest.call(this, expected, 'mvc', 'handlebars', 'none', false, 'none', 'grunt', done);
     });
   });
 

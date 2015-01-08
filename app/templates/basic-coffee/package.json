@@ -14,7 +14,8 @@
     "debug": "~2.1.0"<% if(options.viewEngine == 'jade'){ %>,
     "jade": "~1.8.1"<% } %><% if(options.viewEngine == 'ejs'){ %>,
     "ejs": "~1.0.0"<% } %><% if(options.viewEngine == 'swig'){ %>,
-    "swig": "~1.4.2"<% } %>
+    "swig": "~1.4.2"<% } %><% if(options.viewEngine == 'handlebars'){ %>,
+    "express-handlebars": "~1.1.0"<% } %>
   },
   "devDependencies": {<% if(options.buildTool == 'grunt'){ %>
     "grunt": "~0.4.5",

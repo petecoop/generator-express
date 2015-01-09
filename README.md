@@ -3,14 +3,34 @@
 
 An Expressjs generator for Yeoman, based on the express command line tool.
 
+## Features
+
+- Basic or MVC style file structure
+- CoffeeScript Support
+- Gulp or Grunt build tools with file watching and livereload
+- Support View engines:
+  - Jade
+  - Handlebars
+  - Swig
+  - EJS
+- Supported CSS pre-processors
+  - SASS (both node-sass and ruby sass)
+  - LESS
+- Supported Databases (with MVC structure):
+ - MongoDB
+ - MySQL
+ - PostgreSQL
+
 ## Getting started
+
 - Make sure you have [yo](https://github.com/yeoman/yo) installed:
     `npm install -g yo`
 - Install the generator **globally**: `npm install -g generator-express`
-- Run: `yo express` and select Basic
+- Run: `yo express` and select Basic. Add `--coffee` is you require CoffeeScript.
 - Run: `grunt` or `gulp` to run the local server at `localhost:3000`, the grunt/gulp tasks include live reloading for views, css in public/css and restarting the server for changes to app.js or js in routes/
 
 ## MVC apps
+
 A generator for creating MVC style apps in express. Giving you the choice between MongoDB, MySQL or PostgreSQL databases.
 
 To get going:
@@ -18,24 +38,20 @@ To get going:
 - Make sure you have [yo](https://github.com/yeoman/yo) installed:
     `npm install -g yo`
 - Install the generator **locally**: `npm install generator-express`
-- Run: `yo express`, select MVC and select your database of choice
+- Run: `yo express`, select MVC and select your database of choice. Add `--coffee` is you require CoffeeScript.
 - Ensure that the selected database is running on your machine, if running elsewhere the connection string can be changed in `config/config.js`
 - Run: `grunt` or `gulp` to run the local server - defaults to `localhost:3000` - port can be changed in `config/config.js`. The grunt/gulp tasks include live reloading as before.
 
 ##Options
 
+- `--coffee`
+
+  Uses CoffeeScript.
+
 - `--skip-install`
 
   Skips the automatic execution of `bower` and `npm` after
   scaffolding has finished.
-
-- `--mvc`
-
-  Installs MVC style scaffolding.
-
-- `--coffee`
-
-  Uses CoffeeScript.
 
 ##Testing
 Tests are written with mocha.

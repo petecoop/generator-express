@@ -26,7 +26,7 @@ An Expressjs generator for Yeoman, based on the express command line tool.
 - Make sure you have [yo](https://github.com/yeoman/yo) installed:
     `npm install -g yo`
 - Install the generator **globally**: `npm install -g generator-express`
-- Run: `yo express` and select Basic. Add `--coffee` is you require CoffeeScript.
+- Run: `yo express` and select Basic. Add `--coffee` if you require CoffeeScript.
 - Run: `grunt` or `gulp` to run the local server at `localhost:3000`, the grunt/gulp tasks include live reloading for views, css in public/css and restarting the server for changes to app.js or js in routes/
 
 ## MVC apps
@@ -38,7 +38,7 @@ To get going:
 - Make sure you have [yo](https://github.com/yeoman/yo) installed:
     `npm install -g yo`
 - Install the generator **locally**: `npm install generator-express`
-- Run: `yo express`, select MVC and select your database of choice. Add `--coffee` is you require CoffeeScript.
+- Run: `yo express`, select MVC and select your database of choice. Add `--coffee` if you require CoffeeScript.
 - Ensure that the selected database is running on your machine, if running elsewhere the connection string can be changed in `config/config.js`
 - Run: `grunt` or `gulp` to run the local server - defaults to `localhost:3000` - port can be changed in `config/config.js`. The grunt/gulp tasks include live reloading as before.
 

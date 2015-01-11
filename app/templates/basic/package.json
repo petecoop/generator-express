@@ -22,7 +22,7 @@
     "grunt-develop": "~0.4.0"<% if(options.cssPreprocessor == 'sass'){ %>,
     "grunt-contrib-sass": "~0.8.1"<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>,
     "grunt-sass": "~0.17.0"<% } %><% if(options.cssPreprocessor == 'less'){ %>,
-    "grunt-contrib-less": "^0.12.0"<% } %>,
+    "grunt-contrib-less": "~0.12.0"<% } %>,
     "grunt-contrib-watch": "~0.6.1",
     "request": "~2.51.0",
     "time-grunt": "~1.0.0",

@@ -33,7 +33,6 @@
     "grunt-sass": "~0.17.0"<% } %><% if(options.cssPreprocessor == 'less'){ %>,
     "grunt-contrib-less": "~0.12.0"<% } %>,
     "grunt-contrib-watch": "~0.6.1",
-    "grunt-contrib-compass": "~0.9.0",
     "request": "~2.51.0",
     "time-grunt": "~1.0.0",
     "load-grunt-tasks": "~1.0.0",

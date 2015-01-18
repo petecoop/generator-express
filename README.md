@@ -16,6 +16,7 @@ An Expressjs generator for Yeoman, based on the express command line tool.
 - Supported CSS pre-processors
   - SASS (both node-sass and ruby sass)
   - LESS
+  - Stylus
 - Supported Databases (with MVC structure):
  - MongoDB
  - MySQL

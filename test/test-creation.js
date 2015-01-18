@@ -79,6 +79,8 @@ var runGenerationTest = function (extraFiles, type, engine, preprocessor, coffee
     expectedFiles.push('public/css/style.scss');
   } else if (preprocessor === 'less') {
     expectedFiles.push('public/css/style.less');
+  } else if (preprocessor === 'stylus') {
+    expectedFiles.push('public/css/style.styl');
   } else {
     expectedFiles.push('public/css/style.css');
   }
@@ -185,6 +187,10 @@ describe('Express generator', function () {
 
     it('works with coffee and gulp and less', function (done) {
       runGenerationTest.call(this, expected, 'basic', 'jade', 'less', false, 'none', 'gulp', done);
+    });
+
+    it('works with stylus', function (done) {
+      runGenerationTest.call(this, expected, 'basic', 'jade', 'stylus', false, 'none', 'grunt', done);
     });
   });
 
@@ -325,6 +331,10 @@ describe('Express generator', function () {
 
     it('works with coffee and gulp and less', function (done) {
       runGenerationTest.call(this, expected, 'mvc', 'jade', 'less', false, 'none', 'gulp', done);
+    });
+
+    it('works with stylus', function (done) {
+      runGenerationTest.call(this, expected, 'mvc', 'jade', 'stylus', false, 'none', 'grunt', done);
     });
   });
 

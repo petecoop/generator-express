@@ -3,7 +3,8 @@ var gulp = require('gulp'),
   livereload = require('gulp-livereload')<% if(options.cssPreprocessor == 'sass'){ %>,
   sass = require('gulp-ruby-sass')<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>,
   sass = require('gulp-sass')<% } %><% if(options.cssPreprocessor == 'less'){ %>,
-  less = require('gulp-less')<% } %>;
+  less = require('gulp-less')<% } %><% if(options.cssPreprocessor == 'stylus'){ %>,
+  stylus = require('gulp-stylus')<% } %>;
 <% if(options.cssPreprocessor == 'sass'){ %>
 gulp.task('sass', function () {
   return gulp.src('./public/css/*.scss')
@@ -34,13 +35,23 @@ gulp.task('less', function () {
 
 gulp.task('watch', function() {
   gulp.watch('./public/css/*.less', ['less']);
+});<% } %><% if(options.cssPreprocessor == 'stylus'){ %>
+gulp.task('stylus', function () {
+  gulp.src('./public/css/*.styl')
+    .pipe(stylus())
+    .pipe(gulp.dest('./public/css'))
+    .pipe(livereload());
+});
+
+gulp.task('watch', function() {
+  gulp.watch('./public/css/*.styl', ['stylus']);
 });<% } %>
 
 gulp.task('develop', function () {
   livereload.listen();
   nodemon({
     script: 'bin/www',
-    ext: 'js coffee <%= options.viewEngine %>',
+    ext: 'js <%= options.viewEngine %>',
   }).on('restart', function () {
     setTimeout(function () {
       livereload.changed();
@@ -51,9 +62,11 @@ gulp.task('develop', function () {
 gulp.task('default', [<% if(options.cssPreprocessor == 'sass'){ %>
   'sass',<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>
   'sass',<% } %><% if(options.cssPreprocessor == 'less'){ %>
-  'less',<% } %>
+  'less',<% } %><% if(options.cssPreprocessor == 'stylus'){ %>
+  'stylus',<% } %>
   'develop'<% if(options.cssPreprocessor == 'sass' ||
                 options.cssPreprocessor == 'node-sass' ||
-                options.cssPreprocessor == 'less'){ %>,
+                options.cssPreprocessor == 'less' ||
+                options.cssPreprocessor == 'stylus'){ %>,
   'watch'<% } %>
 ]);

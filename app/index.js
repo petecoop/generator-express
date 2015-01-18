@@ -73,7 +73,8 @@ module.exports = generators.Base.extend({
           'None',
           'Node-Sass',
           'Sass',
-          'less'
+          'less',
+          'Stylus'
         ]
       }];
 
@@ -155,15 +156,9 @@ module.exports = generators.Base.extend({
       }
 
       var stylesheets = this.options.cssPreprocessor;
-      if (stylesheets === 'sass') {
-        this.sourceRoot(path.join(__dirname, 'templates', 'css', 'sass'));
-      } else if (stylesheets === 'node-sass') {
-        this.sourceRoot(path.join(__dirname, 'templates', 'css', 'sass'));
-      } else if (stylesheets === 'less') {
-        this.sourceRoot(path.join(__dirname, 'templates', 'css', 'less'));
-      } else if (stylesheets === 'none') {
-        this.sourceRoot(path.join(__dirname, 'templates', 'css', 'css'));
-      }
+      if(stylesheets === 'none') stylesheets = 'css';
+      if(stylesheets === 'node-sass') stylesheets = 'sass';
+      this.sourceRoot(path.join(__dirname, 'templates', 'css', stylesheets));
       this.directory('.', 'public/css');
 
       if (this.options.database === 'mysql' || this.options.database === 'postgresql') {

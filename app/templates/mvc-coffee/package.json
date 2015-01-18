@@ -30,7 +30,8 @@
     "grunt-develop": "~0.4.0"<% if(options.cssPreprocessor == 'sass'){ %>,
     "grunt-contrib-sass": "~0.8.1"<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>,
     "grunt-sass": "~0.17.0"<% } %><% if(options.cssPreprocessor == 'less'){ %>,
-    "grunt-contrib-less": "~1.0.0"<% } %>,
+    "grunt-contrib-less": "~1.0.0"<% } %><% if(options.cssPreprocessor == 'stylus'){ %>,
+    "grunt-contrib-stylus": "~0.20.0"<% } %>,
     "grunt-contrib-watch": "~0.6.1",
     "request": "~2.51.0",
     "time-grunt": "~1.0.0",
@@ -39,7 +40,8 @@
     "gulp": "~3.8.10"<% if(options.cssPreprocessor == 'sass'){ %>,
     "gulp-ruby-sass": "~0.7.1"<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>,
     "gulp-sass": "~1.3.2"<% } %><% if(options.cssPreprocessor == 'less'){ %>,
-    "gulp-less": "~2.0.1"<% } %>,
+    "gulp-less": "~2.0.1"<% } %><% if(options.cssPreprocessor == 'stylus'){ %>,
+    "gulp-stylus": "~2.0.0"<% } %>,
     "gulp-nodemon": "~1.0.4",
     "gulp-livereload": "~3.4.0"<% } %>
   }

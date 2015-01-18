@@ -12,7 +12,7 @@ db.on('error', function () {
   throw new Error('unable to connect to database at ' + config.db);
 });
 
-var models = glob.sync(config.root + '/app/models/*.coffee');
+var models = glob.sync(config.root + '/app/models/*.js');
 models.forEach(function (model) {
   require(model);
 });<% } %>
@@ -22,12 +22,10 @@ require('./config/express')(app, config);
 <% if(options.database == 'mysql' || options.database == 'postgresql'){ %>
 db.sequelize
   .sync()
-  .complete(function (err) {
-    if(err){
-      throw err[0];
-    }else{
-      app.listen(config.port);
-    }
+  .then(function () {
+    app.listen(config.port);
+  }).catch(function (e) {
+    throw new Error(e);
   });
 <% } else { %>
 app.listen(config.port);

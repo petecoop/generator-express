@@ -18,7 +18,7 @@
     "sequelize": "~1.7.9",
     "lodash": "~2.4.1",
     "mysql": "~2.5.3"<% } %><% if(options.database == 'postgresql'){ %>,
-    "sequelize": "~1.7.9",
+    "sequelize": "~2.0.0-rc7",
     "lodash": "~2.4.1",
     "pg": "~4.1.1"<% } %><% if(options.viewEngine == 'jade'){ %>,
     "jade": "~1.8.1"<% } %><% if(options.viewEngine == 'ejs'){ %>,

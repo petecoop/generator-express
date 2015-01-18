@@ -13,7 +13,7 @@
   "method-override": "~2.3.0",
   "glob": "~4.3.1",
   "mongoose": "~3.8.20",
-  "sequelize": "~1.7.9",
+  "sequelize": "~2.0.0",
   "lodash": "~2.4.1",
   "mysql": "~2.5.3",
   "pg": "~4.1.1",

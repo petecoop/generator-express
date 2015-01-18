@@ -20,12 +20,10 @@ require('./config/express')(app, config);
 <% if(options.database == 'mysql' || options.database == 'postgresql'){ %>
 db.sequelize
   .sync()
-  .complete(function (err) {
-    if(err){
-      throw err[0];
-    }else{
-      app.listen(config.port);
-    }
+  .then(function () {
+    app.listen(config.port);
+  }).catch(function (e) {
+    throw new Error(e);
   });
 <% } else { %>
 app.listen(config.port);

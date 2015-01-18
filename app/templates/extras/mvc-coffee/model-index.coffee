@@ -1,7 +1,6 @@
 fs = require('fs')
 path = require('path')
 Sequelize = require('sequelize')
-lodash = require('lodash')
 config = require('../../config/config')
 db = {}
 
@@ -18,7 +17,7 @@ Object.keys(db).forEach (modelName) ->
   if 'associate' of db[modelName]
     db[modelName].associate db
 
-module.exports = lodash.extend
-  sequelize: sequelize,
-  Sequelize: Sequelize
-, db
+db.sequelize = sequelize
+db.Sequelize = Sequelize
+
+module.exports = db

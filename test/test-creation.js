@@ -261,6 +261,19 @@ describe('Express generator', function () {
     });
   });
 
+  describe('Basic generator with Marko', function () {
+    var expected = [
+      'views/components/app-header/template.marko',
+      'views/components/app-footer/template.marko',
+      'views/index.marko',
+      'views/error.marko',
+      'views/marko-taglib.json'
+    ];
+
+    it('creates expected files', function (done) {
+      runGenerationTest.call(this, expected, 'basic', 'marko', 'none', false, 'none', 'grunt', done);
+    });
+  });
 
 
   describe('MVC generator with Jade', function () {
@@ -401,6 +414,20 @@ describe('Express generator', function () {
 
     it('creates expected files', function (done) {
       runGenerationTest.call(this, expected, 'mvc', 'handlebars', 'none', false, 'none', 'grunt', done);
+    });
+  });
+
+  describe('MVC generator with Marko', function () {
+    var expected = [
+      'app/views/components/app-header/template.marko',
+      'app/views/components/app-footer/template.marko',
+      'app/views/index.marko',
+      'app/views/error.marko',
+      'app/views/marko-taglib.json'
+    ];
+
+    it('creates expected files', function (done) {
+      runGenerationTest.call(this, expected, 'mvc', 'marko', 'none', false, 'none', 'grunt', done);
     });
   });
 

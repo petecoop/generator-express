@@ -16,9 +16,9 @@ module.exports = function(app, config) {<% if(options.viewEngine == 'swig'){ %>
     layoutsDir: config.root + '/app/views/layouts/',
     defaultLayout: 'main',
     partialsDir: [config.root + '/app/views/partials/']
-  }));<% } %>
+  }));<% } %><% if(options.viewEngine != 'marko'){ %>
   app.set('views', config.root + '/app/views');
-  app.set('view engine', '<%= options.viewEngine %>');
+  app.set('view engine', '<%= options.viewEngine %>');<% } %>
 
   // app.use(favicon(config.root + '/public/img/favicon.ico'));
   app.use(logger('dev'));
@@ -41,25 +41,36 @@ module.exports = function(app, config) {<% if(options.viewEngine == 'swig'){ %>
     err.status = 404;
     next(err);
   });
-
+  <% if(options.viewEngine == 'marko'){ %>
+  var errorTemplate = require('marko').load(require.resolve('../app/views/error.marko'));<% } %>
   if(app.get('env') === 'development'){
     app.use(function (err, req, res, next) {
-      res.status(err.status || 500);
+      res.status(err.status || 500);<% if(options.viewEngine == 'marko'){ %>
+      errorTemplate.render({
+        message: err.message,
+        error: err,
+        title: 'error'
+      }, res);<% } else { %>
       res.render('error', {
         message: err.message,
         error: err,
         title: 'error'
-      });
+      });<% } %>
     });
   }
 
   app.use(function (err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: {},
-      title: 'error'
-    });
+    res.status(err.status || 500);<% if(options.viewEngine == 'marko'){ %>
+      errorTemplate.render({
+        message: err.message,
+        error: {},
+        title: 'error'
+      }, res);<% } else { %>
+      res.render('error', {
+        message: err.message,
+        error: {},
+        title: 'error'
+      });<% } %>
   });
 
 };

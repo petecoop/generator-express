@@ -49,7 +49,8 @@ module.exports = generators.Base.extend({
           'Jade',
           'Swig',
           'EJS',
-          'Handlebars'
+          'Handlebars',
+          'Marko'
         ]
       }];
 

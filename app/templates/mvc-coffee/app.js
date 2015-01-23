@@ -12,7 +12,7 @@ db.on('error', function () {
   throw new Error('unable to connect to database at ' + config.db);
 });
 
-var models = glob.sync(config.root + '/app/models/*.js');
+var models = glob.sync(config.root + '/app/models/*.coffee');
 models.forEach(function (model) {
   require(model);
 });<% } %>

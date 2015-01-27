@@ -5,7 +5,8 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');<% if(options.viewEngine == 'swig'){ %>
+var bodyParser = require('body-parser');
+var multer = require('multer');<% if(options.viewEngine == 'swig'){ %>
 var swig = require('swig');<% } %><% if(options.viewEngine == 'handlebars'){ %>
 var exphbs  = require('express-handlebars');<% } %>
 
@@ -29,6 +30,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+app.use(multer());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 

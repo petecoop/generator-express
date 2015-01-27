@@ -5,6 +5,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var multer = require('multer');
 var compress = require('compression');
 var methodOverride = require('method-override');<% if(options.viewEngine == 'swig'){ %>
 var swig = require('swig');<% } %><% if(options.viewEngine == 'handlebars'){ %>
@@ -26,6 +27,7 @@ module.exports = function(app, config) {<% if(options.viewEngine == 'swig'){ %>
   app.use(bodyParser.urlencoded({
     extended: true
   }));
+  app.use(multer());
   app.use(cookieParser());
   app.use(compress());
   app.use(express.static(config.root + '/public'));

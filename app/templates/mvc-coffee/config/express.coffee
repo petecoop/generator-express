@@ -5,6 +5,7 @@ favicon = require 'serve-favicon'
 logger = require 'morgan'
 cookieParser = require 'cookie-parser'
 bodyParser = require 'body-parser'
+multer = require 'multer'
 compress = require 'compression'
 methodOverride = require 'method-override'<% if(options.viewEngine == 'swig'){ %>
 swig = require 'swig'<% } %><% if(options.viewEngine == 'handlebars'){ %>
@@ -26,6 +27,7 @@ module.exports = (app, config) -><% if(options.viewEngine == 'swig'){ %>
   app.use bodyParser.urlencoded(
     extended: true
   )
+  app.use multer()
   app.use cookieParser()
   app.use compress()
   app.use express.static config.root + '/public'

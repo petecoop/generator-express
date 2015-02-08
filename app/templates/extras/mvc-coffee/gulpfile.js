@@ -55,7 +55,7 @@ gulp.task('develop', function () {
     ext: 'js coffee <%= options.viewEngine %>',
   }).on('restart', function () {
     setTimeout(function () {
-      livereload.changed(config.root);
+      livereload.changed(__dirname);
     }, 500);
   });
 });

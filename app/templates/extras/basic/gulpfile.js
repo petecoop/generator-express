@@ -1,6 +1,5 @@
 var gulp = require('gulp'),
   nodemon = require('gulp-nodemon'),
-  config = require('./config/config'),
   livereload = require('gulp-livereload')<% if(options.cssPreprocessor == 'sass'){ %>,
   sass = require('gulp-ruby-sass')<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>,
   sass = require('gulp-sass')<% } %><% if(options.cssPreprocessor == 'less'){ %>,
@@ -55,7 +54,7 @@ gulp.task('develop', function () {
     ext: 'js <%= options.viewEngine %>',
   }).on('restart', function () {
     setTimeout(function () {
-      livereload.changed(config.root);
+      livereload.changed(__dirname);
     }, 500);
   });
 });

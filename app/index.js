@@ -102,7 +102,8 @@ module.exports = generators.Base.extend({
           'None',
           'MongoDB',
           'MySQL',
-          'PostgreSQL'
+          'PostgreSQL',
+          'RethinkDB'
         ],
         store: true
       }];
@@ -176,14 +177,21 @@ module.exports = generators.Base.extend({
       this.sourceRoot(path.join(__dirname, 'templates', 'css', stylesheets));
       this.directory('.', 'public/css');
 
-      // sequelize extra stuff
-      if (this.options.database === 'mysql' || this.options.database === 'postgresql') {
-        this.copy(path.join(__dirname, 'templates', 'extras', name + suffix, 'model-index.' + this.filetype), 'app/models/index.' + this.filetype);
-      }
-
       // grunt/gulp
       var buildFile = this.options.buildTool === 'grunt' ? 'Gruntfile.js' : 'gulpfile.js';
       this.copy(path.join(__dirname, 'templates', 'extras', name + '-shared', buildFile), buildFile);
+
+      // sequelize extra stuff
+      if (this.options.database === 'mysql' || this.options.database === 'postgresql') {
+        this.copy(path.join(__dirname, 'templates', 'extras', name + suffix, 'sequelize-model-index.' + this.filetype), 'app/models/index.' + this.filetype);
+      }
+
+      //thinky extra stuff
+      if (this.options.database === 'rethinkdb') {
+        this.copy(path.join(__dirname, 'templates', 'extras', name + suffix, 'thinky-model-index.' + this.filetype), 'app/models/index.' + this.filetype);
+        this.copy(path.join(__dirname, 'templates', 'extras', name + suffix, 'thinky-config.' + this.filetype), 'config/thinky.' + this.filetype);
+      }
+
     },
     assetsDirs: function () {
       this.mkdir('public');

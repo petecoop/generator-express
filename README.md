@@ -25,6 +25,7 @@ An Expressjs generator for Yeoman, based on the express command line tool.
  - MongoDB
  - MySQL
  - PostgreSQL
+ - RethinkDB
 
 ## Getting started
 

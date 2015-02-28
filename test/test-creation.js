@@ -468,4 +468,19 @@ describe('Express generator', function () {
       runGenerationTest.call(this, expected, 'mvc', 'jade', 'less', false, 'mysql', 'grunt', done);
     });
   });
+
+  describe('MVC generator with RethinkDB', function () {
+    var expected = [
+      'app/models/index.js',
+      'config/thinky.js'
+    ];
+
+    it('creates expected files', function (done) {
+      runGenerationTest.call(this, expected, 'mvc', 'jade', 'none', false, 'rethinkdb', 'grunt', done);
+    });
+
+    it('works with coffee', function (done) {
+      runGenerationTest.call(this, expected, 'mvc', 'jade', 'none', true, 'rethinkdb', 'grunt', done);
+    });
+  });
 });

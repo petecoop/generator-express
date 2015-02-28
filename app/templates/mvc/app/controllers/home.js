@@ -4,25 +4,27 @@ var express = require('express'),
   mongoose = require('mongoose'),
   Article = mongoose.model('Article');<% } %><% if(options.database == 'mysql' || options.database == 'postgresql'){ %>
   db = require('../models');<% } %><% if(options.database == 'none'){ %>
-  Article = require('../models/article');<% } %>
+  Article = require('../models/article');<% } %><% if(options.database == 'rethinkdb'){ %>
+  models = require('../models'),
+  Article = models.Article;<% } %>
 
 module.exports = function (app) {
   app.use('/', router);
 };
 <% if(options.viewEngine == 'marko'){ %>
 var indexTemplate = marko.load(require.resolve('../views/index.marko'));<% } %>
-router.get('/', function (req, res, next) {
-<% if(options.database == 'mongodb'){ %>
+router.get('/', function (req, res, next) {<% if(options.database == 'mongodb'){ %>
   Article.find(function (err, articles) {
     if (err) return next(err);<% } %><% if(options.database == 'mysql' || options.database == 'postgresql'){ %>
-  db.Article.findAll().success(function (articles) {<% } %><% if(options.database == 'none'){ %>
+  db.Article.findAll().success(function (articles) {<% } %><% if(options.database == 'rethinkdb'){ %>
+  Article.run().then(function (articles) {<% } %><% if(options.database == 'none'){ %>
   var articles = [new Article(), new Article()];<% } %><% if(options.viewEngine == 'marko'){ %>
     indexTemplate.render({
+      $global: {locals: req.app.locals},
       title: 'Generator-Express MVC',
       articles: articles
     }, res);<% } else { %>
     res.render('index', {
-      $global: {locals: req.app.locals},
       title: 'Generator-Express MVC',
       articles: articles
     });<% } %><% if(options.database !== 'none'){ %>

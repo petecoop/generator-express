@@ -42,4 +42,20 @@ function Article (opts) {
 }
 
 module.exports = Article;
+<% } %><% if(options.database == 'rethinkdb'){%>
+var thinky = require('../../config/thinky'),
+  r = thinky.r,
+  type = thinky.type;
+
+var Article = thinky.createModel('Article', {
+  title: String,
+  url: String,
+  text: String
+});
+
+module.exports = Article;
+
+// example on hour to add relations
+// var Comment = require('./comment');
+// Article.hasMany(Comment, 'comments', 'id', 'article_id');
 <% } %>

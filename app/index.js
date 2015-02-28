@@ -26,7 +26,8 @@ module.exports = generators.Base.extend({
         choices: [
           'Basic',
           'MVC'
-        ]
+        ],
+        store: true
       }];
 
       this.prompt(prompt, function (responses) {
@@ -51,7 +52,8 @@ module.exports = generators.Base.extend({
           'EJS',
           'Handlebars',
           'Marko'
-        ]
+        ],
+        store: true
       }];
 
       this.prompt(prompt, function (response) {
@@ -76,7 +78,8 @@ module.exports = generators.Base.extend({
           'Sass',
           'less',
           'Stylus'
-        ]
+        ],
+        store: true
       }];
 
       this.prompt(prompt, function (response) {
@@ -100,7 +103,8 @@ module.exports = generators.Base.extend({
           'MongoDB',
           'MySQL',
           'PostgreSQL'
-        ]
+        ],
+        store: true
       }];
       this.prompt(prompt, function (response) {
         this.options.database = response.database.toLowerCase();
@@ -121,7 +125,8 @@ module.exports = generators.Base.extend({
         choices: [
           'Grunt',
           'Gulp'
-        ]
+        ],
+        store: true
       }];
 
       this.prompt(prompt, function (response) {

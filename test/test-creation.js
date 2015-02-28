@@ -98,7 +98,7 @@ var runGenerationTest = function (extraFiles, type, engine, preprocessor, coffee
   }
 
   // Test files generation
-  this.app.run({}, function () {
+  this.app.run(function () {
     assert.file(expectedFiles);
     callback();
   });

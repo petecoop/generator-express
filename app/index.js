@@ -8,7 +8,7 @@ module.exports = generators.Base.extend({
     generators.Base.apply(this, arguments);
 
     // add option to skip install
-    this.option('skip-install')
+    this.option('skip-install');
 
   },
   prompting: {
@@ -140,6 +140,7 @@ module.exports = generators.Base.extend({
     buildEnv: function () {
 
       var name = this.options.mvc ? 'mvc' : 'basic';
+      var suffix = this.options.coffee ? '-coffee' : '';
       this.filetype = 'js';
       if(this.options.coffee) this.filetype = 'coffee';
 
@@ -154,10 +155,9 @@ module.exports = generators.Base.extend({
       this.sourceRoot(path.join(__dirname, 'templates', name + '-shared'));
       this.directory('.', '.');
 
-      if(this.options.coffee) name += '-coffee';
 
       // templates
-      this.sourceRoot(path.join(__dirname, 'templates', name));
+      this.sourceRoot(path.join(__dirname, 'templates', name + suffix));
       this.directory('.', '.');
 
       // views
@@ -178,12 +178,12 @@ module.exports = generators.Base.extend({
 
       // sequelize extra stuff
       if (this.options.database === 'mysql' || this.options.database === 'postgresql') {
-        this.copy(path.join(__dirname, 'templates', 'extras', name, 'model-index.' + this.filetype), 'app/models/index.' + this.filetype);
+        this.copy(path.join(__dirname, 'templates', 'extras', name + suffix, 'model-index.' + this.filetype), 'app/models/index.' + this.filetype);
       }
 
       // grunt/gulp
       var buildFile = this.options.buildTool === 'grunt' ? 'Gruntfile.js' : 'gulpfile.js';
-      this.copy(path.join(__dirname, 'templates', 'extras', name, buildFile), buildFile);
+      this.copy(path.join(__dirname, 'templates', 'extras', name + '-shared', buildFile), buildFile);
     },
     assetsDirs: function () {
       this.mkdir('public');

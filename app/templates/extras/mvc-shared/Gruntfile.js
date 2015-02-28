@@ -52,9 +52,9 @@ module.exports = function (grunt) {
       },
       js: {
         files: [
-          'app.coffee',
-          'app/**/*.coffee',
-          'config/*.coffee'
+          'app.<%= filetype %>',
+          'app/**/*.<%= filetype %>',
+          'config/*.<%= filetype %>'
         ],
         tasks: ['develop', 'delayed-livereload']
       },

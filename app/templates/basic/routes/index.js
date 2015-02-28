@@ -7,6 +7,7 @@ var marko = require('marko');<% } %>
 var indexTemplate = marko.load(require.resolve('../views/index.marko'));<% } %>
 router.get('/', function(req, res) {<% if(options.viewEngine == 'marko'){ %>
   indexTemplate.render({
+    $global: {locals: req.app.locals},
     title: 'Express'
   }, res);<% } else { %>
   res.render('index', { title: 'Express' });<% } %>

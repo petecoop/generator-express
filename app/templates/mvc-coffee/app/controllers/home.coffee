@@ -19,5 +19,6 @@ router.get '/', (req, res, next) ->
       articles: articles
     , res<% } else { %>
     res.render 'index',
+      $global: locals: req.app.locals
       title: 'Generator-Express MVC'
       articles: articles<% } %>

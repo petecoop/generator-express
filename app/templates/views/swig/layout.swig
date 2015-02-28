@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width">
   <title>{{ title }}</title>
   <link rel="stylesheet" href="/css/style.css">
-  <script src="http://localhost:35729/livereload.js"></script>
+  {% if ENV_DEVELOPMENT %}
+    <script src="http://localhost:35729/livereload.js"></script>
+  {% endif %}
 </head>
 <body>
   {% block content %}{% endblock %}

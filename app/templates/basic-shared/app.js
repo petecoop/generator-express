@@ -1,4 +1,4 @@
-require('coffee-script/register');
+<% if(options.coffee){ %>require('coffee-script/register');<% } %>
 
 var express = require('express');
 var path = require('path');

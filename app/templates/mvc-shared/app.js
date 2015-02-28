@@ -1,4 +1,4 @@
-require('coffee-script/register');
+<% if(options.coffee){ %>require('coffee-script/register');<% } %>
 
 var express = require('express'),
   config = require('./config/config')<% if(options.database == 'none'){ %>;<% } %><% if(options.database == 'mongodb'){ %>,
@@ -12,7 +12,7 @@ db.on('error', function () {
   throw new Error('unable to connect to database at ' + config.db);
 });
 
-var models = glob.sync(config.root + '/app/models/*.coffee');
+var models = glob.sync(config.root + '/app/models/*.<%= filetype %>');
 models.forEach(function (model) {
   require(model);
 });<% } %>

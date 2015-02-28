@@ -139,20 +139,28 @@ module.exports = generators.Base.extend({
   writing: {
     buildEnv: function () {
 
-      this.sourceRoot(path.join(__dirname, 'templates', 'common'));
+      var name = this.options.mvc ? 'mvc' : 'basic';
+      this.filetype = 'js';
+      if(this.options.coffee) this.filetype = 'coffee';
+
+      // shared across all generators
+      this.sourceRoot(path.join(__dirname, 'templates', 'shared'));
       this.expandFiles('**', { cwd: this.sourceRoot() }).map(function (file) {
         this.template(file, file.replace(/^_/, ''));
       }, this);
 
-      var name = this.options.mvc ? 'mvc' : 'basic';
-      var filetype = 'js';
-      if (this.options.coffee) {
-        name += '-coffee';
-        filetype = 'coffee';
-      }
+
+      // shared for mvc/basic generators
+      this.sourceRoot(path.join(__dirname, 'templates', name + '-shared'));
+      this.directory('.', '.');
+
+      if(this.options.coffee) name += '-coffee';
+
+      // templates
       this.sourceRoot(path.join(__dirname, 'templates', name));
       this.directory('.', '.');
 
+      // views
       var views = this.options.viewEngine;
       this.sourceRoot(path.join(__dirname, 'templates', 'views', views));
       if (this.options.mvc) {
@@ -161,15 +169,19 @@ module.exports = generators.Base.extend({
         this.directory('.', 'views');
       }
 
+      // css
       var stylesheets = this.options.cssPreprocessor;
       if(stylesheets === 'none') stylesheets = 'css';
       if(stylesheets === 'node-sass') stylesheets = 'sass';
       this.sourceRoot(path.join(__dirname, 'templates', 'css', stylesheets));
       this.directory('.', 'public/css');
 
+      // sequelize extra stuff
       if (this.options.database === 'mysql' || this.options.database === 'postgresql') {
-        this.copy(path.join(__dirname, 'templates', 'extras', name, 'model-index.' + filetype), 'app/models/index.' + filetype);
+        this.copy(path.join(__dirname, 'templates', 'extras', name, 'model-index.' + this.filetype), 'app/models/index.' + this.filetype);
       }
+
+      // grunt/gulp
       var buildFile = this.options.buildTool === 'grunt' ? 'Gruntfile.js' : 'gulpfile.js';
       this.copy(path.join(__dirname, 'templates', 'extras', name, buildFile), buildFile);
     },

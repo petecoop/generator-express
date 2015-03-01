@@ -37,7 +37,7 @@ An Expressjs generator for Yeoman, based on the express command line tool.
 
 ## MVC apps
 
-A generator for creating MVC style apps in express. Giving you the choice between MongoDB, MySQL or PostgreSQL databases.
+A generator for creating MVC style apps in express. Giving you the choice between the supported databases.
 
 To get going:
 

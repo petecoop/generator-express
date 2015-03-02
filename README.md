@@ -48,7 +48,7 @@ To get going:
 - Ensure that the selected database is running on your machine, if running elsewhere the connection string can be changed in `config/config.js`
 - Run: `grunt` or `gulp` to run the local server - defaults to `localhost:3000` - port can be changed in `config/config.js`. The grunt/gulp tasks include live reloading as before.
 
-##Options
+## Options
 
 - `--coffee`
 
@@ -59,12 +59,12 @@ To get going:
   Skips the automatic execution of `bower` and `npm` after
   scaffolding has finished.
 
-##Testing
+## Testing
 Tests are written with mocha.
 - Install: `npm install -g mocha`
 - Run: `mocha` or `npm test`
 
-##Contributing
+## Contributing
 Contributors are welcome, please fork and send pull requests! If you have any ideas on how to make this project better then please submit an issue.
 
 ## License

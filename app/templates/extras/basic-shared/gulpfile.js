@@ -7,8 +7,7 @@ var gulp = require('gulp'),
   stylus = require('gulp-stylus')<% } %>;
 <% if(options.cssPreprocessor == 'sass'){ %>
 gulp.task('sass', function () {
-  return gulp.src('./public/css/*.scss')
-    .pipe(sass())
+  return sass('./public/css/*.scss')
     .pipe(gulp.dest('./public/css'))
     .pipe(livereload());
 });

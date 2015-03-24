@@ -47,6 +47,7 @@ module.exports = generators.Base.extend({
         name: 'viewEngine',
         message: 'Select a view engine to use:',
         choices: [
+          'HTML',
           'Jade',
           'Swig',
           'EJS',
@@ -163,12 +164,17 @@ module.exports = generators.Base.extend({
 
       // views
       var views = this.options.viewEngine;
-      this.sourceRoot(path.join(__dirname, 'templates', 'views', views));
+	    if (this.options.viewEngine !== 'html') {
+		    this.sourceRoot(path.join(__dirname, 'templates', 'views', views));
+	    } else {
+		    this.copy(path.join(__dirname, 'templates', 'views', 'html', 'index.html'), 'public/index.html');
+	    }
       if (this.options.mvc) {
         this.directory('.', 'app/views');
       } else {
         this.directory('.', 'views');
       }
+
 
       // css
       var stylesheets = this.options.cssPreprocessor;

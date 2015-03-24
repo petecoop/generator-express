@@ -20,8 +20,13 @@ app.engine('handlebars', exphbs({
   defaultLayout: 'main',
   partialsDir: ['views/partials/']
 }));<% } %><% if(options.viewEngine != 'marko'){ %>
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', '<%= options.viewEngine %>');<% } %>
+	app.set('views', path.join(__dirname, 'views'));
+	<% if(options.viewEngine !== 'html'){ %>
+		app.set('view engine', '<%= options.viewEngine %>');
+	<% } else { %>
+		app.use(express.static(__dirname + '/public/'));
+	<% } %>
+<% } %>
 
 var env = process.env.NODE_ENV || 'development';
 app.locals.ENV = env;

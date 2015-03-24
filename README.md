@@ -12,6 +12,7 @@ An Expressjs generator for Yeoman, based on the express command line tool.
 - CoffeeScript Support
 - Gulp or Grunt build tools with file watching and livereload
 - Support View engines:
+  - HTML
   - Jade
   - Handlebars
   - Swig

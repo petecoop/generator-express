@@ -14,9 +14,10 @@
   "method-override": "~2.3.0",
   "glob": "~4.4.1",
   "mongoose": "~3.8.20",
-  "sequelize": "~2.0.0-rc7",
+  "sequelize": "~2.0.5",
   "mysql": "~2.5.3",
   "pg": "~4.3.0",
+  "pg-hstore": "2.3.2",
 
   "grunt": "~0.4.5",
   "grunt-develop": "~0.4.0",

@@ -4,6 +4,7 @@
 var assert  = require('yeoman-generator').assert;
 var path    = require('path');
 var helpers = require('yeoman-generator').test;
+var rimraf  = require('rimraf');
 
 var basicExpected = [
   '.bowerrc',
@@ -105,6 +106,11 @@ var runGenerationTest = function (extraFiles, type, engine, preprocessor, coffee
 };
 
 describe('Express generator', function () {
+
+  after(function (done) {
+    rimraf(__dirname + '/temp', done);
+  });
+
   beforeEach(function (done) {
     helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
       if (err) {

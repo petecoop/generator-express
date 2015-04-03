@@ -55,7 +55,7 @@ var Article = thinky.createModel('Article', {
 
 module.exports = Article;
 
-// example on hour to add relations
+// example on how to add relations
 // var Comment = require('./comment');
 // Article.hasMany(Comment, 'comments', 'id', 'article_id');
 <% } %>

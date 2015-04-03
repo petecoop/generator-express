@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) ->
       associate (models) ->
         # example on how to add relations
         # Article.hasMany models.Comments
-<% } %><% if(options.database == 'rethinkdb'%>
+<% } %><% if(options.database == 'rethinkdb'){%>
 thinky = require('../../config/thinky')
 r = thinky.r
 type = thinky.type
@@ -37,7 +37,7 @@ Article = thinky.createModel 'Article',
 
 module.exports = Article
 
-# example on hour to add relations
+# example on how to add relations
 # Comment = require('./comment')
 # Article.hasMany(Comment, 'comments', 'id', 'article_id')
 <% } %>

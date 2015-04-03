@@ -15,7 +15,7 @@ ArticleSchema.virtual('date')
   });
 
 mongoose.model('Article', ArticleSchema);<% } %>
-<% if(options.database == 'mysql' || options.database == 'postgresql'){ %>
+<% if(options.database == 'mysql' || options.database == 'postgresql' || options.database == 'sqlite'){ %>
 module.exports = function (sequelize, DataTypes) {
 
   var Article = sequelize.define('Article', {

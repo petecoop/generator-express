@@ -489,4 +489,19 @@ describe('Express generator', function () {
       runGenerationTest.call(this, expected, 'mvc', 'jade', 'none', true, 'rethinkdb', 'grunt', done);
     });
   });
+
+  describe('MVC generator with SQLite', function () {
+    var expected = [
+      'app/models/index.js',
+      'data'
+    ];
+
+    it('creates expected files', function (done) {
+      runGenerationTest.call(this, expected, 'mvc', 'jade', 'none', false, 'sqlite', 'grunt', done);
+    });
+
+    it('works with coffee', function (done) {
+      runGenerationTest.call(this, expected, 'mvc', 'jade', 'none', true, 'sqlite', 'grunt', done);
+    });
+  });
 });

@@ -3,7 +3,7 @@
 var express = require('express'),
   config = require('./config/config')<% if(options.database == 'none'){ %>;<% } %><% if(options.database == 'mongodb'){ %>,
   glob = require('glob'),
-  mongoose = require('mongoose');<% } %><% if(options.database == 'mysql' || options.database == 'postgresql'){ %>,
+  mongoose = require('mongoose');<% } %><% if(options.database == 'mysql' || options.database == 'postgresql' || options.database == 'sqlite'){ %>,
   db = require('./app/models');<% } %>
 <% if(options.database == 'mongodb'){ %>
 mongoose.connect(config.db);
@@ -19,7 +19,9 @@ models.forEach(function (model) {
 var app = express();
 
 require('./config/express')(app, config);
-<% if(options.database == 'mysql' || options.database == 'postgresql'){ %>
+<% if(options.database == 'mysql' ||
+  options.database == 'postgresql' ||
+  options.database == 'sqlite'){ %>
 db.sequelize
   .sync()
   .then(function () {

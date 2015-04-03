@@ -103,7 +103,8 @@ module.exports = generators.Base.extend({
           'MongoDB',
           'MySQL',
           'PostgreSQL',
-          'RethinkDB'
+          'RethinkDB',
+          'SQLite'
         ],
         store: true
       }];
@@ -182,7 +183,9 @@ module.exports = generators.Base.extend({
       this.copy(path.join(__dirname, 'templates', 'extras', name + '-shared', buildFile), buildFile);
 
       // sequelize extra stuff
-      if (this.options.database === 'mysql' || this.options.database === 'postgresql') {
+      if (this.options.database === 'mysql' ||
+          this.options.database === 'postgresql' ||
+          this.options.database === 'sqlite') {
         this.copy(path.join(__dirname, 'templates', 'extras', name + suffix, 'sequelize-model-index.' + this.filetype), 'app/models/index.' + this.filetype);
       }
 
@@ -199,6 +202,9 @@ module.exports = generators.Base.extend({
       this.mkdir('public/js');
       this.mkdir('public/css');
       this.mkdir('public/img');
+      if (this.options.database == 'sqlite') {
+        this.mkdir('data');
+      }
     }
   },
   install: function () {

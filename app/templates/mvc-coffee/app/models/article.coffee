@@ -13,7 +13,7 @@ ArticleSchema.virtual('date')
   .get (-> this._id.getTimestamp())
 
 mongoose.model 'Article', ArticleSchema<% } %>
-<% if(options.database == 'mysql' || options.database == 'postgresql'){ %>
+<% if(options.database == 'mysql' || options.database == 'postgresql' || options.database == 'sqlite'){ %>
 module.exports = (sequelize, DataTypes) ->
 
   Article = sequelize.define 'Article',

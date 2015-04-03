@@ -4,7 +4,9 @@ var fs = require('fs'),
   config = require('../../config/config'),
   db = {};
 
-var sequelize = new Sequelize(config.db);
+var sequelize = new Sequelize(config.db<% if (options.database == 'sqlite') %>, {
+  storage: config.storage
+});
 
 fs.readdirSync(__dirname).filter(function (file) {
   return (file.indexOf('.') !== 0) && (file !== 'index.js');

@@ -18,6 +18,7 @@ gulp.task('watch', function() {
 });<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>
 gulp.task('sass', function () {
   gulp.src('./public/css/*.scss')
+    .pipe(plumber())
     .pipe(sass())
     .pipe(gulp.dest('./public/css'))
     .pipe(livereload());
@@ -28,6 +29,7 @@ gulp.task('watch', function() {
 });<% } %><% if(options.cssPreprocessor == 'less'){ %>
 gulp.task('less', function () {
   gulp.src('./public/css/*.less')
+    .pipe(plumber())
     .pipe(less())
     .pipe(gulp.dest('./public/css'))
     .pipe(livereload());
@@ -38,6 +40,7 @@ gulp.task('watch', function() {
 });<% } %><% if(options.cssPreprocessor == 'stylus'){ %>
 gulp.task('stylus', function () {
   gulp.src('./public/css/*.styl')
+    .pipe(plumber())
     .pipe(stylus())
     .pipe(gulp.dest('./public/css'))
     .pipe(livereload());

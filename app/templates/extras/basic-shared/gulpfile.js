@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
   nodemon = require('gulp-nodemon'),
+  plumber = require('gulp-plumber'),
   livereload = require('gulp-livereload')<% if(options.cssPreprocessor == 'sass'){ %>,
   sass = require('gulp-ruby-sass')<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>,
   sass = require('gulp-sass')<% } %><% if(options.cssPreprocessor == 'less'){ %>,
@@ -17,8 +18,8 @@ gulp.task('watch', function() {
 });<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>
 gulp.task('sass', function () {
   gulp.src('./public/css/*.scss')
+    .pipe(plumber())
     .pipe(sass())
-    .on('error', function(err){ console.log(err.message); })
     .pipe(gulp.dest('./public/css'))
     .pipe(livereload());
 });
@@ -28,8 +29,8 @@ gulp.task('watch', function() {
 });<% } %><% if(options.cssPreprocessor == 'less'){ %>
 gulp.task('less', function () {
   gulp.src('./public/css/*.less')
+    .pipe(plumber())
     .pipe(less())
-    .on('error', function(err){ console.log(err.message); })
     .pipe(gulp.dest('./public/css'))
     .pipe(livereload());
 });
@@ -39,8 +40,8 @@ gulp.task('watch', function() {
 });<% } %><% if(options.cssPreprocessor == 'stylus'){ %>
 gulp.task('stylus', function () {
   gulp.src('./public/css/*.styl')
+    .pipe(plumber())
     .pipe(stylus())
-    .on('error', function(err){ console.log(err.message); })
     .pipe(gulp.dest('./public/css'))
     .pipe(livereload());
 });

@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
   nodemon = require('gulp-nodemon'),
+  plumber = require('gulp-plumber'),
   livereload = require('gulp-livereload')<% if(options.cssPreprocessor == 'sass'){ %>,
   sass = require('gulp-ruby-sass')<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>,
   sass = require('gulp-sass')<% } %><% if(options.cssPreprocessor == 'less'){ %>,

@@ -37,6 +37,6 @@
   "gulp-stylus": "~2.0.0",
   "gulp-nodemon": "~2.0.2",
   "gulp-livereload": "~3.8.0",
-  "gulp-plumber": "~1.0.0"
+  "gulp-plumber": "~1.0.0",
   "coffee-script": "~1.9.1"
 }

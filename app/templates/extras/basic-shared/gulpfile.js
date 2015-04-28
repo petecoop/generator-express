@@ -18,6 +18,7 @@ gulp.task('watch', function() {
 gulp.task('sass', function () {
   gulp.src('./public/css/*.scss')
     .pipe(sass())
+    .on('error', function(err){ console.log(err.message); })
     .pipe(gulp.dest('./public/css'))
     .pipe(livereload());
 });
@@ -28,6 +29,7 @@ gulp.task('watch', function() {
 gulp.task('less', function () {
   gulp.src('./public/css/*.less')
     .pipe(less())
+    .on('error', function(err){ console.log(err.message); })
     .pipe(gulp.dest('./public/css'))
     .pipe(livereload());
 });
@@ -38,6 +40,7 @@ gulp.task('watch', function() {
 gulp.task('stylus', function () {
   gulp.src('./public/css/*.styl')
     .pipe(stylus())
+    .on('error', function(err){ console.log(err.message); })
     .pipe(gulp.dest('./public/css'))
     .pipe(livereload());
 });

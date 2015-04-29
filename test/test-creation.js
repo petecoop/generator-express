@@ -8,6 +8,7 @@ var rimraf  = require('rimraf');
 
 var basicExpected = [
   '.bowerrc',
+  '.editorconfig',
   '.gitignore',
   'bower.json',
   'app.js',
@@ -22,6 +23,7 @@ var basicExpected = [
 
 var MVCExpected = [
   '.bowerrc',
+  '.editorconfig',
   '.gitignore',
   'bower.json',
   'app.js',

@@ -11,6 +11,7 @@ An Expressjs generator for Yeoman, based on the express command line tool.
 - Basic or MVC style file structure
 - CoffeeScript Support
 - Gulp or Grunt build tools with file watching and livereload
+- .editorconfig for consistent coding styles within text editors
 - Support View engines:
   - Jade
   - Handlebars

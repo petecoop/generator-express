@@ -30,6 +30,7 @@
     "test": "mocha"
   },
   "dependencies": {
+    "glob": "^5.0.5",
     "yeoman-generator": "~0.19.2"
   },
   "devDependencies": {

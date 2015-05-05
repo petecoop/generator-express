@@ -2,6 +2,7 @@
 var util = require('util');
 var path = require('path');
 var generators = require('yeoman-generator');
+var glob = require('glob');
 
 module.exports = generators.Base.extend({
   constructor: function () {
@@ -148,7 +149,7 @@ module.exports = generators.Base.extend({
 
       // shared across all generators
       this.sourceRoot(path.join(__dirname, 'templates', 'shared'));
-      this.expandFiles('**', { cwd: this.sourceRoot() }).map(function (file) {
+      glob.sync('**', { cwd: this.sourceRoot() }).map(function (file) {
         this.template(file, file.replace(/^_/, ''));
       }, this);
 

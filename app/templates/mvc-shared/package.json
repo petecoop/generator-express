@@ -15,19 +15,19 @@
     "method-override": "~2.3.0",
     "glob": "~5.0.3"<% if(options.database == 'mongodb'){ %>,
     "mongoose": "~4.0.1"<% } %><% if(options.database == 'mysql'){ %>,
-    "sequelize": "~2.0.5",
+    "sequelize": "~2.1.0",
     "mysql": "~2.6.1"<% } %><% if(options.database == 'postgresql'){ %>,
-    "sequelize": "~2.0.5",
+    "sequelize": "~2.1.0",
     "pg": "~4.3.0",
     "pg-hstore": "2.3.2"<% } %><% if(options.database == 'sqlite'){ %>,
-    "sequelize": "~2.0.5",
+    "sequelize": "~2.1.0",
     "sqlite3": "~3.0.5"<% } %><% if(options.database == 'rethinkdb'){ %>,
     "thinky": "~1.16.6"<% } %><% if(options.viewEngine == 'jade'){ %>,
     "jade": "~1.9.1"<% } %><% if(options.viewEngine == 'ejs'){ %>,
     "ejs": "~2.3.1"<% } %><% if(options.viewEngine == 'swig'){ %>,
     "swig": "~1.4.2"<% } %><% if(options.viewEngine == 'handlebars'){ %>,
-    "express-handlebars": "~2.0.0"<% } %><% if(options.viewEngine == 'marko'){ %>,
-    "marko": "~2.2.0"<% } %>
+    "express-handlebars": "~2.0.1"<% } %><% if(options.viewEngine == 'marko'){ %>,
+    "marko": "~2.4.0"<% } %>
   },
   "devDependencies": {<% if(options.coffee){ %>
     "coffee-script": "~1.9.1",<% } %><% if(options.buildTool == 'grunt'){ %>
@@ -38,7 +38,7 @@
     "grunt-contrib-less": "~1.0.0"<% } %><% if(options.cssPreprocessor == 'stylus'){ %>,
     "grunt-contrib-stylus": "~0.21.0"<% } %>,
     "grunt-contrib-watch": "~0.6.1",
-    "request": "~2.54.0",
+    "request": "~2.55.0",
     "time-grunt": "~1.1.0",
     "load-grunt-tasks": "~3.1.0"<% } %><% if(options.buildTool == 'gulp'){ %>
     "gulp": "~3.8.10"<% if(options.cssPreprocessor == 'sass'){ %>,

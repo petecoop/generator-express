@@ -16,6 +16,42 @@ module.exports = generators.Base.extend({
     this.slugify = slugify;
   },
   prompting: {
+    dir: function () {
+
+      if (this.options.createDirectory !== undefined) {
+        return true;
+      }
+
+      var done = this.async();
+      var prompt = [{
+        type: 'confirm',
+        name: 'createDirectory',
+        message: 'Would you like to create a new directory for your project?'
+      }];
+
+      this.prompt(prompt, function (response) {
+        this.options.createDirectory = response.createDirectory;
+        done();
+      }.bind(this));
+    },
+    dirname: function () {
+
+      if (!this.options.createDirectory || this.options.dirname) {
+        return true;
+      }
+
+      var done = this.async();
+      var prompt = [{
+        type: 'input',
+        name: 'dirname',
+        message: 'Enter directory name'
+      }];
+
+      this.prompt(prompt, function (response) {
+        this.options.dirname = response.dirname;
+        done();
+      }.bind(this));
+    },
     type: function () {
       // Short circuit if an option was explicitly specified
       if (this.options.mvc || this.options.basic) {
@@ -144,6 +180,11 @@ module.exports = generators.Base.extend({
   },
   writing: {
     buildEnv: function () {
+
+      // create directory
+      if(this.options.createDirectory){
+        this.destinationRoot(this.options.dirname);
+      }
 
       var name = this.options.mvc ? 'mvc' : 'basic';
       var suffix = this.options.coffee ? '-coffee' : '';

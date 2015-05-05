@@ -58,7 +58,7 @@ var toCoffeeFileArray = function (fileArray) {
   return newArray;
 };
 
-var runGenerationTest = function (extraFiles, type, engine, preprocessor, coffee, database, buildTool, callback) {
+var runGenerationTest = function (extraFiles, type, engine, preprocessor, coffee, database, buildTool, callback, dir, dirname) {
   var expectedFiles;
 
   // Never install dependencies
@@ -71,6 +71,8 @@ var runGenerationTest = function (extraFiles, type, engine, preprocessor, coffee
   this.app.options.cssPreprocessor = preprocessor;
   this.app.options.coffee = coffee;
   this.app.options.buildTool = buildTool;
+  this.app.options.createDirectory = dir || false;
+  this.app.options.dirname = dirname;
 
   // Set up initial file list Basic or MVC
   expectedFiles = extraFiles.concat(appFiles[type]);
@@ -240,6 +242,10 @@ describe('Express generator', function () {
 
     it('works with coffee and less', function (done) {
       runGenerationTest.call(this, expected, 'basic', 'ejs', 'less', false, 'none', 'grunt', done);
+    });
+
+    it('creates a new directory', function (done) {
+      runGenerationTest.call(this, expected, 'basic', 'ejs', 'less', false, 'none', 'grunt', done, true, 'express-project');
     });
   });
 

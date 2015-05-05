@@ -4,6 +4,7 @@ var path = require('path');
 var generators = require('yeoman-generator');
 var glob = require('glob');
 var slugify = require("underscore.string/slugify");
+var mkdirp = require('mkdirp');
 
 module.exports = generators.Base.extend({
   constructor: function () {
@@ -200,13 +201,13 @@ module.exports = generators.Base.extend({
 
     },
     assetsDirs: function () {
-      this.mkdir('public');
-      this.mkdir('public/components');
-      this.mkdir('public/js');
-      this.mkdir('public/css');
-      this.mkdir('public/img');
+      mkdirp.sync('public');
+      mkdirp.sync('public/components');
+      mkdirp.sync('public/js');
+      mkdirp.sync('public/css');
+      mkdirp.sync('public/img');
       if (this.options.database == 'sqlite') {
-        this.mkdir('data');
+        mkdirp.sync('data');
       }
     }
   },

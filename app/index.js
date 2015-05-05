@@ -3,7 +3,7 @@ var util = require('util');
 var path = require('path');
 var generators = require('yeoman-generator');
 var glob = require('glob');
-var slugify = require("underscore.string/slugify");
+var slugify = require('underscore.string/slugify');
 var mkdirp = require('mkdirp');
 
 module.exports = generators.Base.extend({

@@ -3,6 +3,7 @@ var util = require('util');
 var path = require('path');
 var generators = require('yeoman-generator');
 var glob = require('glob');
+var slugify = require("underscore.string/slugify");
 
 module.exports = generators.Base.extend({
   constructor: function () {
@@ -11,6 +12,7 @@ module.exports = generators.Base.extend({
     // add option to skip install
     this.option('skip-install');
 
+    this.slugify = slugify;
   },
   prompting: {
     type: function () {
@@ -209,6 +211,6 @@ module.exports = generators.Base.extend({
     }
   },
   install: function () {
-    this.installDependencies({ skipInstall: this.options['skip-install'] });
+    if(!this.options['skip-install']) this.installDependencies();
   }
 });

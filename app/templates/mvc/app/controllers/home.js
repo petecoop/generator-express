@@ -16,7 +16,7 @@ var indexTemplate = marko.load(require.resolve('../views/index.marko'));<% } %>
 router.get('/', function (req, res, next) {<% if(options.database == 'mongodb'){ %>
   Article.find(function (err, articles) {
     if (err) return next(err);<% } %><% if(options.database == 'mysql' || options.database == 'postgresql' || options.database == 'sqlite'){ %>
-  db.Article.findAll().success(function (articles) {<% } %><% if(options.database == 'rethinkdb'){ %>
+  db.Article.findAll().then(function (articles) {<% } %><% if(options.database == 'rethinkdb'){ %>
   Article.run().then(function (articles) {<% } %><% if(options.database == 'none'){ %>
   var articles = [new Article(), new Article()];<% } %><% if(options.viewEngine == 'marko'){ %>
     indexTemplate.render({

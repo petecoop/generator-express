@@ -188,9 +188,16 @@ module.exports = generators.Base.extend({
       }
 
       var name = this.options.mvc ? 'mvc' : 'basic';
-      var suffix = this.options.coffee ? '-coffee' : '';
+      var suffix = '';
       this.filetype = 'js';
-      if(this.options.coffee) this.filetype = 'coffee';
+      if (this.options.coffee) {
+        suffix = '-coffee';
+        this.filetype = 'coffee';
+      }
+      if (this.options.ts || this.options.typescript) {
+        suffix = '-typescript';
+        this.filetype = 'ts';
+      }
 
       // shared across all generators
       this.sourceRoot(path.join(__dirname, 'templates', 'shared'));

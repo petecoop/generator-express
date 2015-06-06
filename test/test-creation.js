@@ -58,7 +58,7 @@ var toCoffeeFileArray = function (fileArray) {
   return newArray;
 };
 
-var runGenerationTest = function (extraFiles, type, engine, preprocessor, coffee, database, buildTool, callback, dir, dirname) {
+var runGenerationTest = function (extraFiles, type, engine, preprocessor, coffee, typescript, database, buildTool, callback, dir, dirname) {
   var expectedFiles;
 
   // Never install dependencies

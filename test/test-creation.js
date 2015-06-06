@@ -58,6 +58,19 @@ var toCoffeeFileArray = function (fileArray) {
   return newArray;
 };
 
+var toTypescriptFileArray = function (fileArray) {
+  var newArray = [];
+  for (var i in fileArray) {
+    if (fileArray[i] === 'app.js') {
+      newArray.push(fileArray[i]);
+    } else {
+      newArray.push(fileArray[i].replace(/(.*?)\.js$/, '$1.ts'));
+    }
+  }
+
+  return newArray;
+};
+
 var runGenerationTest = function (extraFiles, type, engine, preprocessor, coffee, typescript, database, buildTool, callback, dir, dirname) {
   var expectedFiles;
 
@@ -70,6 +83,7 @@ var runGenerationTest = function (extraFiles, type, engine, preprocessor, coffee
   this.app.options.viewEngine = engine;
   this.app.options.cssPreprocessor = preprocessor;
   this.app.options.coffee = coffee;
+  this.app.options.typescript = typescript;
   this.app.options.buildTool = buildTool;
   this.app.options.createDirectory = dir || false;
   this.app.options.dirname = dirname;
@@ -93,6 +107,10 @@ var runGenerationTest = function (extraFiles, type, engine, preprocessor, coffee
   // Set optional files, Coffee
   if (coffee) {
     expectedFiles = toCoffeeFileArray(expectedFiles);
+  }
+  // Set optional files, TypeScript
+  else if (typescript) {
+    expectedFiles = toTypescriptFileArray(expectedFiles);
   }
 
   // Set optional files, Build tool

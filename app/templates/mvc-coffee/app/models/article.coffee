@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) ->
     text: DataTypes.STRING
   ,
     classMethods:
-      associate (models) ->
+      associate: (models) ->
         # example on how to add relations
         # Article.hasMany models.Comments
 <% } %><% if(options.database == 'rethinkdb'){%>

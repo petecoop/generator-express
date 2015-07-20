@@ -23,7 +23,7 @@ module.exports = function(app, config) {<% if(options.viewEngine == 'swig'){ %>
   var env = process.env.NODE_ENV || 'development';
   app.locals.ENV = env;
   app.locals.ENV_DEVELOPMENT = env == 'development';
-  {<% if(options.viewEngine == 'swig'){ %>
+  <% if(options.viewEngine == 'swig'){ %>
     if(app.locals.ENV == 'development'){
       app.set('view cache', false);
 	    swig.setDefaults({ cache: false });

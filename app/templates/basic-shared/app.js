@@ -14,18 +14,20 @@ var users = require('./routes/user');
 
 var app = express();
 
+var env = process.env.NODE_ENV || 'development';
+app.locals.ENV = env;
+app.locals.ENV_DEVELOPMENT = env == 'development';
+
 // view engine setup
-<% if(options.viewEngine == 'swig'){ %>app.engine('swig', swig.renderFile)<% } %><% if(options.viewEngine == 'handlebars'){ %>
+<% if(options.viewEngine == 'swig'){ %>app.engine('swig', swig.renderFile)
+app.set('view cache', false);
+swig.setDefaults({ cache: false });<% } %><% if(options.viewEngine == 'handlebars'){ %>
 app.engine('handlebars', exphbs({
   defaultLayout: 'main',
   partialsDir: ['views/partials/']
 }));<% } %><% if(options.viewEngine != 'marko'){ %>
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', '<%= options.viewEngine %>');<% } %>
-
-var env = process.env.NODE_ENV || 'development';
-app.locals.ENV = env;
-app.locals.ENV_DEVELOPMENT = env == 'development';
 
 // app.use(favicon(__dirname + '/public/img/favicon.ico'));
 app.use(logger('dev'));

@@ -14,6 +14,8 @@ module.exports = generators.Base.extend({
     this.option('skip-install');
 
     this.slugify = slugify;
+
+    this.options.typescript = this.options.ts || this.options.typescript;
   },
   prompting: {
     dir: function () {
@@ -176,6 +178,44 @@ module.exports = generators.Base.extend({
         done();
       }.bind(this));
 
+    },
+    typescriptOutDir: function () {
+
+      if (!this.options.typescript) {
+        return true;
+      }
+
+      var done = this.async();
+      var prompt = [{
+        type: 'input',
+        name: 'typescriptOutDir',
+        message: 'Enter TypeScript build directory'
+      }];
+
+      this.prompt(prompt, function (response) {
+        this.options.typescriptOutDir = response.typescriptOutDir;
+        done();
+      }.bind(this));
+
+    },
+    typescriptIgnore: function () {
+
+      if (!this.options.typescript) {
+        return true;
+      }
+
+      var done = this.async();
+      var prompt = [{
+        type: 'confirm',
+        name: 'typescriptIgnore',
+        message: 'Do you want to add TypeScript build directory to gitignore?'
+      }];
+
+      this.prompt(prompt, function (response) {
+        this.options.typescriptIgnore = response.typescriptIgnore;
+        done();
+      }.bind(this));
+
     }
   },
   writing: {
@@ -194,7 +234,7 @@ module.exports = generators.Base.extend({
         suffix = '-coffee';
         this.filetype = 'coffee';
       }
-      if (this.options.ts || this.options.typescript) {
+      if (this.options.typescript) {
         suffix = '-typescript';
         this.filetype = 'ts';
       }
@@ -254,6 +294,10 @@ module.exports = generators.Base.extend({
       if (this.options.database === 'rethinkdb') {
         this.copy(path.join(__dirname, 'templates', 'extras', name + suffix, 'thinky-model-index.' + this.filetype), 'app/models/index.' + this.filetype);
         this.copy(path.join(__dirname, 'templates', 'extras', name + suffix, 'thinky-config.' + this.filetype), 'config/thinky.' + this.filetype);
+      }
+
+      if (this.options.typescript) {
+        this.copy(path.join(__dirname, 'templates', 'extras', 'typescript', 'tsconfig.json'), 'tsconfig.json');
       }
 
     },

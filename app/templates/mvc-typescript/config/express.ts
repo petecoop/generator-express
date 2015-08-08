@@ -10,8 +10,16 @@ var methodOverride = require('method-override');<% if(options.viewEngine == 'swi
 var swig = require('swig');<% } %><% if(options.viewEngine == 'handlebars'){ %>
 var exphbs  = require('express-handlebars');<% } %>
 
-module.exports = function(app, config) {<% if(options.viewEngine == 'swig'){ %>
-  app.engine('swig', swig.renderFile);<% } %><% if(options.viewEngine == 'handlebars'){ %>
+module.exports = function(app, config) {
+  var env = process.env.NODE_ENV || 'development';
+  app.locals.ENV = env;
+  app.locals.ENV_DEVELOPMENT = env == 'development';
+  <% if(options.viewEngine == 'swig'){ %>
+  app.engine('swig', swig.renderFile);
+  if(env == 'development'){
+    app.set('view cache', false);
+    swig.setDefaults({ cache: false });
+  }<% } %><% if(options.viewEngine == 'handlebars'){ %>
   app.engine('handlebars', exphbs({
     layoutsDir: config.root + '/app/views/layouts/',
     defaultLayout: 'main',
@@ -19,10 +27,6 @@ module.exports = function(app, config) {<% if(options.viewEngine == 'swig'){ %>
   }));<% } %><% if(options.viewEngine != 'marko'){ %>
   app.set('views', config.root + '/app/views');
   app.set('view engine', '<%= options.viewEngine %>');<% } %>
-
-  var env = process.env.NODE_ENV || 'development';
-  app.locals.ENV = env;
-  app.locals.ENV_DEVELOPMENT = env == 'development';
 
   // app.use(favicon(config.root + '/public/img/favicon.ico'));
   app.use(logger('dev'));

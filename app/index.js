@@ -178,7 +178,8 @@ module.exports = generators.Base.extend({
         done();
       }.bind(this));
 
-    },
+    }
+  },
   writing: {
     buildEnv: function () {
 

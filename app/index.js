@@ -212,9 +212,17 @@ module.exports = generators.Base.extend({
       var views = this.options.viewEngine;
       this.sourceRoot(path.join(__dirname, 'templates', 'views', views));
       if (this.options.mvc) {
-        this.directory('.', 'app/views');
+        if (this.options.viewEngine == 'ejs') {
+          this.bulkDirectory('.', 'app/views');
+        } else {
+          this.directory('.', 'app/views');
+        }
       } else {
-        this.directory('.', 'views');
+        if (this.options.viewEngine == 'ejs') {
+          this.bulkDirectory('.', 'views');
+        } else {
+          this.directory('.', 'views');
+        }
       }
 
       // css

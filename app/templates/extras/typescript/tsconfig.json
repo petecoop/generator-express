@@ -2,7 +2,6 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es5",
-    "outDir": "<%= options.typescriptOutDir %>"
   },
   "filesGlob": [
     "./**/*.ts",

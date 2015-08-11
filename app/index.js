@@ -184,6 +184,7 @@ module.exports = generators.Base.extend({
       // create directory
       if(this.options.createDirectory){
         this.destinationRoot(this.options.dirname);
+        this.appname = this.options.dirname;
       }
 
       var name = this.options.mvc ? 'mvc' : 'basic';

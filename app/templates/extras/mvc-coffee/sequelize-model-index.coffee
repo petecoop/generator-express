@@ -4,8 +4,8 @@ Sequelize = require('sequelize')
 config = require('../../config/config')
 db = {}
 
-sequelize = new Sequelize config.db<% if (options.database == 'sqlite') %>,
-  storage: config.storage
+sequelize = new Sequelize config.db<% if (options.database == 'sqlite') { %>,
+  storage: config.storage<% } %>
 
 fs.readdirSync(__dirname)
   .filter (file) ->

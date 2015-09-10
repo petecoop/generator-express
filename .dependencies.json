@@ -30,7 +30,7 @@
   "time-grunt": "^1.2.1",
   "load-grunt-tasks": "^3.2.0",
   "gulp": "^3.9.0",
-  "gulp-ruby-sass": "^1.0.1",
+  "gulp-ruby-sass": "^2.0.1",
   "gulp-sass": "^2.0.4",
   "gulp-less": "^3.0.1",
   "gulp-stylus": "^2.0.0",

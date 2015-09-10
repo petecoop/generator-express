@@ -42,7 +42,7 @@
     "time-grunt": "^1.2.1",
     "load-grunt-tasks": "^3.2.0"<% } %><% if(options.buildTool == 'gulp'){ %>
     "gulp": "^3.9.0"<% if(options.cssPreprocessor == 'sass'){ %>,
-    "gulp-ruby-sass": "^1.0.1"<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>,
+    "gulp-ruby-sass": "^2.0.1"<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>,
     "gulp-sass": "^2.0.4"<% } %><% if(options.cssPreprocessor == 'less'){ %>,
     "gulp-less": "^3.0.1"<% } %><% if(options.cssPreprocessor == 'stylus'){ %>,
     "gulp-stylus": "^2.0.0"<% } %>,

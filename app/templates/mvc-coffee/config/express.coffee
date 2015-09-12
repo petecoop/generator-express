@@ -8,7 +8,8 @@ bodyParser = require 'body-parser'
 compress = require 'compression'
 methodOverride = require 'method-override'<% if(options.viewEngine == 'swig'){ %>
 swig = require 'swig'<% } %><% if(options.viewEngine == 'handlebars'){ %>
-exphbs  = require 'express-handlebars'<% } %>
+exphbs  = require 'express-handlebars'<% } %><% if(options.viewEngine == 'nunjucks'){ %>
+nunjucks = require 'nunjucks'<% } %>
 
 module.exports = (app, config) ->
   env = process.env.NODE_ENV || 'development'
@@ -25,7 +26,10 @@ module.exports = (app, config) ->
     partialsDir: [config.root + '/app/views/partials/']
   )<% } %><% if(options.viewEngine != 'marko'){ %>
   app.set 'views', config.root + '/app/views'
-  app.set 'view engine', '<%= options.viewEngine %>'<% } %>
+  app.set 'view engine', '<%= options.viewEngine %>'<% } %><% if(options.viewEngine == 'nunjucks'){ %>
+  nunjucks.configure config.root + '/app/views',
+    autoescape: true
+    express: app<% } %>
 
   # app.use(favicon(config.root + '/public/img/favicon.ico'));
   app.use logger 'dev'

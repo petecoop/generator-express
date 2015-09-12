@@ -7,7 +7,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');<% if(options.viewEngine == 'swig'){ %>
 var swig = require('swig');<% } %><% if(options.viewEngine == 'handlebars'){ %>
-var exphbs  = require('express-handlebars');<% } %>
+var exphbs  = require('express-handlebars');<% } %><% if(options.viewEngine == 'nunjucks'){ %>
+var nunjucks = require('nunjucks');<% } %>
 
 var routes = require('./routes/index');
 var users = require('./routes/user');
@@ -27,7 +28,11 @@ app.engine('handlebars', exphbs({
   partialsDir: ['views/partials/']
 }));<% } %><% if(options.viewEngine != 'marko'){ %>
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', '<%= options.viewEngine %>');<% } %>
+app.set('view engine', '<%= options.viewEngine %>');<% } %><% if(options.viewEngine == 'nunjucks'){ %>
+nunjucks.configure('views', {
+    autoescape: true,
+    express: app
+});<% } %>
 
 // app.use(favicon(__dirname + '/public/img/favicon.ico'));
 app.use(logger('dev'));

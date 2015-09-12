@@ -15,7 +15,8 @@
     "ejs": "^2.3.1"<% } %><% if(options.viewEngine == 'swig'){ %>,
     "swig": "^1.4.2"<% } %><% if(options.viewEngine == 'handlebars'){ %>,
     "express-handlebars": "^2.0.1"<% } %><% if(options.viewEngine == 'marko'){ %>,
-    "marko": "^2.7.9"<% } %>
+    "marko": "^2.7.9"<% } %><% if (options.viewEngine == 'nunjucks'){ %>,
+    "nunjucks": "^2.0.0"<% } %>
   },
   "devDependencies": {<% if(options.coffee){ %>
     "coffee-script": "^1.9.1",<% } %><% if(options.buildTool == 'grunt'){ %>

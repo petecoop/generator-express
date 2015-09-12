@@ -8,6 +8,7 @@
   "ejs": "^2.3.1",
   "swig": "^1.4.2",
   "marko": "^2.7.9",
+  "nunjucks": "^2.0.0",
   "express-handlebars": "^2.0.1",
   "compression": "^1.5.2",
   "method-override": "^2.3.0",

@@ -261,6 +261,17 @@ describe('Express generator', function () {
     });
   });
 
+  describe('Basic generator with Nunjucks', function () {
+    var expected = [
+      'views/index.html',
+      'views/layout.html',
+      'views/error.html',
+    ];
+
+    it('creates expected files', function (done) {
+      runGenerationTest.call(this, expected, 'basic', 'nunjucks', 'none', false, 'none', 'grunt', done);
+    });
+  });
 
   describe('Basic generator with Handlebars', function () {
     var expected = [
@@ -415,6 +426,18 @@ describe('Express generator', function () {
 
     it('creates expected files', function (done) {
       runGenerationTest.call(this, expected, 'mvc', 'swig', 'none', false, 'none', 'grunt', done);
+    });
+  });
+
+  describe('MVC generator with Nunjucks', function () {
+    var expected = [
+      'app/views/index.html',
+      'app/views/layout.html',
+      'app/views/error.html',
+    ];
+
+    it('creates expected files', function (done) {
+      runGenerationTest.call(this, expected, 'mvc', 'nunjucks', 'none', false, 'none', 'grunt', done);
     });
   });
 

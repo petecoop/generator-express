@@ -91,7 +91,8 @@ module.exports = generators.Base.extend({
           'Swig',
           'EJS',
           'Handlebars',
-          'Marko'
+          'Marko',
+          'Nunjucks'
         ],
         store: true
       }];

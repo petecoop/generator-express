@@ -26,7 +26,7 @@ module.exports = (app, config) ->
     partialsDir: [config.root + '/app/views/partials/']
   )<% } %><% if(options.viewEngine != 'marko'){ %>
   app.set 'views', config.root + '/app/views'
-  app.set 'view engine', '<%= options.viewEngine %>'<% } %><% } %><% if(options.viewEngine == 'nunjucks'){ %>
+  app.set 'view engine', '<%= options.viewEngine %>'<% } %><% if(options.viewEngine == 'nunjucks'){ %>
   nunjucks.configure config.root + '/app/views',
     autoescape: true
     express: app<% } %>

@@ -263,9 +263,9 @@ describe('Express generator', function () {
 
   describe('Basic generator with Nunjucks', function () {
     var expected = [
-      'views/index.html',
-      'views/layout.html',
-      'views/error.html',
+      'views/index.nunjucks',
+      'views/layout.nunjucks',
+      'views/error.nunjucks',
     ];
 
     it('creates expected files', function (done) {
@@ -431,9 +431,9 @@ describe('Express generator', function () {
 
   describe('MVC generator with Nunjucks', function () {
     var expected = [
-      'app/views/index.html',
-      'app/views/layout.html',
-      'app/views/error.html',
+      'app/views/index.nunjucks',
+      'app/views/layout.nunjucks',
+      'app/views/error.nunjucks',
     ];
 
     it('creates expected files', function (done) {

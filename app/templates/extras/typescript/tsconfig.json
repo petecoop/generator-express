@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "declaration": false,
+    "noImplicitAny": false
+  },
+  "filesGlob": [
+    "./**/*.ts",
+    "!./node_modules/**/*.ts",
+    "!./public/components/**/*.ts"
+  ],
+  "files": []
+}

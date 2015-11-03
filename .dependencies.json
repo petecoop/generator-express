@@ -19,7 +19,6 @@
   "pg": "^4.4.1",
   "pg-hstore": "2.3.2",
   "sqlite3": "^3.0.5",
-
   "grunt": "^0.4.5",
   "grunt-develop": "^0.4.0",
   "grunt-contrib-sass": "^0.9.2",
@@ -38,5 +37,6 @@
   "gulp-nodemon": "^2.0.2",
   "gulp-livereload": "^3.8.0",
   "gulp-plumber": "^1.0.0",
-  "coffee-script": "^1.9.1"
+  "coffee-script": "^1.9.1",
+  "typescript": "^1.5.0-beta"
 }

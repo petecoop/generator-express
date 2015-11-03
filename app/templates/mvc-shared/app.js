@@ -1,4 +1,5 @@
 <% if(options.coffee){ %>require('coffee-script/register');<% } %>
+<% if(options.typescript){ %>require('typescript-node/register');<% } %>
 
 var express = require('express'),
   config = require('./config/config')<% if(options.database == 'none'){ %>;<% } %><% if(options.database == 'mongodb'){ %>,

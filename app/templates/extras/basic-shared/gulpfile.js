@@ -54,7 +54,7 @@ gulp.task('develop', function () {
   livereload.listen();
   nodemon({
     script: 'bin/www',
-    ext: 'js <%= options.viewEngine %> coffee',
+    ext: 'js <%= options.viewEngine %> coffee ts',
     stdout: false
   }).on('readable', function () {
     this.stdout.on('data', function (chunk) {

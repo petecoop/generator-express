@@ -14,6 +14,8 @@ module.exports = generators.Base.extend({
     this.option('skip-install');
 
     this.slugify = slugify;
+
+    this.options.typescript = this.options.ts || this.options.typescript;
   },
   prompting: {
     dir: function () {
@@ -189,9 +191,16 @@ module.exports = generators.Base.extend({
       }
 
       var name = this.options.mvc ? 'mvc' : 'basic';
-      var suffix = this.options.coffee ? '-coffee' : '';
+      var suffix = '';
       this.filetype = 'js';
-      if(this.options.coffee) this.filetype = 'coffee';
+      if (this.options.coffee) {
+        suffix = '-coffee';
+        this.filetype = 'coffee';
+      }
+      if (this.options.typescript) {
+        suffix = '-typescript';
+        this.filetype = 'ts';
+      }
 
       // shared across all generators
       this.sourceRoot(path.join(__dirname, 'templates', 'shared'));
@@ -248,6 +257,10 @@ module.exports = generators.Base.extend({
       if (this.options.database === 'rethinkdb') {
         this.copy(path.join(__dirname, 'templates', 'extras', name + suffix, 'thinky-model-index.' + this.filetype), 'app/models/index.' + this.filetype);
         this.copy(path.join(__dirname, 'templates', 'extras', name + suffix, 'thinky-config.' + this.filetype), 'config/thinky.' + this.filetype);
+      }
+
+      if (this.options.typescript) {
+        this.copy(path.join(__dirname, 'templates', 'extras', 'typescript', 'tsconfig.json'), 'tsconfig.json');
       }
 
     },

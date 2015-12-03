@@ -190,8 +190,7 @@ module.exports = generators.Base.extend({
 
       var name = this.options.mvc ? 'mvc' : 'basic';
       var suffix = this.options.coffee ? '-coffee' : '';
-      this.filetype = 'js';
-      if(this.options.coffee) this.filetype = 'coffee';
+      this.filetype = this.options.coffee ? 'coffee' : 'js';
 
       // shared across all generators
       this.sourceRoot(path.join(__dirname, 'templates', 'shared'));

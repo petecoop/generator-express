@@ -30,7 +30,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "glob": "^6.0.4",
+    "glob": "^7.0.0",
     "mkdirp": "^0.5.0",
     "underscore.string": "^3.0.3",
     "yeoman-generator": "^0.22.5"

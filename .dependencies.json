@@ -12,7 +12,7 @@
   "express-handlebars": "^3.0.0",
   "compression": "^1.5.2",
   "method-override": "^2.3.0",
-  "glob": "^6.0.4",
+  "glob": "^7.0.0",
   "mongoose": "^4.1.2",
   "sequelize": "^3.5.1",
   "mysql": "^2.8.0",

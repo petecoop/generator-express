@@ -16,7 +16,7 @@ mongoose.model 'Article', ArticleSchema<% } %>
 <% if(options.database == 'mysql' || options.database == 'postgresql' || options.database == 'sqlite'){ %>
 module.exports = (sequelize, DataTypes) ->
 
-  Article = sequelize.define 'Article',
+  sequelize.define 'Article',
     title: DataTypes.STRING,
     url: DataTypes.STRING,
     text: DataTypes.STRING

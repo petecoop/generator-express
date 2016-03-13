@@ -13,7 +13,7 @@ nunjucks = require 'nunjucks'<% } %>
 
 module.exports = (app, config) ->
   env = process.env.NODE_ENV || 'development'
-  app.locals.ENV = env;
+  app.locals.ENV = env
   app.locals.ENV_DEVELOPMENT = env == 'development'
   <% if(options.viewEngine == 'swig'){ %>
   app.engine 'swig', swig.renderFile
@@ -31,7 +31,7 @@ module.exports = (app, config) ->
     autoescape: true
     express: app<% } %>
 
-  # app.use(favicon(config.root + '/public/img/favicon.ico'));
+  # app.use(favicon(config.root + '/public/img/favicon.ico'))
   app.use logger 'dev'
   app.use bodyParser.json()
   app.use bodyParser.urlencoded(
@@ -44,7 +44,7 @@ module.exports = (app, config) ->
 
   controllers = glob.sync config.root + '/app/controllers/**/*.coffee'
   controllers.forEach (controller) ->
-    require(controller)(app);
+    require(controller)(app)
 
   # catch 404 and forward to error handler
   app.use (req, res, next) ->
@@ -59,7 +59,7 @@ module.exports = (app, config) ->
   <% if(options.viewEngine == 'marko'){ %>
   errorTemplate = require('marko').load require.resolve '../app/views/error.marko'<% } %>
   if app.get('env') == 'development'
-    app.use (err, req, res, next) ->
+    app.use (err, req, res) ->
       res.status err.status || 500<% if(options.viewEngine == 'marko'){ %>
       errorTemplate.render
         message: err.message,
@@ -73,7 +73,7 @@ module.exports = (app, config) ->
 
   # production error handler
   # no stacktraces leaked to user
-  app.use (err, req, res, next) ->
+  app.use (err, req, res) ->
     res.status err.status || 500<% if(options.viewEngine == 'marko'){ %>
     errorTemplate.render
       message: err.message,

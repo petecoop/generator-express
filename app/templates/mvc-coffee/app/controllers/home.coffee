@@ -11,9 +11,12 @@ module.exports = (app) ->
   app.use '/', router
 <% if(options.viewEngine == 'marko'){ %>
 indexTemplate = marko.load require.resolve '../views/index.marko'<% } %>
-router.get '/', (req, res, next) -><% if(options.database == 'mongodb'){ %>
+<% if(options.database == 'mongodb'){ %>
+router.get '/', (req, res, next) ->
   Article.find (err, articles) ->
-    return next(err) if err<% } %><% if(options.database == 'mysql' || options.database == 'postgresql' || options.database == 'sqlite'){ %>
+    return next(err) if err<% } %>
+<% if(options.database == 'mysql' || options.database == 'postgresql' || options.database == 'sqlite'){ %>
+router.get '/', (req, res) ->
   db.Article.findAll().then (articles) -><% } %><% if(options.database == 'rethinkdb'){ %>
   Article.run().then (articles) -><% } %><% if(options.viewEngine == 'marko'){ %>
     indexTemplate.render

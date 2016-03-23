@@ -10,14 +10,16 @@ var swig = require('swig');<% } %><% if(options.viewEngine == 'handlebars'){ %>
 var exphbs  = require('express-handlebars');<% } %><% if(options.viewEngine == 'nunjucks'){ %>
 var nunjucks = require('nunjucks');<% } %>
 
+var bunyan = require('bunyan');
+
 module.exports = function(app, config) {
   var env = process.env.NODE_ENV || 'development';
   app.locals.ENV = env;
   app.locals.ENV_DEVELOPMENT = env == 'development';
 
-  GLOBAL.logger = bunyan.createLogger({
-    name: 'myapp',
-    level: (app.locals.ENV_DEVELOPMENT) ? 'debug' : 'info';
+  var logger = GLOBAL.logger = bunyan.createLogger({
+    name: config.app.name,
+    level: (app.locals.ENV_DEVELOPMENT) ? 'debug' : 'info'
   });
 
   <% if(options.viewEngine == 'swig'){ %>

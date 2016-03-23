@@ -2,7 +2,6 @@ var express = require('express');
 var glob = require('glob');
 
 var favicon = require('serve-favicon');
-var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var compress = require('compression');
@@ -15,6 +14,12 @@ module.exports = function(app, config) {
   var env = process.env.NODE_ENV || 'development';
   app.locals.ENV = env;
   app.locals.ENV_DEVELOPMENT = env == 'development';
+
+  GLOBAL.logger = bunyan.createLogger({
+    name: 'myapp',
+    level: (app.locals.ENV_DEVELOPMENT) ? 'debug' : 'info';
+  });
+
   <% if(options.viewEngine == 'swig'){ %>
   app.engine('swig', swig.renderFile);
   if(env == 'development'){
@@ -34,7 +39,7 @@ module.exports = function(app, config) {
   });<% } %>
 
   // app.use(favicon(config.root + '/public/img/favicon.ico'));
-  app.use(logger('dev'));
+  app.use(require('morgan')('dev'));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({
     extended: true

@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
   nodemon = require('gulp-nodemon'),
   plumber = require('gulp-plumber'),
+  spawn = require('child_process').spawn,
   livereload = require('gulp-livereload')<% if(options.cssPreprocessor == 'sass'){ %>,
   sass = require('gulp-ruby-sass')<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>,
   sass = require('gulp-sass')<% } %><% if(options.cssPreprocessor == 'less'){ %>,
@@ -52,6 +53,7 @@ gulp.task('watch', function() {
 
 gulp.task('develop', function () {
   livereload.listen();
+  var bunyan;
   nodemon({
     script: 'bin/www',
     ext: 'js <%= options.viewEngine %> coffee',
@@ -62,8 +64,17 @@ gulp.task('develop', function () {
         livereload.changed(__dirname);
       }
     });
-    this.stdout.pipe(process.stdout);
-    this.stderr.pipe(process.stderr);
+    bunyan && bunyan.kill()
+    bunyan = spawn('./node_modules/bunyan/bin/bunyan', [
+      '--output',
+      'short',
+      '--color',
+    ])
+    bunyan.stdout.pipe(process.stdout)
+    bunyan.stderr.pipe(process.stderr)
+
+    this.stdout.pipe(bunyan.stdin);
+    this.stderr.pipe(bunyan.stdin);
   });
 });
 

@@ -8,7 +8,7 @@ var config = {
     app: {
       name: '<%= slugify(appname) %>'
     },
-    port: 3000,<% if(options.database == 'mongodb'){ %>
+    port: process.env.PORT || 3000,<% if(options.database == 'mongodb'){ %>
     db: 'mongodb://localhost/<%= slugify(appname) %>-development'<% } %><% if(options.database == 'mysql'){ %>
     db: 'mysql://localhost/<%= slugify(appname) %>-development'<% } %><% if(options.database == 'postgresql'){ %>
     db: 'postgres://localhost/<%= slugify(appname) %>-development'<% } %><% if(options.database == 'sqlite'){ %>
@@ -22,7 +22,7 @@ var config = {
     app: {
       name: '<%= slugify(appname) %>'
     },
-    port: 3000,<% if(options.database == 'mongodb'){ %>
+    port: process.env.PORT || 3000,<% if(options.database == 'mongodb'){ %>
     db: 'mongodb://localhost/<%= slugify(appname) %>-test'<% } %><% if(options.database == 'mysql'){ %>
     db: 'mysql://localhost/<%= slugify(appname) %>-test'<% } %><% if(options.database == 'postgresql'){ %>
     db: 'postgres://localhost/<%= slugify(appname) %>-test'<% } %><% if(options.database == 'sqlite'){ %>
@@ -36,7 +36,7 @@ var config = {
     app: {
       name: '<%= slugify(appname) %>'
     },
-    port: 3000,<% if(options.database == 'mongodb'){ %>
+    port: process.env.PORT || 3000,<% if(options.database == 'mongodb'){ %>
     db: 'mongodb://localhost/<%= slugify(appname) %>-production'<% } %><% if(options.database == 'mysql'){ %>
     db: 'mysql://localhost/<%= slugify(appname) %>-production'<% } %><% if(options.database == 'sqlite'){ %>
     db: 'sqlite://localhost/<%= slugify(appname) %>-production',

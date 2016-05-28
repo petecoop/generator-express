@@ -454,11 +454,9 @@ describe('Express generator', function () {
 
   describe('MVC generator with Marko', function () {
     var expected = [
-      'app/views/components/app-header/template.marko',
-      'app/views/components/app-footer/template.marko',
       'app/views/index.marko',
       'app/views/error.marko',
-      'app/views/marko-taglib.json'
+      'app/views/layout.marko'
     ];
 
     it('creates expected files', function (done) {

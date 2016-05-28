@@ -288,11 +288,9 @@ describe('Express generator', function () {
 
   describe('Basic generator with Marko', function () {
     var expected = [
-      'views/components/app-header/template.marko',
-      'views/components/app-footer/template.marko',
       'views/index.marko',
       'views/error.marko',
-      'views/marko-taglib.json'
+      'views/layout.marko'
     ];
 
     it('creates expected files', function (done) {

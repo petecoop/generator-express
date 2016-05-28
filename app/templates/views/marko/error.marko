@@ -1,7 +1,7 @@
-<app-header title="$data.title"></app-header>
-
-  $data.message
-  $data.error.status
-  $data.error.stack
-
-<app-footer></app-footer>
+<layout-use("./layout.marko")>
+  <layout-put into="body">
+    ${data.message}
+    ${data.error.status}
+    ${data.error.stack}
+  </layout-put>
+</layout-use>

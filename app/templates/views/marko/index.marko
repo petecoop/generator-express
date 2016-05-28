@@ -1,6 +1,6 @@
-<app-header title="$data.title"></app-header>
-
-  <h1>$data.title</h1>
-  <p>Welcome to $data.title</p>
-
-<app-footer></app-footer>
+<layout-use("./layout.marko")>
+  <layout-put into="body">
+    <h1>${data.title}</h1>
+    <p>Welcome to ${data.title}</p>
+  </layout-put>
+</layout-use>

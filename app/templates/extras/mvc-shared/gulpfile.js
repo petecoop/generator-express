@@ -54,7 +54,8 @@ gulp.task('develop', function () {
   livereload.listen();
   nodemon({
     script: 'app.js',
-    ext: 'js coffee <%= options.viewEngine %>',
+    ext: 'js coffee <%= options.viewEngine %>',<% if(options.viewEngine == 'marko'){ %>
+    ignore: '*.marko.js',<% } %>
     stdout: false
   }).on('readable', function () {
     this.stdout.on('data', function (chunk) {

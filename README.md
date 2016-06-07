@@ -13,12 +13,12 @@ An Expressjs generator for Yeoman, based on the express command line tool.
 - Gulp or Grunt build tools with file watching and livereload
 - .editorconfig for consistent coding styles within text editors
 - Support View engines:
-  - Jade
-  - Handlebars
-  - Swig
-  - EJS
-  - Marko
-  - Nunjucks
+  - [Jade](http://jade-lang.com/)
+  - [Handlebars](http://handlebarsjs.com/)
+  - [Swig](http://paularmstrong.github.io/swig/)
+  - [EJS](http://www.embeddedjs.com/)
+  - [Marko](http://markojs.com/)
+  - [Nunjucks](http://mozilla.github.io/nunjucks/)
 - Supported CSS pre-processors
   - SASS (both node-sass and ruby sass)
   - LESS

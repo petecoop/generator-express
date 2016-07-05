@@ -37,7 +37,9 @@
   },
   "devDependencies": {
     "mocha": "^2.1.0",
-    "rimraf": "^2.3.2"
+    "rimraf": "^2.3.2",
+    "yeoman-assert": "^2.2.1",
+    "yeoman-test": "^1.4.0"
   },
   "engines": {
     "node": ">=0.8.0"

@@ -1,9 +1,9 @@
 /*global describe, beforeEach, it*/
 'use strict';
 
-var assert  = require('yeoman-generator').assert;
+var assert  = require('yeoman-assert');
 var path    = require('path');
-var helpers = require('yeoman-generator').test;
+var helpers = require('yeoman-test');
 var rimraf  = require('rimraf');
 
 var basicExpected = [

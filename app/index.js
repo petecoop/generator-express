@@ -21,35 +21,30 @@ module.exports = generators.Base.extend({
       if (this.options.createDirectory !== undefined) {
         return true;
       }
-
-      var done = this.async();
+      
       var prompt = [{
         type: 'confirm',
         name: 'createDirectory',
         message: 'Would you like to create a new directory for your project?'
       }];
 
-      this.prompt(prompt, function (response) {
+      return this.prompt(prompt).then(function (response) {
         this.options.createDirectory = response.createDirectory;
-        done();
       }.bind(this));
     },
     dirname: function () {
-
       if (!this.options.createDirectory || this.options.dirname) {
         return true;
       }
 
-      var done = this.async();
       var prompt = [{
         type: 'input',
         name: 'dirname',
         message: 'Enter directory name'
       }];
 
-      this.prompt(prompt, function (response) {
+      return this.prompt(prompt).then(function (response) {
         this.options.dirname = response.dirname;
-        done();
       }.bind(this));
     },
     type: function () {
@@ -58,7 +53,6 @@ module.exports = generators.Base.extend({
         return true;
       }
 
-      var done = this.async();
       var prompt = [{
         type: 'list',
         name: 'type',
@@ -70,9 +64,8 @@ module.exports = generators.Base.extend({
         store: true
       }];
 
-      this.prompt(prompt, function (responses) {
+      return this.prompt(prompt).then(function (responses) {
         this.options.mvc = responses.type.match(/^MVC$/i) !== null;
-        done();
       }.bind(this));
     },
     viewEngine: function () {
@@ -81,7 +74,6 @@ module.exports = generators.Base.extend({
         return true;
       }
 
-      var done = this.async();
       var prompt = [{
         type: 'list',
         name: 'viewEngine',
@@ -97,9 +89,8 @@ module.exports = generators.Base.extend({
         store: true
       }];
 
-      this.prompt(prompt, function (response) {
+      return this.prompt(prompt).then(function (response) {
         this.options.viewEngine = response.viewEngine.toLowerCase();
-        done();
       }.bind(this));
     },
     cssPreprocessor: function () {
@@ -108,7 +99,6 @@ module.exports = generators.Base.extend({
         return true;
       }
 
-      var done = this.async();
       var prompt = [{
         type: 'list',
         name: 'cssPreprocessor',
@@ -123,9 +113,8 @@ module.exports = generators.Base.extend({
         store: true
       }];
 
-      this.prompt(prompt, function (response) {
+      return this.prompt(prompt).then(function (response) {
         this.options.cssPreprocessor = response.cssPreprocessor.toLowerCase();
-        done();
       }.bind(this));
     },
     database: function () {
@@ -134,7 +123,6 @@ module.exports = generators.Base.extend({
         return true;
       }
 
-      var done = this.async();
       var prompt = [{
         type: 'list',
         name: 'database',
@@ -149,9 +137,9 @@ module.exports = generators.Base.extend({
         ],
         store: true
       }];
-      this.prompt(prompt, function (response) {
+
+      return this.prompt(prompt).then(function (response) {
         this.options.database = response.database.toLowerCase();
-        done();
       }.bind(this));
     },
     buildTool: function () {
@@ -160,7 +148,6 @@ module.exports = generators.Base.extend({
         return true;
       }
 
-      var done = this.async();
       var prompt = [{
         type: 'list',
         name: 'buildTool',
@@ -172,9 +159,8 @@ module.exports = generators.Base.extend({
         store: true
       }];
 
-      this.prompt(prompt, function (response) {
+      return this.prompt(prompt).then(function (response) {
         this.options.buildTool = response.buildTool.toLowerCase();
-        done();
       }.bind(this));
 
     }

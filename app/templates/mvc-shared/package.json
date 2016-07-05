@@ -18,7 +18,7 @@
     "sequelize": "^3.5.1",
     "mysql": "^2.8.0"<% } %><% if(options.database == 'postgresql'){ %>,
     "sequelize": "^3.5.1",
-    "pg": "^4.4.1",
+    "pg": "^6.0.1",
     "pg-hstore": "2.3.2"<% } %><% if(options.database == 'sqlite'){ %>,
     "sequelize": "^3.5.1",
     "sqlite3": "^3.0.5"<% } %><% if(options.database == 'rethinkdb'){ %>,

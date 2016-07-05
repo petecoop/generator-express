@@ -1,3 +1,4 @@
 node_modules/
 public/components
-.sass-cache
+.sass-cache<% if(options.viewEngine == 'marko'){ %>
+*.marko.js<% } %>

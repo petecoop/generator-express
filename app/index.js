@@ -21,7 +21,7 @@ module.exports = generators.Base.extend({
       if (this.options.createDirectory !== undefined) {
         return true;
       }
-      
+
       var prompt = [{
         type: 'confirm',
         name: 'createDirectory',
@@ -79,7 +79,7 @@ module.exports = generators.Base.extend({
         name: 'viewEngine',
         message: 'Select a view engine to use:',
         choices: [
-          'Jade',
+          'Pug',
           'Swig',
           'EJS',
           'Handlebars',

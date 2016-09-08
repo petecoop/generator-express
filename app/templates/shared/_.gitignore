@@ -1,4 +1,5 @@
 node_modules/
 public/components
+.nyc_output
 .sass-cache<% if(options.viewEngine == 'marko'){ %>
 *.marko.js<% } %>

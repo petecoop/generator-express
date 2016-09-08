@@ -2,10 +2,16 @@
   "name": "<%= slugify(appname) %>",
   "version": "0.0.1",
   "private": true,
+  "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "NODE_ENV=test mocha --recursive test",
+    "test:coverage": "nyc npm test",
+    "test:unit": "mocha --recursive test/middleware test/models test/routes",
+    "test:integration": "mocha --recursive test/integration"
   },
   "dependencies": {
+    "debug": "^2.2.0",
     "express": "^4.13.3",
     "serve-favicon": "^2.3.0",
     "morgan": "^1.6.1",
@@ -30,7 +36,8 @@
     "marko": "^3.4.2"<% } %><% if (options.viewEngine == 'nunjucks'){ %>,
     "nunjucks": "^2.0.0"<% } %>
   },
-  "devDependencies": {<% if(options.coffee){ %>
+  "devDependencies": {
+    "chai": "^3.5.0"<% if(options.coffee){ %>
     "coffee-script": "^1.9.1",<% } %><% if(options.buildTool == 'grunt'){ %>
     "grunt": "^1.0.1",
     "grunt-develop": "^0.4.0"<% if(options.cssPreprocessor == 'sass'){ %>,
@@ -41,7 +48,7 @@
     "grunt-contrib-watch": "^1.0.0",
     "request": "^2.60.0",
     "time-grunt": "^1.2.1",
-    "load-grunt-tasks": "^3.2.0"<% } %><% if(options.buildTool == 'gulp'){ %>
+    "load-grunt-tasks": "^3.2.0"<% } %><% if(options.buildTool == 'gulp'){ %>,
     "gulp": "^3.9.0"<% if(options.cssPreprocessor == 'sass'){ %>,
     "gulp-ruby-sass": "^2.0.1"<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>,
     "gulp-sass": "^2.0.4"<% } %><% if(options.cssPreprocessor == 'less'){ %>,
@@ -49,6 +56,9 @@
     "gulp-stylus": "^2.0.0"<% } %>,
     "gulp-nodemon": "^2.0.2",
     "gulp-livereload": "^3.8.0",
-    "gulp-plumber": "^1.0.0"<% } %>
+    "gulp-plumber": "^1.0.0"<% } %>,
+    "mocha": "^3.0.2",
+    "nyc": "^8.1.0",
+    "supertest": "^2.0.0"
   }
 }

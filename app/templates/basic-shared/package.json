@@ -1,22 +1,31 @@
 {
   "name": "<%= slugify(appname) %>",
   "version": "0.0.1",
+  "description": "",
+  "keywords": "",
+  "repository": "",
+  "homepage": "",
+  "bugs": "",
+  "license": "MIT",
+  "author": "",
+  "contributors": "",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
   },
+  "main": "app.js",
   "dependencies": {
-    "express": "^4.13.3",
-    "serve-favicon": "^2.3.0",
-    "morgan": "^1.6.1",
-    "cookie-parser": "^1.3.3",
-    "body-parser": "^1.13.3"<% if(options.viewEngine == 'jade'){ %>,
-    "jade": "^1.11.0"<% } %><% if(options.viewEngine == 'ejs'){ %>,
-    "ejs": "^2.3.1"<% } %><% if(options.viewEngine == 'swig'){ %>,
-    "swig": "^1.4.2"<% } %><% if(options.viewEngine == 'handlebars'){ %>,
-    "express-handlebars": "^3.0.0"<% } %><% if(options.viewEngine == 'marko'){ %>,
-    "marko": "^3.4.2"<% } %><% if (options.viewEngine == 'nunjucks'){ %>,
-    "nunjucks": "^2.0.0"<% } %>
+    "body-parser": "^1.13.3",
+    "cookie-parser": "^1.3.3"<% if(options.viewEngine == 'ejs'){ %>,
+    "ejs": "^2.3.1"<% } %>,
+    "express": "^4.13.3"<% if(options.viewEngine == 'handlebars'){ %>,
+    "express-handlebars": "^3.0.0"<% } %><% if(options.viewEngine == 'jade'){ %>,
+    "jade": "^1.11.0"<% } %><% if(options.viewEngine == 'marko'){ %>,
+    "marko": "^3.4.2"<% } %>,
+    "morgan": "^1.6.1"<% if (options.viewEngine == 'nunjucks'){ %>,
+    "nunjucks": "^2.0.0",
+    "serve-favicon": "^2.3.0"<% } %><% if(options.viewEngine == 'swig'){ %>,
+    "swig": "^1.4.2"<% } %>
   },
   "devDependencies": {<% if(options.coffee){ %>
     "coffee-script": "^1.9.1",<% } %><% if(options.buildTool == 'grunt'){ %>
@@ -26,10 +35,7 @@
     "grunt-sass": "^1.0.0"<% } %><% if(options.cssPreprocessor == 'less'){ %>,
     "grunt-contrib-less": "^1.0.0"<% } %><% if(options.cssPreprocessor == 'stylus'){ %>,
     "grunt-contrib-stylus": "^1.0.0"<% } %>,
-    "grunt-contrib-watch": "^1.0.0",
-    "request": "^2.60.0",
-    "time-grunt": "^1.2.1",
-    "load-grunt-tasks": "^3.2.0"<% } %><% if(options.buildTool == 'gulp'){ %>
+    "grunt-contrib-watch": "^1.0.0"<% } %><% if(options.buildTool == 'gulp'){ %>
     "gulp": "^3.9.0"<% if(options.cssPreprocessor == 'sass'){ %>,
     "gulp-ruby-sass": "^2.0.1"<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>,
     "gulp-sass": "^2.0.4"<% } %><% if(options.cssPreprocessor == 'less'){ %>,
@@ -37,6 +43,9 @@
     "gulp-stylus": "^2.0.0"<% } %>,
     "gulp-nodemon": "^2.0.2",
     "gulp-livereload": "^3.8.0",
-    "gulp-plumber": "^1.0.0"<% } %>
+    "gulp-plumber": "^1.0.0"<% } %><% if(options.buildTool == 'grunt'){ %>,
+    "load-grunt-tasks": "^3.2.0"<% } %>,
+    "request": "^2.60.0",
+    "time-grunt": "^1.2.1"
   }
 }

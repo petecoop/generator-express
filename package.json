@@ -33,7 +33,7 @@
     "glob": "^7.0.0",
     "mkdirp": "^0.5.0",
     "underscore.string": "^3.0.3",
-    "yeoman-generator": "^0.23.4"
+    "yeoman-generator": "^0.24.1"
   },
   "devDependencies": {
     "mocha": "^2.1.0",

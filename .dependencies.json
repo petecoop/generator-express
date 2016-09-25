@@ -19,6 +19,7 @@
   "pg": "^6.0.1",
   "pg-hstore": "2.3.2",
   "sqlite3": "^3.0.5",
+  "thinky": "^2.3.6",
 
   "grunt": "^1.0.1",
   "grunt-develop": "^0.4.0",

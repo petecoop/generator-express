@@ -5,6 +5,7 @@ var generators = require('yeoman-generator');
 var glob = require('glob');
 var slugify = require('underscore.string/slugify');
 var mkdirp = require('mkdirp');
+var spawn = require('cross-spawn');
 
 module.exports = generators.Base.extend({
   constructor: function () {
@@ -21,7 +22,7 @@ module.exports = generators.Base.extend({
       if (this.options.createDirectory !== undefined) {
         return true;
       }
-      
+
       var prompt = [{
         type: 'confirm',
         name: 'createDirectory',
@@ -247,7 +248,13 @@ module.exports = generators.Base.extend({
       }
     }
   },
-  install: function () {
-    if(!this.options['skip-install']) this.installDependencies();
+  install: function() {
+    if (!this.options['skip-install']) {
+      return this.installDependencies(function() {
+        return spawn('npm', ['run', 'test:coverage'], {
+          stdio: 'inherit'
+        });
+      });
+    }
   }
 });

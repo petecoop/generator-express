@@ -260,12 +260,6 @@ module.exports = generators.Base.extend({
     }
   },
   install: function () {
-    if (!this.options['skip-install']) {
-      return this.installDependencies(function () {
-        return spawn('npm', ['run', 'test:coverage'], {
-          stdio: 'inherit'
-        });
-      });
-    }
+    if (!this.options['skip-install']) this.installDependencies();
   }
 });

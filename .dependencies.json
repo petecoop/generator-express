@@ -21,6 +21,7 @@
   "sqlite3": "^3.0.5",
   "thinky": "^2.3.6",
 
+  "debug": "^2.2.0",
   "grunt": "^1.0.1",
   "grunt-develop": "^0.4.0",
   "grunt-contrib-sass": "^1.0.0",
@@ -39,5 +40,8 @@
   "gulp-nodemon": "^2.0.2",
   "gulp-livereload": "^3.8.0",
   "gulp-plumber": "^1.0.0",
-  "coffee-script": "^1.9.1"
+  "coffee-script": "^1.9.1",
+  "mocha": "^3.0.2",
+  "nyc": "^8.1.0",
+  "supertest": "^2.0.0"
 }

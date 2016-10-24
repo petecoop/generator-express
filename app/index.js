@@ -189,7 +189,18 @@ module.exports = generators.Base.extend({
       // shared for mvc/basic generators
       this.sourceRoot(path.join(__dirname, 'templates', name + '-shared'));
       this.directory('.', '.');
-
+      
+      // mvc tests
+      var supported = [
+        'mysql',
+        'postgresql',
+        'rethinkdb',
+        'sqlite'
+      ];
+      if (this.options.mvc && supported.indexOf(this.options.database) !== -1) {
+        this.sourceRoot(path.join(__dirname, 'templates', 'mvc-test'));
+        this.directory('.', 'test');
+      }
 
       // templates
       this.sourceRoot(path.join(__dirname, 'templates', name + suffix));
@@ -248,9 +259,9 @@ module.exports = generators.Base.extend({
       }
     }
   },
-  install: function() {
+  install: function () {
     if (!this.options['skip-install']) {
-      return this.installDependencies(function() {
+      return this.installDependencies(function () {
         return spawn('npm', ['run', 'test:coverage'], {
           stdio: 'inherit'
         });

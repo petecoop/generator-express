@@ -29,8 +29,8 @@
   "scripts": {
     "test": "mocha",
     "test:generate": "npm link && npm run test:generate:basic && npm run test:generate:mvc",
-    "test:generate:basic": "mkdir temp; cd temp && yo express --createDirectory true --dirname one --basic true --viewEngine handlebars --cssPreprocessor None --buildTool gulp && cd one && npm run test:coverage",
-    "test:generate:mvc": "mkdir temp; cd temp && yo express --createDirectory true --dirname two --mvc true --viewEngine handlebars --cssPreprocessor None --database sqlite --buildTool gulp && cd two && npm run test:coverage"
+    "test:generate:basic": "mkdir temp; cd temp && yo express --createDirectory true --dirname one --basic true --viewEngine handlebars --cssPreprocessor css --buildTool gulp && cd one && npm run test:coverage",
+    "test:generate:mvc": "mkdir temp; cd temp && yo express --createDirectory true --dirname two --mvc true --viewEngine handlebars --cssPreprocessor css --database sqlite --buildTool gulp && cd two && npm run test:coverage"
   },
   "dependencies": {
     "glob": "^7.0.0",

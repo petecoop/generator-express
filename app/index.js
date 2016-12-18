@@ -1,13 +1,13 @@
 'use strict';
 var path = require('path');
-var generators = require('yeoman-generator');
+var Generator = require('yeoman-generator');
 var glob = require('glob');
 var slugify = require('underscore.string/slugify');
 var mkdirp = require('mkdirp');
 
-module.exports = generators.Base.extend({
+module.exports = Generator.extend({
   constructor: function () {
-    generators.Base.apply(this, arguments);
+    Generator.apply(this, arguments);
 
     // add option to skip install
     this.option('skip-install');
@@ -180,13 +180,13 @@ module.exports = generators.Base.extend({
       // shared across all generators
       this.sourceRoot(path.join(__dirname, 'templates', 'shared'));
       glob.sync('**', { cwd: this.sourceRoot() }).map(function (file) {
-        this.template(file, file.replace(/^_/, ''));
+        this.fs.copyTpl(this.templatePath(file), this.destinationPath(file.replace(/^_/, '')), this);
       }, this);
 
 
       // shared for mvc/basic generators
       this.sourceRoot(path.join(__dirname, 'templates', name + '-shared'));
-      this.directory('.', '.');
+      this.fs.copyTpl(this.templatePath('.'), this.destinationPath('.'), this);
 
       // mvc tests
       var supported = [
@@ -197,27 +197,27 @@ module.exports = generators.Base.extend({
       ];
       if (this.options.mvc && supported.indexOf(this.options.database) !== -1) {
         this.sourceRoot(path.join(__dirname, 'templates', 'mvc-test'));
-        this.directory('.', 'test');
+        this.fs.copyTpl(this.templatePath('.'), this.destinationPath('test'), this);
       }
 
       // templates
       this.sourceRoot(path.join(__dirname, 'templates', name + suffix));
-      this.directory('.', '.');
+      this.fs.copyTpl(this.templatePath('.'), this.destinationPath('.'), this);
 
       // views
       var views = this.options.viewEngine;
       this.sourceRoot(path.join(__dirname, 'templates', 'views', views));
       if (this.options.mvc) {
         if (this.options.viewEngine == 'ejs') {
-          this.bulkDirectory('.', 'app/views');
+          this.fs.copy(this.templatePath('.'), this.destinationPath('app/views'));
         } else {
-          this.directory('.', 'app/views');
+          this.fs.copyTpl(this.templatePath('.'), this.destinationPath('app/views'), this);
         }
       } else {
         if (this.options.viewEngine == 'ejs') {
-          this.bulkDirectory('.', 'views');
+          this.fs.copy(this.templatePath('.'), this.destinationPath('views'));
         } else {
-          this.directory('.', 'views');
+          this.fs.copyTpl(this.templatePath('.'), this.destinationPath('views'), this);
         }
       }
 
@@ -226,23 +226,23 @@ module.exports = generators.Base.extend({
       if(stylesheets === 'none') stylesheets = 'css';
       if(stylesheets === 'node-sass') stylesheets = 'sass';
       this.sourceRoot(path.join(__dirname, 'templates', 'css', stylesheets));
-      this.directory('.', 'public/css');
+      this.fs.copyTpl(this.templatePath('.'), this.destinationPath('public/css'), this);
 
       // grunt/gulp
       var buildFile = this.options.buildTool === 'grunt' ? 'Gruntfile.js' : 'gulpfile.js';
-      this.copy(path.join(__dirname, 'templates', 'extras', name + '-shared', buildFile), buildFile);
+      this.fs.copy(this.templatePath(path.join(__dirname, 'templates', 'extras', name + '-shared', buildFile)), this.destinationPath(buildFile));
 
       // sequelize extra stuff
       if (this.options.database === 'mysql' ||
           this.options.database === 'postgresql' ||
           this.options.database === 'sqlite') {
-        this.copy(path.join(__dirname, 'templates', 'extras', name + suffix, 'sequelize-model-index.' + this.filetype), 'app/models/index.' + this.filetype);
+        this.fs.copy(this.templatePath(path.join(__dirname, 'templates', 'extras', name + suffix, 'sequelize-model-index.' + this.filetype)), this.destinationPath('app/models/index.' + this.filetype));
       }
 
       //thinky extra stuff
       if (this.options.database === 'rethinkdb') {
-        this.copy(path.join(__dirname, 'templates', 'extras', name + suffix, 'thinky-model-index.' + this.filetype), 'app/models/index.' + this.filetype);
-        this.copy(path.join(__dirname, 'templates', 'extras', name + suffix, 'thinky-config.' + this.filetype), 'config/thinky.' + this.filetype);
+        this.fs.copy(this.templatePath(path.join(__dirname, 'templates', 'extras', name + suffix, 'thinky-model-index.' + this.filetype)), this.destinationPath('app/models/index.' + this.filetype));
+        this.fs.copy(this.templatePath(path.join(__dirname, 'templates', 'extras', name + suffix, 'thinky-config.' + this.filetype)), this.destinationPath('config/thinky.' + this.filetype));
       }
 
     },

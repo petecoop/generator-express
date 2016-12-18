@@ -21,7 +21,7 @@
     "swig": "^1.4.2"<% } %><% if(options.viewEngine == 'handlebars'){ %>,
     "express-handlebars": "^3.0.0"<% } %><% if(options.viewEngine == 'marko'){ %>,
     "marko": "^3.4.2"<% } %><% if (options.viewEngine == 'nunjucks'){ %>,
-    "nunjucks": "^2.0.0"<% } %>
+    "nunjucks": "^3.0.0"<% } %>
   },
   "devDependencies": {
     "chai": "^3.5.0",<% if(options.coffee){ %>
@@ -30,7 +30,7 @@
     "grunt": "^1.0.1",
     "grunt-develop": "^0.4.0",<% if(options.cssPreprocessor == 'sass'){ %>
     "grunt-contrib-sass": "^1.0.0",<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>
-    "grunt-sass": "^1.0.0",<% } %><% if(options.cssPreprocessor == 'less'){ %>
+    "grunt-sass": "^2.0.0",<% } %><% if(options.cssPreprocessor == 'less'){ %>
     "grunt-contrib-less": "^1.0.0",<% } %><% if(options.cssPreprocessor == 'stylus'){ %>
     "grunt-contrib-stylus": "^1.0.0",<% } %>
     "grunt-contrib-watch": "^1.0.0",
@@ -39,7 +39,7 @@
     "load-grunt-tasks": "^3.2.0",<% } %><% if(options.buildTool == 'gulp'){ %>
     "gulp": "^3.9.0",<% if(options.cssPreprocessor == 'sass'){ %>
     "gulp-ruby-sass": "^2.0.1",<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>
-    "gulp-sass": "^2.0.4",<% } %><% if(options.cssPreprocessor == 'less'){ %>
+    "gulp-sass": "^3.0.0",<% } %><% if(options.cssPreprocessor == 'less'){ %>
     "gulp-less": "^3.0.1",<% } %><% if(options.cssPreprocessor == 'stylus'){ %>
     "gulp-stylus": "^2.0.0",<% } %>
     "gulp-nodemon": "^2.0.2",

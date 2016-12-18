@@ -1,11 +1,9 @@
 'use strict';
-var util = require('util');
 var path = require('path');
 var generators = require('yeoman-generator');
 var glob = require('glob');
 var slugify = require('underscore.string/slugify');
 var mkdirp = require('mkdirp');
-var spawn = require('cross-spawn');
 
 module.exports = generators.Base.extend({
   constructor: function () {
@@ -189,7 +187,7 @@ module.exports = generators.Base.extend({
       // shared for mvc/basic generators
       this.sourceRoot(path.join(__dirname, 'templates', name + '-shared'));
       this.directory('.', '.');
-      
+
       // mvc tests
       var supported = [
         'mysql',

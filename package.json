@@ -33,11 +33,10 @@
     "test:generate:mvc": "mkdir temp; cd temp && yo express --createDirectory true --dirname two --mvc true --viewEngine handlebars --cssPreprocessor None --database sqlite --buildTool gulp && cd two && npm run test:coverage"
   },
   "dependencies": {
-    "cross-spawn": "^4.0.2",
     "glob": "^7.0.0",
     "mkdirp": "^0.5.0",
     "underscore.string": "^3.0.3",
-    "yeoman-generator": "^0.24.1"
+    "yeoman-generator": "^1.0.0"
   },
   "devDependencies": {
     "mocha": "^2.1.0",

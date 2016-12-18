@@ -230,19 +230,19 @@ module.exports = Generator.extend({
 
       // grunt/gulp
       var buildFile = this.options.buildTool === 'grunt' ? 'Gruntfile.js' : 'gulpfile.js';
-      this.fs.copy(this.templatePath(path.join(__dirname, 'templates', 'extras', name + '-shared', buildFile)), this.destinationPath(buildFile));
+      this.fs.copyTpl(this.templatePath(path.join(__dirname, 'templates', 'extras', name + '-shared', buildFile)), this.destinationPath(buildFile), this);
 
       // sequelize extra stuff
       if (this.options.database === 'mysql' ||
           this.options.database === 'postgresql' ||
           this.options.database === 'sqlite') {
-        this.fs.copy(this.templatePath(path.join(__dirname, 'templates', 'extras', name + suffix, 'sequelize-model-index.' + this.filetype)), this.destinationPath('app/models/index.' + this.filetype));
+        this.fs.copyTpl(this.templatePath(path.join(__dirname, 'templates', 'extras', name + suffix, 'sequelize-model-index.' + this.filetype)), this.destinationPath('app/models/index.' + this.filetype), this);
       }
 
       //thinky extra stuff
       if (this.options.database === 'rethinkdb') {
-        this.fs.copy(this.templatePath(path.join(__dirname, 'templates', 'extras', name + suffix, 'thinky-model-index.' + this.filetype)), this.destinationPath('app/models/index.' + this.filetype));
-        this.fs.copy(this.templatePath(path.join(__dirname, 'templates', 'extras', name + suffix, 'thinky-config.' + this.filetype)), this.destinationPath('config/thinky.' + this.filetype));
+        this.fs.copyTpl(this.templatePath(path.join(__dirname, 'templates', 'extras', name + suffix, 'thinky-model-index.' + this.filetype)), this.destinationPath('app/models/index.' + this.filetype), this);
+        this.fs.copyTpl(this.templatePath(path.join(__dirname, 'templates', 'extras', name + suffix, 'thinky-config.' + this.filetype)), this.destinationPath('config/thinky.' + this.filetype), this);
       }
 
     },

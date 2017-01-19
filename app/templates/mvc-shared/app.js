@@ -18,16 +18,18 @@ models.forEach(function (model) {
 });<% } %>
 var app = express();
 
-require('./config/express')(app, config);
+module.exports = require('./config/express')(app, config);
 <% if(options.database == 'mysql' ||
   options.database == 'postgresql' ||
   options.database == 'sqlite'){ %>
 db.sequelize
   .sync()
   .then(function () {
-    app.listen(config.port, function () {
-      console.log('Express server listening on port ' + config.port);
-    });
+    if (!module.parent) {
+      app.listen(config.port, function () {
+        console.log('Express server listening on port ' + config.port);
+      });
+    }
   }).catch(function (e) {
     throw new Error(e);
   });

@@ -4,7 +4,16 @@ node_js:
   - "4"
   - "5"
   - "6"
+  - "7"
 sudo: false
 cache:
   directories:
     - node_modules
+    - $(npm config get prefix)/bin/yo
+    - temp/one/node_modules
+    - temp/two/node_modules
+before_script:
+  - npm install -g yo
+script:
+  - npm run test
+  - npm run test:generate

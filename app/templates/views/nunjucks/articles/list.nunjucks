@@ -1,0 +1,12 @@
+{% extends 'layout.nunjucks' %}
+
+{% block content %}
+  <h1>{{ title }}</h1>
+  <ul>
+  {% for article in articles %}
+    <li><a href="/articles/{{ article._id }}">{{ article.title }}</li>
+  {% else %}
+    <li>No articles yet.</li>
+  {% endfor %}
+  </ul>
+{% endblock %}

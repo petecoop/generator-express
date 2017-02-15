@@ -1,0 +1,11 @@
+<layout-use("./../layout.marko")>
+  <layout-put into="body">
+    <h1>${title}</h1>
+    <ul>
+      <li for(article in articles)>
+        <a href="/articles/${article.id}">
+          ${article.title}
+        </a>
+    </ul>
+  </layout-put>
+</layout-use>

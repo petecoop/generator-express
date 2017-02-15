@@ -303,7 +303,9 @@ describe('Express generator', function () {
     var expected = [
       'app/views/layout.jade',
       'app/views/error.jade',
-      'app/views/index.jade'
+      'app/views/index.jade',
+      'app/views/articles/list.jade',
+      'app/views/articles/view.jade',
     ];
     it('creates expected files', function (done) {
       runGenerationTest.call(this, expected, 'mvc', 'jade', 'none', false, 'none', 'grunt', done);
@@ -420,6 +422,8 @@ describe('Express generator', function () {
       'app/views/index.swig',
       'app/views/layout.swig',
       'app/views/error.swig',
+      'app/views/articles/view.swig',
+      'app/views/articles/list.swig',
     ];
 
     it('creates expected files', function (done) {
@@ -432,6 +436,8 @@ describe('Express generator', function () {
       'app/views/index.nunjucks',
       'app/views/layout.nunjucks',
       'app/views/error.nunjucks',
+      'app/views/articles/view.nunjucks',
+      'app/views/articles/list.nunjucks',
     ];
 
     it('creates expected files', function (done) {
@@ -445,6 +451,8 @@ describe('Express generator', function () {
       'app/views/partials/welcome.handlebars',
       'app/views/index.handlebars',
       'app/views/error.handlebars',
+      'app/views/articles/view.handlebars',
+      'app/views/articles/list.handlebars',
     ];
 
     it('creates expected files', function (done) {
@@ -456,7 +464,9 @@ describe('Express generator', function () {
     var expected = [
       'app/views/index.marko',
       'app/views/error.marko',
-      'app/views/layout.marko'
+      'app/views/layout.marko',
+      'app/views/articles/view.marko',
+      'app/views/articles/list.marko',
     ];
 
     it('creates expected files', function (done) {

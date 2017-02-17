@@ -35,11 +35,11 @@ router.get('/', function (req, res, next) {<% if(options.database == 'mongodb'){
 <% if(options.viewEngine == 'marko'){ %>
 var indexTemplate = marko.load(require.resolve('../views/articles/view.marko'));<% } %>
 router.get('/:articleId', function (req, res, next) {<% if(options.database == 'mongodb'){ %>
-  Article.findOne({ '_id':  req.params.articleId }, function (err, article) {
+  Article.findById(req.params.articleId, function (err, article) {
     if (err) return next(err);<% } %>
     <% if(options.database == 'mysql' || options.database == 'postgresql' || options.database == 'sqlite'){ %>
   db.Article.findById(req.params.articleId).then(function (article) {<% } %><% if(options.database == 'rethinkdb'){ %>
-  Article.filter(r.row('id').eq(req.params.articleId)).run().then(function (article) {<% } %><% if(options.database == 'none'){ %>
+  Article.get(req.params.articleId).run().then(function (article) {<% } %><% if(options.database == 'none'){ %>
   var articles = [new Article(), new Article()];<% } %><% if(options.viewEngine == 'marko'){ %>
     indexTemplate.render({
       $global: {locals: req.app.locals},

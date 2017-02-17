@@ -381,7 +381,9 @@ describe('Express generator', function () {
       'app/views/header.ejs',
       'app/views/footer.ejs',
       'app/views/error.ejs',
-      'app/views/index.ejs'
+      'app/views/index.ejs',
+      'app/views/articles/list.ejs',
+      'app/views/articles/view.ejs',
     ];
 
     it('creates expected files', function (done) {

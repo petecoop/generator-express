@@ -1,0 +1,10 @@
+<% include header %>
+  <h1><%-title %></h1>
+  <% for(var i=0; i < aritcles.length; i++) { %>
+      <li>
+          <a href='supplies/<%= aritcles[i].id %>'>
+              <%= aritcles[i].title %>
+          </a>
+      </li>
+  <% } %>
+<% include footer %>

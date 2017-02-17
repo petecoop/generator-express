@@ -221,6 +221,16 @@ module.exports = Generator.extend({
         }
       }
 
+      // Copy the MVC specific views.
+      if (this.options.mvc) {
+        this.sourceRoot(path.join(__dirname, 'templates', 'mvc-views', views));
+        if (this.options.viewEngine == 'ejs') {
+          this.fs.copy(this.templatePath('.'), this.destinationPath('app/views'));
+        } else {
+          this.fs.copyTpl(this.templatePath('.'), this.destinationPath('app/views'), this);
+        }
+      }
+
       // css
       var stylesheets = this.options.cssPreprocessor;
       if(stylesheets === 'none') stylesheets = 'css';

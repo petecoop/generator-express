@@ -40,7 +40,7 @@ router.get('/:articleId', function (req, res, next) {<% if(options.database == '
     <% if(options.database == 'mysql' || options.database == 'postgresql' || options.database == 'sqlite'){ %>
   db.Article.findById(req.params.articleId).then(function (article) {<% } %><% if(options.database == 'rethinkdb'){ %>
   Article.get(req.params.articleId).run().then(function (article) {<% } %><% if(options.database == 'none'){ %>
-  var articles = [new Article(), new Article()];<% } %><% if(options.viewEngine == 'marko'){ %>
+  var article = new Article();<% } %><% if(options.viewEngine == 'marko'){ %>
     indexTemplate.render({
       $global: {locals: req.app.locals},
       title: article.title,

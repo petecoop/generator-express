@@ -39,13 +39,13 @@
     "yeoman-generator": "^1.0.0"
   },
   "devDependencies": {
-    "mocha": "^2.1.0",
+    "mocha": "^4.0.1",
     "rimraf": "^2.3.2",
     "yeoman-assert": "^2.2.1",
     "yeoman-test": "^1.4.0"
   },
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=4.0.0"
   },
   "licenses": [
     {

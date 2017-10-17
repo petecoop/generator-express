@@ -112,19 +112,6 @@ var runGenerationTest = function (extraFiles, type, engine, preprocessor, coffee
 
 describe('Express generator', function () {
 
-  // after(function (done) {
-  //   rimraf(__dirname + '/temp', done);
-  // });
-  //
-  // beforeEach(function (done) {
-  //   helpers.testDirectory(path.join(__dirname, 'temp'), err => {
-  //     if (err) {
-  //       return done(err);
-  //     }
-  //     done();
-  //   });
-  // });
-
   describe('Basic generator with Jade', function () {
     var expected = [
       'views/index.jade',

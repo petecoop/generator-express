@@ -15,7 +15,7 @@ cache:
     - temp/one/node_modules
     - temp/two/node_modules
 before_script:
-  - npm install -g yo
+  - npm install -g yo bower
 script:
   - npm run test
   - npm run test:generate

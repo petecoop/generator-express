@@ -36,13 +36,13 @@
     "glob": "^7.0.0",
     "mkdirp": "^0.5.0",
     "underscore.string": "^3.0.3",
-    "yeoman-generator": "^1.0.0"
+    "yeoman-generator": "^2.0.1"
   },
   "devDependencies": {
     "mocha": "^4.0.1",
     "rimraf": "^2.3.2",
-    "yeoman-assert": "^2.2.1",
-    "yeoman-test": "^1.4.0"
+    "yeoman-assert": "^3.1.0",
+    "yeoman-test": "^1.7.0"
   },
   "engines": {
     "node": ">=4.0.0"

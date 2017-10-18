@@ -1,4 +1,5 @@
 <% if(options.coffee){ %>require('coffee-script/register');<% } %>
+<% if(options.viewEngine == 'marko'){ %>require('marko/node-require');<% } %>
 
 var express = require('express');
 var path = require('path');
@@ -8,7 +9,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');<% if(options.viewEngine == 'swig'){ %>
 var swig = require('swig');<% } %><% if(options.viewEngine == 'handlebars'){ %>
 var exphbs  = require('express-handlebars');<% } %><% if(options.viewEngine == 'nunjucks'){ %>
-var nunjucks = require('nunjucks');<% } %>
+var nunjucks = require('nunjucks');<% } %><% if(options.viewEngine == 'marko'){ %>
+var markoExpress = require('marko/express');<% } %>
 
 var routes = require('./routes/index');
 var users = require('./routes/user');
@@ -41,7 +43,8 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));<% if(options.viewEngine == 'marko'){ %>
+app.use(markoExpress());<% } %>
 
 app.use('/', routes);
 app.use('/users', users);
@@ -57,16 +60,15 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
-<% if(options.viewEngine == 'marko'){ %>
-  var errorTemplate = require('marko').load(require.resolve('./views/error.marko'));<% } %>
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);<% if(options.viewEngine == 'marko'){ %>
-        errorTemplate.render({
+        res.marko(require('./views/error'), {
+          $global: {locals: req.app.locals},
           message: err.message,
           error: err,
           title: 'error'
-        }, res);<% } else { %>
+        });<% } else { %>
         res.render('error', {
             message: err.message,
             error: err,
@@ -79,17 +81,17 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);<% if(options.viewEngine == 'marko'){ %>
-    errorTemplate.render({
+    res.marko(require('./views/error'), {
+      $global: {locals: req.app.locals},
       message: err.message,
       error: err,
       title: 'error'
-    }, res);<% } else { %>
+    });<% } else { %>
     res.render('error', {
         message: err.message,
         error: {},
         title: 'error'
     });<% } %>
 });
-
 
 module.exports = app;

@@ -1,7 +1,7 @@
-<layout-use("./layout.marko")>
-  <layout-put into="body">
+<include('./layout')>
+  <@body>
     ${data.message}
     ${data.error.status}
     ${data.error.stack}
-  </layout-put>
-</layout-use>
+  </@body>
+</include>

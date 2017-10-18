@@ -9,7 +9,9 @@ var compress = require('compression');
 var methodOverride = require('method-override');<% if(options.viewEngine == 'swig'){ %>
 var swig = require('swig');<% } %><% if(options.viewEngine == 'handlebars'){ %>
 var exphbs  = require('express-handlebars');<% } %><% if(options.viewEngine == 'nunjucks'){ %>
-var nunjucks = require('nunjucks');<% } %>
+var nunjucks = require('nunjucks');<% } %><% if(options.viewEngine == 'marko'){ %>
+require('marko/node-require');
+var markoExpress = require('marko/express');<% } %>
 
 module.exports = function(app, config) {
   var env = process.env.NODE_ENV || 'development';
@@ -42,7 +44,8 @@ module.exports = function(app, config) {
   app.use(cookieParser());
   app.use(compress());
   app.use(express.static(config.root + '/public'));
-  app.use(methodOverride());
+  app.use(methodOverride());<% if(options.viewEngine == 'marko'){ %>
+  app.use(markoExpress());<% } %>
 
   var controllers = glob.sync(config.root + '/app/controllers/*.js');
   controllers.forEach(function (controller) {
@@ -54,16 +57,16 @@ module.exports = function(app, config) {
     err.status = 404;
     next(err);
   });
-  <% if(options.viewEngine == 'marko'){ %>
-  var errorTemplate = require('marko').load(require.resolve('../app/views/error.marko'));<% } %>
+
   if(app.get('env') === 'development'){
     app.use(function (err, req, res, next) {
       res.status(err.status || 500);<% if(options.viewEngine == 'marko'){ %>
-      errorTemplate.render({
+      res.marko(require('../app/views/error'), {
+        $global: {locals: req.app.locals},
         message: err.message,
         error: err,
         title: 'error'
-      }, res);<% } else { %>
+      });<% } else { %>
       res.render('error', {
         message: err.message,
         error: err,
@@ -74,16 +77,17 @@ module.exports = function(app, config) {
 
   app.use(function (err, req, res, next) {
     res.status(err.status || 500);<% if(options.viewEngine == 'marko'){ %>
-      errorTemplate.render({
-        message: err.message,
-        error: {},
-        title: 'error'
-      }, res);<% } else { %>
-      res.render('error', {
-        message: err.message,
-        error: {},
-        title: 'error'
-      });<% } %>
+    res.marko(require('../app/views/error'), {
+      $global: {locals: req.app.locals},
+      message: err.message,
+      error: {},
+      title: 'error'
+    });<% } else { %>
+    res.render('error', {
+      message: err.message,
+      error: {},
+      title: 'error'
+    });<% } %>
   });
 
   return app;

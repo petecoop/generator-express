@@ -20,7 +20,7 @@
     "ejs": "^2.3.1"<% } %><% if(options.viewEngine == 'swig'){ %>,
     "swig": "^1.4.2"<% } %><% if(options.viewEngine == 'handlebars'){ %>,
     "express-handlebars": "^3.0.0"<% } %><% if(options.viewEngine == 'marko'){ %>,
-    "marko": "^3.4.2"<% } %><% if (options.viewEngine == 'nunjucks'){ %>,
+    "marko": "^4.5.1"<% } %><% if (options.viewEngine == 'nunjucks'){ %>,
     "nunjucks": "^3.0.0"<% } %>
   },
   "devDependencies": {

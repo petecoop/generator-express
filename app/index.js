@@ -5,6 +5,13 @@ const Generator = require('yeoman-generator');
 const glob = require('glob');
 const slugify = require('underscore.string/slugify');
 const mkdirp = require('mkdirp');
+const Insight = require('insight');
+const pkg = require('../package.json');
+
+const insight = new Insight({
+  trackingCode: 'UA-27236136-2',
+  pkg,
+});
 
 module.exports = class extends Generator {
   constructor(args, opts) {
@@ -250,6 +257,8 @@ module.exports = class extends Generator {
     if (this.options.database === 'sqlite') {
       mkdirp.sync('data');
     }
+
+    insight.track(this.filetype, name, this.options.database, this.options.viewEngine, this.options.cssPreprocessor, this.options.buildTool);
   }
 
   install() {

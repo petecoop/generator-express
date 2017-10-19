@@ -258,7 +258,9 @@ module.exports = class extends Generator {
       mkdirp.sync('data');
     }
 
-    insight.track(this.filetype, name, this.options.database, this.options.viewEngine, this.options.cssPreprocessor, this.options.buildTool);
+    if (this.options.skipInsights) {
+      insight.track(this.filetype, name, this.options.database, this.options.viewEngine, this.options.cssPreprocessor, this.options.buildTool);
+    }
   }
 
   install() {

@@ -48,6 +48,7 @@ const runGenerationTest = (extraFiles, type, viewEngine, cssPreprocessor, coffee
 
   const options = {
     'skip-install': true,
+    'skip-insights': true,
     [type]: true,
     createDirectory: dir || false,
     database,

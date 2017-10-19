@@ -1,16 +1,16 @@
 'use strict';
 
-var expect = require('chai').expect;
-var express = require('express');
-var configure = require('../../../config/express');
+const expect = require('chai').expect;
+const express = require('express');
+const configure = require('../../../config/express');
 
-describe('configure express', function() {
-  it('should load', function() {
+describe('configure express', () => {
+  it('should load', () => {
     expect(configure).to.be.a('function');
   });
 
-  it('should return the app', function() {
-    var app = express();
+  it('should return the app', () => {
+    const app = express();
 
     expect(configure(app, {})).to.eql(app);
   });

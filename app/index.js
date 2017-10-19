@@ -1,9 +1,10 @@
 'use strict';
-var path = require('path');
-var Generator = require('yeoman-generator');
-var glob = require('glob');
-var slugify = require('underscore.string/slugify');
-var mkdirp = require('mkdirp');
+
+const path = require('path');
+const Generator = require('yeoman-generator');
+const glob = require('glob');
+const slugify = require('underscore.string/slugify');
+const mkdirp = require('mkdirp');
 
 module.exports = class extends Generator {
   constructor(args, opts) {
@@ -20,15 +21,15 @@ module.exports = class extends Generator {
       return true;
     }
 
-    var prompt = [{
+    const prompt = [{
       type: 'confirm',
       name: 'createDirectory',
-      message: 'Would you like to create a new directory for your project?'
+      message: 'Would you like to create a new directory for your project?',
     }];
 
-    return this.prompt(prompt).then(function (response) {
+    return this.prompt(prompt).then((response) => {
       this.options.createDirectory = response.createDirectory;
-    }.bind(this));
+    });
   }
 
   dirname() {
@@ -36,15 +37,15 @@ module.exports = class extends Generator {
       return true;
     }
 
-    var prompt = [{
+    const prompt = [{
       type: 'input',
       name: 'dirname',
-      message: 'Enter directory name'
+      message: 'Enter directory name',
     }];
 
-    return this.prompt(prompt).then(function (response) {
+    return this.prompt(prompt).then((response) => {
       this.options.dirname = response.dirname;
-    }.bind(this));
+    });
   }
 
   type() {
@@ -53,20 +54,20 @@ module.exports = class extends Generator {
       return true;
     }
 
-    var prompt = [{
+    const prompt = [{
       type: 'list',
       name: 'type',
       message: 'Select a version to install:',
       choices: [
         'Basic',
-        'MVC'
+        'MVC',
       ],
-      store: true
+      store: true,
     }];
 
-    return this.prompt(prompt).then(function (responses) {
+    return this.prompt(prompt).then((responses) => {
       this.options.mvc = responses.type.match(/^MVC$/i) !== null;
-    }.bind(this));
+    });
   }
 
   viewEngine() {
@@ -74,7 +75,7 @@ module.exports = class extends Generator {
       return true;
     }
 
-    var prompt = [{
+    const prompt = [{
       type: 'list',
       name: 'viewEngine',
       message: 'Select a view engine to use:',
@@ -84,14 +85,14 @@ module.exports = class extends Generator {
         'EJS',
         'Handlebars',
         'Marko',
-        'Nunjucks'
+        'Nunjucks',
       ],
-      store: true
+      store: true,
     }];
 
-    return this.prompt(prompt).then(function (response) {
+    return this.prompt(prompt).then((response) => {
       this.options.viewEngine = response.viewEngine.toLowerCase();
-    }.bind(this));
+    });
   }
 
   cssPreprocessor() {
@@ -99,7 +100,7 @@ module.exports = class extends Generator {
       return true;
     }
 
-    var prompt = [{
+    const prompt = [{
       type: 'list',
       name: 'cssPreprocessor',
       message: 'Select a css preprocessor to use (Sass Requires Ruby):' ,
@@ -108,14 +109,14 @@ module.exports = class extends Generator {
         'Node-Sass',
         'Sass',
         'less',
-        'Stylus'
+        'Stylus',
       ],
-      store: true
+      store: true,
     }];
 
-    return this.prompt(prompt).then(function (response) {
+    return this.prompt(prompt).then((response) => {
       this.options.cssPreprocessor = response.cssPreprocessor.toLowerCase();
-    }.bind(this));
+    });
   }
 
   database() {
@@ -123,7 +124,7 @@ module.exports = class extends Generator {
       return true;
     }
 
-    var prompt = [{
+    const prompt = [{
       type: 'list',
       name: 'database',
       message: 'Select a database to use:',
@@ -133,14 +134,14 @@ module.exports = class extends Generator {
         'MySQL',
         'PostgreSQL',
         'RethinkDB',
-        'SQLite'
+        'SQLite',
       ],
-      store: true
+      store: true,
     }];
 
-    return this.prompt(prompt).then(function (response) {
+    return this.prompt(prompt).then((response) => {
       this.options.database = response.database.toLowerCase();
-    }.bind(this));
+    });
   }
 
   buildTool() {
@@ -148,51 +149,50 @@ module.exports = class extends Generator {
       return true;
     }
 
-    var prompt = [{
+    const prompt = [{
       type: 'list',
       name: 'buildTool',
       message: 'Select a build tool to use:',
       choices: [
         'Grunt',
-        'Gulp'
+        'Gulp',
       ],
-      store: true
+      store: true,
     }];
 
-    return this.prompt(prompt).then(function (response) {
+    return this.prompt(prompt).then((response) => {
       this.options.buildTool = response.buildTool.toLowerCase();
-    }.bind(this));
+    });
 
   }
 
   writing() {
     // create directory
-    if(this.options.createDirectory){
+    if (this.options.createDirectory) {
       this.destinationRoot(this.options.dirname);
       this.appname = this.options.dirname;
     }
 
-    var name = this.options.mvc ? 'mvc' : 'basic';
-    var suffix = this.options.coffee ? '-coffee' : '';
+    const name = this.options.mvc ? 'mvc' : 'basic';
+    const suffix = this.options.coffee ? '-coffee' : '';
     this.filetype = this.options.coffee ? 'coffee' : 'js';
 
     // shared across all generators
     this.sourceRoot(path.join(__dirname, 'templates', 'shared'));
-    glob.sync('**', { cwd: this.sourceRoot() }).map(function (file) {
+    glob.sync('**', { cwd: this.sourceRoot() }).forEach((file) => {
       this.fs.copyTpl(this.templatePath(file), this.destinationPath(file.replace(/^_/, '')), this);
-    }, this);
-
+    });
 
     // shared for mvc/basic generators
-    this.sourceRoot(path.join(__dirname, 'templates', name + '-shared'));
+    this.sourceRoot(path.join(__dirname, 'templates', `${name}-shared`));
     this.fs.copyTpl(this.templatePath('.'), this.destinationPath('.'), this);
 
     // mvc tests
-    var supported = [
+    const supported = [
       'mysql',
       'postgresql',
       'rethinkdb',
-      'sqlite'
+      'sqlite',
     ];
     if (this.options.mvc && supported.indexOf(this.options.database) !== -1) {
       this.sourceRoot(path.join(__dirname, 'templates', 'mvc-test'));
@@ -204,44 +204,42 @@ module.exports = class extends Generator {
     this.fs.copyTpl(this.templatePath('.'), this.destinationPath('.'), this);
 
     // views
-    var views = this.options.viewEngine;
+    const views = this.options.viewEngine;
     this.sourceRoot(path.join(__dirname, 'templates', 'views', views));
     if (this.options.mvc) {
-      if (this.options.viewEngine == 'ejs') {
+      if (this.options.viewEngine === 'ejs') {
         this.fs.copy(this.templatePath('.'), this.destinationPath('app/views'));
       } else {
         this.fs.copyTpl(this.templatePath('.'), this.destinationPath('app/views'), this);
       }
+    } else if (this.options.viewEngine === 'ejs') {
+      this.fs.copy(this.templatePath('.'), this.destinationPath('views'));
     } else {
-      if (this.options.viewEngine == 'ejs') {
-        this.fs.copy(this.templatePath('.'), this.destinationPath('views'));
-      } else {
-        this.fs.copyTpl(this.templatePath('.'), this.destinationPath('views'), this);
-      }
+      this.fs.copyTpl(this.templatePath('.'), this.destinationPath('views'), this);
     }
 
     // css
-    var stylesheets = this.options.cssPreprocessor;
-    if(stylesheets === 'none') stylesheets = 'css';
-    if(stylesheets === 'node-sass') stylesheets = 'sass';
+    let stylesheets = this.options.cssPreprocessor;
+    if (stylesheets === 'none') stylesheets = 'css';
+    if (stylesheets === 'node-sass') stylesheets = 'sass';
     this.sourceRoot(path.join(__dirname, 'templates', 'css', stylesheets));
     this.fs.copyTpl(this.templatePath('.'), this.destinationPath('public/css'), this);
 
     // grunt/gulp
-    var buildFile = this.options.buildTool === 'grunt' ? 'Gruntfile.js' : 'gulpfile.js';
-    this.fs.copyTpl(this.templatePath(path.join(__dirname, 'templates', 'extras', name + '-shared', buildFile)), this.destinationPath(buildFile), this);
+    const buildFile = this.options.buildTool === 'grunt' ? 'Gruntfile.js' : 'gulpfile.js';
+    this.fs.copyTpl(this.templatePath(path.join(__dirname, 'templates', 'extras', `${name}-shared`, buildFile)), this.destinationPath(buildFile), this);
 
     // sequelize extra stuff
     if (this.options.database === 'mysql' ||
         this.options.database === 'postgresql' ||
         this.options.database === 'sqlite') {
-      this.fs.copyTpl(this.templatePath(path.join(__dirname, 'templates', 'extras', name + suffix, 'sequelize-model-index.' + this.filetype)), this.destinationPath('app/models/index.' + this.filetype), this);
+      this.fs.copyTpl(this.templatePath(path.join(__dirname, 'templates', 'extras', name + suffix, `sequelize-model-index.${this.filetype}`)), this.destinationPath(`app/models/index.${this.filetype}`), this);
     }
 
-    //thinky extra stuff
+    // thinky extra stuff
     if (this.options.database === 'rethinkdb') {
-      this.fs.copyTpl(this.templatePath(path.join(__dirname, 'templates', 'extras', name + suffix, 'thinky-model-index.' + this.filetype)), this.destinationPath('app/models/index.' + this.filetype), this);
-      this.fs.copyTpl(this.templatePath(path.join(__dirname, 'templates', 'extras', name + suffix, 'thinky-config.' + this.filetype)), this.destinationPath('config/thinky.' + this.filetype), this);
+      this.fs.copyTpl(this.templatePath(path.join(__dirname, 'templates', 'extras', name + suffix, `thinky-model-index.${this.filetype}`)), this.destinationPath(`app/models/index.${this.filetype}`), this);
+      this.fs.copyTpl(this.templatePath(path.join(__dirname, 'templates', 'extras', name + suffix, `thinky-config.${this.filetype}`)), this.destinationPath(`config/thinky.${this.filetype}`), this);
     }
 
     mkdirp.sync('public');
@@ -249,7 +247,7 @@ module.exports = class extends Generator {
     mkdirp.sync('public/js');
     mkdirp.sync('public/css');
     mkdirp.sync('public/img');
-    if (this.options.database == 'sqlite') {
+    if (this.options.database === 'sqlite') {
       mkdirp.sync('data');
     }
   }

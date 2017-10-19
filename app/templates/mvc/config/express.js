@@ -1,25 +1,25 @@
-var express = require('express');
-var glob = require('glob');
+const express = require('express');
+const glob = require('glob');
 
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var compress = require('compression');
-var methodOverride = require('method-override');<% if(options.viewEngine == 'swig'){ %>
-var swig = require('swig');<% } %><% if(options.viewEngine == 'handlebars'){ %>
-var exphbs  = require('express-handlebars');<% } %><% if(options.viewEngine == 'nunjucks'){ %>
-var nunjucks = require('nunjucks');<% } %><% if(options.viewEngine == 'marko'){ %>
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const compress = require('compression');
+const methodOverride = require('method-override');<% if(options.viewEngine == 'swig'){ %>
+const swig = require('swig');<% } %><% if(options.viewEngine == 'handlebars'){ %>
+const exphbs  = require('express-handlebars');<% } %><% if(options.viewEngine == 'nunjucks'){ %>
+const nunjucks = require('nunjucks');<% } %><% if(options.viewEngine == 'marko'){ %>
 require('marko/node-require');
-var markoExpress = require('marko/express');<% } %>
+const markoExpress = require('marko/express');<% } %>
 
-module.exports = function(app, config) {
-  var env = process.env.NODE_ENV || 'development';
+module.exports = (app, config) => {
+  const env = process.env.NODE_ENV || 'development';
   app.locals.ENV = env;
   app.locals.ENV_DEVELOPMENT = env == 'development';
   <% if(options.viewEngine == 'swig'){ %>
   app.engine('swig', swig.renderFile);
-  if(env == 'development'){
+  if (env == 'development') {
     app.set('view cache', false);
     swig.setDefaults({ cache: false });
   }<% } %><% if(options.viewEngine == 'handlebars'){ %>
@@ -48,18 +48,18 @@ module.exports = function(app, config) {
   app.use(markoExpress());<% } %>
 
   var controllers = glob.sync(config.root + '/app/controllers/*.js');
-  controllers.forEach(function (controller) {
+  controllers.forEach((controller) => {
     require(controller)(app);
   });
 
-  app.use(function (req, res, next) {
+  app.use((req, res, next) => {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
   });
 
-  if(app.get('env') === 'development'){
-    app.use(function (err, req, res, next) {
+  if (app.get('env') === 'development') {
+    app.use((err, req, res, next) => {
       res.status(err.status || 500);<% if(options.viewEngine == 'marko'){ %>
       res.marko(require('../app/views/error'), {
         $global: {locals: req.app.locals},
@@ -75,7 +75,7 @@ module.exports = function(app, config) {
     });
   }
 
-  app.use(function (err, req, res, next) {
+  app.use((err, req, res, next) => {
     res.status(err.status || 500);<% if(options.viewEngine == 'marko'){ %>
     res.marko(require('../app/views/error'), {
       $global: {locals: req.app.locals},

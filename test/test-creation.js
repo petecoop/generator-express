@@ -1,12 +1,10 @@
-/*global describe, beforeEach, it*/
 'use strict';
 
-var assert  = require('yeoman-assert');
-var path    = require('path');
-var helpers = require('yeoman-test');
-var rimraf  = require('rimraf');
+const assert = require('yeoman-assert');
+const path = require('path');
+const helpers = require('yeoman-test');
 
-var basicExpected = [
+const basicExpected = [
   '.bowerrc',
   '.editorconfig',
   '.gitignore',
@@ -18,10 +16,10 @@ var basicExpected = [
   'package.json',
   'routes/index.js',
   'routes/user.js',
-  'bin/www'
+  'bin/www',
 ];
 
-var MVCExpected = [
+const MVCExpected = [
   '.bowerrc',
   '.editorconfig',
   '.gitignore',
@@ -37,40 +35,27 @@ var MVCExpected = [
   'app/controllers',
   'app/controllers/home.js',
   'app/models',
-  'app/views'
+  'app/views',
 ];
 
-var appFiles = {
+const appFiles = {
   basic: basicExpected,
-  mvc: MVCExpected
+  mvc: MVCExpected,
 };
 
-var toCoffeeFileArray = function (fileArray) {
-  var newArray = [];
-  for (var i in fileArray) {
-    if (fileArray[i] === 'app.js') {
-      newArray.push(fileArray[i]);
-    } else {
-      newArray.push(fileArray[i].replace(/(.*?)\.js$/, '$1.coffee'));
-    }
-  }
+const runGenerationTest = (extraFiles, type, viewEngine, cssPreprocessor, coffee, database, buildTool, dir, dirname) => {
+  let expectedFiles;
 
-  return newArray;
-};
-
-var runGenerationTest = function (extraFiles, type, engine, preprocessor, coffee, database, buildTool, dir, dirname) {
-  var expectedFiles;
-
-  var options = {
+  const options = {
     'skip-install': true,
     [type]: true,
-    database: database,
-    viewEngine: engine,
-    cssPreprocessor: preprocessor,
-    coffee: coffee,
-    buildTool: buildTool,
     createDirectory: dir || false,
-    dirname: dirname
+    database,
+    viewEngine,
+    cssPreprocessor,
+    coffee,
+    buildTool,
+    dirname,
   };
   options.type = true;
 
@@ -78,13 +63,13 @@ var runGenerationTest = function (extraFiles, type, engine, preprocessor, coffee
   expectedFiles = extraFiles.concat(appFiles[type]);
 
   // Set optional files, CSS preprocessor
-  if (preprocessor === 'sass') {
+  if (cssPreprocessor === 'sass') {
     expectedFiles.push('public/css/style.scss');
-  } else if (preprocessor === 'node-sass') {
+  } else if (cssPreprocessor === 'node-sass') {
     expectedFiles.push('public/css/style.scss');
-  } else if (preprocessor === 'less') {
+  } else if (cssPreprocessor === 'less') {
     expectedFiles.push('public/css/style.less');
-  } else if (preprocessor === 'stylus') {
+  } else if (cssPreprocessor === 'stylus') {
     expectedFiles.push('public/css/style.styl');
   } else {
     expectedFiles.push('public/css/style.css');
@@ -92,7 +77,9 @@ var runGenerationTest = function (extraFiles, type, engine, preprocessor, coffee
 
   // Set optional files, Coffee
   if (coffee) {
-    expectedFiles = toCoffeeFileArray(expectedFiles);
+    expectedFiles = expectedFiles.map((filename) => {
+      return filename === 'app.js' ? filename : filename.replace(/(.*?)\.js$/, '$1.coffee');
+    });
   }
 
   // Set optional files, Build tool
@@ -105,414 +92,200 @@ var runGenerationTest = function (extraFiles, type, engine, preprocessor, coffee
   // Test files generation
   return helpers.run(path.join(__dirname, '../app'))
     .withOptions(options)
-    .then(function () {
-      return assert.file(expectedFiles);
-    });
+    .then(() => assert.file(expectedFiles));
 };
 
-describe('Express generator', function () {
+describe('Express generator', () => {
 
-  describe('Basic generator with Jade', function () {
-    var expected = [
+  describe('Basic generator with Jade', () => {
+    const expected = [
       'views/index.jade',
       'views/layout.jade',
       'views/error.jade'
     ];
-
-    it('creates expected files', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'jade', 'none', false, 'none', 'grunt');
-    });
-
-    it('works with coffee', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'jade', 'none', true, 'none', 'grunt');
-    });
-
-    it('works with gulp', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'jade', 'none', false, 'none', 'gulp');
-    });
-
-    it('works with coffee and gulp', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'jade', 'none', true, 'none', 'gulp');
-    });
-
-    it('creates expected files with sass', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'jade', 'sass', false, 'none', 'grunt');
-    });
-
-    it('works with coffee and sass', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'jade', 'sass', false, 'none', 'grunt');
-    });
-
-    it('works with gulp and sass', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'jade', 'sass', false, 'none', 'gulp');
-    });
-
-    it('works with coffee and gulp and sass', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'jade', 'sass', false, 'none', 'gulp');
-    });
-
-    it('creates expected files with node-sass', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'jade', 'node-sass', false, 'none', 'grunt');
-    });
-
-    it('works with coffee and node-sass', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'jade', 'node-sass', false, 'none', 'grunt');
-    });
-
-    it('works with gulp and node-sass', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'jade', 'node-sass', false, 'none', 'gulp');
-    });
-
-    it('works with coffee and gulp and node-sass', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'jade', 'node-sass', false, 'none', 'gulp');
-    });
-
-    it('creates expected files with less', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'jade', 'less', false, 'none', 'grunt');
-    });
-
-    it('works with coffee and less', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'jade', 'less', false, 'none', 'grunt');
-    });
-
-    it('works with gulp and less', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'jade', 'less', false, 'none', 'gulp');
-    });
-
-    it('works with coffee and gulp and less', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'jade', 'less', false, 'none', 'gulp');
-    });
-
-    it('works with stylus', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'jade', 'stylus', false, 'none', 'grunt');
-    });
+    it('creates expected files', () => runGenerationTest.call(this, expected, 'basic', 'jade', 'none', false, 'none', 'grunt'));
+    it('works with coffee', () => runGenerationTest.call(this, expected, 'basic', 'jade', 'none', true, 'none', 'grunt'));
+    it('works with gulp', () => runGenerationTest.call(this, expected, 'basic', 'jade', 'none', false, 'none', 'gulp'));
+    it('works with coffee and gulp', () => runGenerationTest.call(this, expected, 'basic', 'jade', 'none', true, 'none', 'gulp'));
+    it('creates expected files with sass', () => runGenerationTest.call(this, expected, 'basic', 'jade', 'sass', false, 'none', 'grunt'));
+    it('works with coffee and sass', () => runGenerationTest.call(this, expected, 'basic', 'jade', 'sass', false, 'none', 'grunt'));
+    it('works with gulp and sass', () => runGenerationTest.call(this, expected, 'basic', 'jade', 'sass', false, 'none', 'gulp'));
+    it('works with coffee and gulp and sass', () => runGenerationTest.call(this, expected, 'basic', 'jade', 'sass', false, 'none', 'gulp'));
+    it('creates expected files with node-sass', () => runGenerationTest.call(this, expected, 'basic', 'jade', 'node-sass', false, 'none', 'grunt'));
+    it('works with coffee and node-sass', () => runGenerationTest.call(this, expected, 'basic', 'jade', 'node-sass', false, 'none', 'grunt'));
+    it('works with gulp and node-sass', () => runGenerationTest.call(this, expected, 'basic', 'jade', 'node-sass', false, 'none', 'gulp'));
+    it('works with coffee and gulp and node-sass', () => runGenerationTest.call(this, expected, 'basic', 'jade', 'node-sass', false, 'none', 'gulp'));
+    it('creates expected files with less', () => runGenerationTest.call(this, expected, 'basic', 'jade', 'less', false, 'none', 'grunt'));
+    it('works with coffee and less', () => runGenerationTest.call(this, expected, 'basic', 'jade', 'less', false, 'none', 'grunt'));
+    it('works with gulp and less', () => runGenerationTest.call(this, expected, 'basic', 'jade', 'less', false, 'none', 'gulp'));
+    it('works with coffee and gulp and less', () => runGenerationTest.call(this, expected, 'basic', 'jade', 'less', false, 'none', 'gulp'));
+    it('works with stylus', () => runGenerationTest.call(this, expected, 'basic', 'jade', 'stylus', false, 'none', 'grunt'));
   });
 
-  describe('Basic generator with EJS', function () {
-    var expected = [
+  describe('Basic generator with EJS', () => {
+    const expected = [
       'views/index.ejs',
       'views/header.ejs',
       'views/footer.ejs',
       'views/error.ejs',
     ];
-
-    it('creates expected files', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'ejs', 'none', false, 'none', 'grunt');
-    });
-
-    it('works with coffee', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'ejs', 'none', true, 'none', 'grunt');
-    });
-
-    it('creates expected files with sass', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'ejs', 'sass', false, 'none', 'grunt');
-    });
-
-    it('works with coffee and sass', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'ejs', 'sass', false, 'none', 'grunt');
-    });
-
-    it('creates expected files with node-sass', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'ejs', 'node-sass', false, 'none', 'grunt');
-    });
-
-    it('works with coffee and node-sass', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'ejs', 'node-sass', false, 'none', 'grunt');
-    });
-
-    it('creates expected files with less', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'ejs', 'less', false, 'none', 'grunt');
-    });
-
-    it('works with coffee and less', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'ejs', 'less', false, 'none', 'grunt');
-    });
-
-    it('creates a new directory', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'ejs', 'less', false, 'none', 'grunt', true, 'express-project');
-    });
+    it('creates expected files', () => runGenerationTest.call(this, expected, 'basic', 'ejs', 'none', false, 'none', 'grunt'));
+    it('works with coffee', () => runGenerationTest.call(this, expected, 'basic', 'ejs', 'none', true, 'none', 'grunt'));
+    it('creates expected files with sass', () => runGenerationTest.call(this, expected, 'basic', 'ejs', 'sass', false, 'none', 'grunt'));
+    it('works with coffee and sass', () => runGenerationTest.call(this, expected, 'basic', 'ejs', 'sass', false, 'none', 'grunt'));
+    it('creates expected files with node-sass', () => runGenerationTest.call(this, expected, 'basic', 'ejs', 'node-sass', false, 'none', 'grunt'));
+    it('works with coffee and node-sass', () => runGenerationTest.call(this, expected, 'basic', 'ejs', 'node-sass', false, 'none', 'grunt'));
+    it('creates expected files with less', () => runGenerationTest.call(this, expected, 'basic', 'ejs', 'less', false, 'none', 'grunt'));
+    it('works with coffee and less', () => runGenerationTest.call(this, expected, 'basic', 'ejs', 'less', false, 'none', 'grunt'));
+    it('creates a new directory', () => runGenerationTest.call(this, expected, 'basic', 'ejs', 'less', false, 'none', 'grunt', true, 'express-project'));
   });
 
-  describe('Basic generator with Swig', function () {
-    var expected = [
+  describe('Basic generator with Swig', () => {
+    const expected = [
       'views/index.swig',
       'views/layout.swig',
       'views/error.swig',
     ];
-
-    it('creates expected files', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'swig', 'none', false, 'none', 'grunt');
-    });
+    it('creates expected files', () => runGenerationTest.call(this, expected, 'basic', 'swig', 'none', false, 'none', 'grunt'));
   });
 
-  describe('Basic generator with Nunjucks', function () {
-    var expected = [
+  describe('Basic generator with Nunjucks', () => {
+    const expected = [
       'views/index.nunjucks',
       'views/layout.nunjucks',
       'views/error.nunjucks',
     ];
-
-    it('creates expected files', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'nunjucks', 'none', false, 'none', 'grunt');
-    });
+    it('creates expected files', () => runGenerationTest.call(this, expected, 'basic', 'nunjucks', 'none', false, 'none', 'grunt'));
   });
 
-  describe('Basic generator with Handlebars', function () {
-    var expected = [
+  describe('Basic generator with Handlebars', () => {
+    const expected = [
       'views/layouts/main.handlebars',
       'views/partials/welcome.handlebars',
       'views/index.handlebars',
-      'views/error.handlebars'
+      'views/error.handlebars',
     ];
-
-    it('creates expected files', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'handlebars', 'none', false, 'none', 'grunt');
-    });
+    it('creates expected files', () => runGenerationTest.call(this, expected, 'basic', 'handlebars', 'none', false, 'none', 'grunt'));
   });
 
-  describe('Basic generator with Marko', function () {
-    var expected = [
+  describe('Basic generator with Marko', () => {
+    const expected = [
       'views/index.marko',
       'views/error.marko',
-      'views/layout.marko'
+      'views/layout.marko',
     ];
-
-    it('creates expected files', function () {
-      return runGenerationTest.call(this, expected, 'basic', 'marko', 'none', false, 'none', 'grunt');
-    });
+    it('creates expected files', () => runGenerationTest.call(this, expected, 'basic', 'marko', 'none', false, 'none', 'grunt'));
   });
 
 
-  describe('MVC generator with Jade', function () {
-    var expected = [
+  describe('MVC generator with Jade', () => {
+    const expected = [
       'app/views/layout.jade',
       'app/views/error.jade',
-      'app/views/index.jade'
+      'app/views/index.jade',
     ];
-    it('creates expected files', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'none', false, 'none', 'grunt');
-    });
-
-    it('works with coffee', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'none', true, 'none', 'grunt');
-    });
-
-    it('works with gulp', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'none', false, 'none', 'gulp');
-    });
-
-    it('works with coffee and gulp', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'none', true, 'none', 'gulp');
-    });
-
-    it('creates expected files with sass', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'sass', false, 'none', 'grunt');
-    });
-
-    it('works with coffee and sass', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'sass', false, 'none', 'grunt');
-    });
-
-    it('works with gulp and sass', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'sass', false, 'none', 'gulp');
-    });
-
-    it('works with coffee and gulp and sass', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'sass', false, 'none', 'gulp');
-    });
-
-    it('creates expected files with node-sass', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'node-sass', false, 'none', 'grunt');
-    });
-
-    it('works with coffee and node-sass', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'node-sass', false, 'none', 'grunt');
-    });
-
-    it('works with gulp and node-sass', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'node-sass', false, 'none', 'gulp');
-    });
-
-    it('works with coffee and gulp and node-sass', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'node-sass', false, 'none', 'gulp');
-    });
-
-    it('creates expected files with less', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'less', false, 'none', 'grunt');
-    });
-
-    it('works with coffee and less', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'less', false, 'none', 'grunt');
-    });
-
-    it('works with gulp and less', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'less', false, 'none', 'gulp');
-    });
-
-    it('works with coffee and gulp and less', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'less', false, 'none', 'gulp');
-    });
-
-    it('works with stylus', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'stylus', false, 'none', 'grunt');
-    });
+    it('creates expected files', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'none', false, 'none', 'grunt'));
+    it('works with coffee', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'none', true, 'none', 'grunt'));
+    it('works with gulp', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'none', false, 'none', 'gulp'));
+    it('works with coffee and gulp', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'none', true, 'none', 'gulp'));
+    it('creates expected files with sass', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'sass', false, 'none', 'grunt'));
+    it('works with coffee and sass', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'sass', false, 'none', 'grunt'));
+    it('works with gulp and sass', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'sass', false, 'none', 'gulp'));
+    it('works with coffee and gulp and sass', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'sass', false, 'none', 'gulp'));
+    it('creates expected files with node-sass', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'node-sass', false, 'none', 'grunt'));
+    it('works with coffee and node-sass', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'node-sass', false, 'none', 'grunt'));
+    it('works with gulp and node-sass', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'node-sass', false, 'none', 'gulp'));
+    it('works with coffee and gulp and node-sass', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'node-sass', false, 'none', 'gulp'));
+    it('creates expected files with less', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'less', false, 'none', 'grunt'));
+    it('works with coffee and less', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'less', false, 'none', 'grunt'));
+    it('works with gulp and less', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'less', false, 'none', 'gulp'));
+    it('works with coffee and gulp and less', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'less', false, 'none', 'gulp'));
+    it('works with stylus', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'stylus', false, 'none', 'grunt'));
   });
 
-  describe('MVC generator with EJS', function () {
-    var expected = [
+  describe('MVC generator with EJS', () => {
+    const expected = [
       'app/views/header.ejs',
       'app/views/footer.ejs',
       'app/views/error.ejs',
-      'app/views/index.ejs'
+      'app/views/index.ejs',
     ];
-
-    it('creates expected files', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'ejs', 'none', false, 'none', 'grunt');
-    });
-
-    it('works with coffee', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'ejs', 'none', true, 'none', 'grunt');
-    });
-
-    it('creates expected files with sass', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'ejs', 'sass', false, 'none', 'grunt');
-    });
-
-    it('works with coffee and sass', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'ejs', 'sass', false, 'none', 'grunt');
-    });
-
-    it('creates expected files with node-sass', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'ejs', 'node-sass', false, 'none', 'grunt');
-    });
-
-    it('works with coffee and node-sass', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'ejs', 'node-sass', false, 'none', 'grunt');
-    });
-
-    it('creates expected files with less', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'ejs', 'less', false, 'none', 'grunt');
-    });
-
-    it('works with coffee and less', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'ejs', 'less', false, 'none', 'grunt');
-    });
+    it('creates expected files', () => runGenerationTest.call(this, expected, 'mvc', 'ejs', 'none', false, 'none', 'grunt'));
+    it('works with coffee', () => runGenerationTest.call(this, expected, 'mvc', 'ejs', 'none', true, 'none', 'grunt'));
+    it('creates expected files with sass', () => runGenerationTest.call(this, expected, 'mvc', 'ejs', 'sass', false, 'none', 'grunt'));
+    it('works with coffee and sass', () => runGenerationTest.call(this, expected, 'mvc', 'ejs', 'sass', false, 'none', 'grunt'));
+    it('creates expected files with node-sass', () => runGenerationTest.call(this, expected, 'mvc', 'ejs', 'node-sass', false, 'none', 'grunt'));
+    it('works with coffee and node-sass', () => runGenerationTest.call(this, expected, 'mvc', 'ejs', 'node-sass', false, 'none', 'grunt'));
+    it('creates expected files with less', () => runGenerationTest.call(this, expected, 'mvc', 'ejs', 'less', false, 'none', 'grunt'));
+    it('works with coffee and less', () => runGenerationTest.call(this, expected, 'mvc', 'ejs', 'less', false, 'none', 'grunt'));
   });
 
-  describe('MVC generator with Swig', function () {
-    var expected = [
+  describe('MVC generator with Swig', () => {
+    const expected = [
       'app/views/index.swig',
       'app/views/layout.swig',
       'app/views/error.swig',
     ];
-
-    it('creates expected files', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'swig', 'none', false, 'none', 'grunt');
-    });
+    it('creates expected files', () => runGenerationTest.call(this, expected, 'mvc', 'swig', 'none', false, 'none', 'grunt'));
   });
 
-  describe('MVC generator with Nunjucks', function () {
-    var expected = [
+  describe('MVC generator with Nunjucks', () => {
+    const expected = [
       'app/views/index.nunjucks',
       'app/views/layout.nunjucks',
       'app/views/error.nunjucks',
     ];
-
-    it('creates expected files', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'nunjucks', 'none', false, 'none', 'grunt');
-    });
+    it('creates expected files', () => runGenerationTest.call(this, expected, 'mvc', 'nunjucks', 'none', false, 'none', 'grunt'));
   });
 
-  describe('MVC generator with Handlebars', function () {
-    var expected = [
+  describe('MVC generator with Handlebars', () => {
+    const expected = [
       'app/views/layouts/main.handlebars',
       'app/views/partials/welcome.handlebars',
       'app/views/index.handlebars',
       'app/views/error.handlebars',
     ];
-
-    it('creates expected files', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'handlebars', 'none', false, 'none', 'grunt');
-    });
+    it('creates expected files', () => runGenerationTest.call(this, expected, 'mvc', 'handlebars', 'none', false, 'none', 'grunt'));
   });
 
-  describe('MVC generator with Marko', function () {
-    var expected = [
+  describe('MVC generator with Marko', () => {
+    const expected = [
       'app/views/index.marko',
       'app/views/error.marko',
-      'app/views/layout.marko'
+      'app/views/layout.marko',
     ];
-
-    it('creates expected files', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'marko', 'none', false, 'none', 'grunt');
-    });
+    it('creates expected files', () => runGenerationTest.call(this, expected, 'mvc', 'marko', 'none', false, 'none', 'grunt'));
   });
 
-  describe('MVC generator with MySQL', function () {
-    var expected = [
-      'app/models/index.js'
-    ];
-
-    it('creates expected files', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'none', false, 'mysql', 'grunt');
-    });
-
-    it('works with coffee', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'none', true, 'mysql', 'grunt');
-    });
-
-    it('creates expected files with sass', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'sass', false, 'mysql', 'grunt');
-    });
-
-    it('works with coffee and sass', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'sass', false, 'mysql', 'grunt');
-    });
-
-    it('creates expected files with node-sass', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'node-sass', false, 'mysql', 'grunt');
-    });
-
-    it('works with coffee and node-sass', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'node-sass', false, 'mysql', 'grunt');
-    });
-
-    it('creates expected files with less', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'less', false, 'mysql', 'grunt');
-    });
-
-    it('works with coffee and less', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'less', false, 'mysql', 'grunt');
-    });
-  });
-
-  describe('MVC generator with RethinkDB', function () {
-    var expected = [
+  describe('MVC generator with MySQL', () => {
+    const expected = [
       'app/models/index.js',
-      'config/thinky.js'
     ];
-
-    it('creates expected files', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'none', false, 'rethinkdb', 'grunt');
-    });
-
-    it('works with coffee', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'none', true, 'rethinkdb', 'grunt');
-    });
+    it('creates expected files', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'none', false, 'mysql', 'grunt'));
+    it('works with coffee', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'none', true, 'mysql', 'grunt'));
+    it('creates expected files with sass', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'sass', false, 'mysql', 'grunt'));
+    it('works with coffee and sass', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'sass', false, 'mysql', 'grunt'));
+    it('creates expected files with node-sass', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'node-sass', false, 'mysql', 'grunt'));
+    it('works with coffee and node-sass', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'node-sass', false, 'mysql', 'grunt'));
+    it('creates expected files with less', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'less', false, 'mysql', 'grunt'));
+    it('works with coffee and less', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'less', false, 'mysql', 'grunt'));
   });
 
-  describe('MVC generator with SQLite', function () {
-    var expected = [
+  describe('MVC generator with RethinkDB', () => {
+    const expected = [
       'app/models/index.js',
-      'data'
+      'config/thinky.js',
     ];
+    it('creates expected files', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'none', false, 'rethinkdb', 'grunt'))
+    it('works with coffee', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'none', true, 'rethinkdb', 'grunt'));
+  });
 
-    it('creates expected files', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'none', false, 'sqlite', 'grunt');
-    });
-
-    it('works with coffee', function () {
-      return runGenerationTest.call(this, expected, 'mvc', 'jade', 'none', true, 'sqlite', 'grunt');
-    });
+  describe('MVC generator with SQLite', () => {
+    const expected = [
+      'app/models/index.js',
+      'data',
+    ];
+    it('creates expected files', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'none', false, 'sqlite', 'grunt'));
+    it('works with coffee', () => runGenerationTest.call(this, expected, 'mvc', 'jade', 'none', true, 'sqlite', 'grunt'));
   });
 });

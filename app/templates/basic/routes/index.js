@@ -1,8 +1,8 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res) {<% if(options.viewEngine == 'marko'){ %>
+router.get('/', (req, res) => {<% if(options.viewEngine == 'marko'){ %>
   res.marko(require('../views/index'), {
     $global: {locals: req.app.locals},
     title: 'Express'

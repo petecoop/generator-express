@@ -1,13 +1,13 @@
-var config = require('../../config/config'),
-  glob = require('glob'),
-  thinky = require('../../config/thinky');
+const config = require('../../config/config');
+const glob = require('glob');
+const thinky = require('../../config/thinky');
 
-var models = {
+const models = {
   r: thinky.r
 };
-var files = glob.sync(config.root + '/app/models/!(index)*.js');
-files.forEach(function (file) {
-  var model = require(file);
+const files = glob.sync(config.root + '/app/models/!(index)*.js');
+files.forEach((file) => {
+  const model = require(file);
   models[model.getTableName()] = model;
 });
 

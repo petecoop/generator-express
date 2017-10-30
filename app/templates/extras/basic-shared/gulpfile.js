@@ -57,7 +57,7 @@ gulp.task('develop', () => {
     ext: 'js <%= options.viewEngine %> coffee',<% if(options.viewEngine == 'marko'){ %>
     ignore: '*.marko.js',<% } %>
     stdout: false
-  }).on('readable', () => {
+  }).on('readable', function () {
     this.stdout.on('data', (chunk) => {
       if (/^Express server listening on port/.test(chunk)) {
         livereload.changed(__dirname);

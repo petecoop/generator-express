@@ -1,5 +1,4 @@
-var config = require('./config');
-
-var thinky = require('thinky')(config.db);
+const config = require('./config');
+const thinky = require('thinky')(config.db);
 
 module.exports = thinky;

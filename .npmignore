@@ -2,6 +2,6 @@
 .editorconfig
 .gitattributes
 .gitignore
-.jshintrc
+.eslintrc.js
 .travis.yml
 test

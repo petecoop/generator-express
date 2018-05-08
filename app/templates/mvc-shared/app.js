@@ -1,38 +1,40 @@
 <% if(options.coffee){ %>require('coffee-script/register');<% } %>
 
-var express = require('express'),
-  config = require('./config/config')<% if(options.database == 'none'){ %>;<% } %><% if(options.database == 'mongodb'){ %>,
-  glob = require('glob'),
-  mongoose = require('mongoose');<% } %><% if(options.database == 'mysql' || options.database == 'postgresql' || options.database == 'sqlite'){ %>,
-  db = require('./app/models');<% } %>
+const express = require('express');
+const config = require('./config/config');<% if(options.database == 'none'){ %>;<% } %><% if(options.database == 'mongodb'){ %>
+const glob = require('glob');
+const mongoose = require('mongoose');<% } %><% if(options.database == 'mysql' || options.database == 'postgresql' || options.database == 'sqlite'){ %>
+const db = require('./app/models');<% } %>
 <% if(options.database == 'mongodb'){ %>
 mongoose.connect(config.db);
-var db = mongoose.connection;
-db.on('error', function () {
+const db = mongoose.connection;
+db.on('error', () => {
   throw new Error('unable to connect to database at ' + config.db);
 });
 
-var models = glob.sync(config.root + '/app/models/*.<%= filetype %>');
+const models = glob.sync(config.root + '/app/models/*.<%= filetype %>');
 models.forEach(function (model) {
   require(model);
 });<% } %>
-var app = express();
+const app = express();
 
-require('./config/express')(app, config);
+module.exports = require('./config/express')(app, config);
 <% if(options.database == 'mysql' ||
   options.database == 'postgresql' ||
   options.database == 'sqlite'){ %>
 db.sequelize
   .sync()
-  .then(function () {
-    app.listen(config.port, function () {
-      console.log('Express server listening on port ' + config.port);
-    });
-  }).catch(function (e) {
+  .then(() => {
+    if (!module.parent) {
+      app.listen(config.port, () => {
+        console.log('Express server listening on port ' + config.port);
+      });
+    }
+  }).catch((e) => {
     throw new Error(e);
   });
 <% } else { %>
-app.listen(config.port, function () {
+app.listen(config.port, () => {
   console.log('Express server listening on port ' + config.port);
 });
 <% } %>

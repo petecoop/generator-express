@@ -1,10 +1,21 @@
 language: node_js
+notifications:
+  email: false
 node_js:
-  - "0.12"
   - "4"
   - "5"
   - "6"
+  - "7"
+  - "8"
 sudo: false
 cache:
   directories:
     - node_modules
+    - $(npm config get prefix)/bin/yo
+    - temp/one/node_modules
+    - temp/two/node_modules
+before_script:
+  - npm install -g yo bower
+script:
+  - npm run test
+  - npm run test:generate

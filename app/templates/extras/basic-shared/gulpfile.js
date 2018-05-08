@@ -1,22 +1,22 @@
-var gulp = require('gulp'),
-  nodemon = require('gulp-nodemon'),
-  plumber = require('gulp-plumber'),
-  livereload = require('gulp-livereload')<% if(options.cssPreprocessor == 'sass'){ %>,
-  sass = require('gulp-ruby-sass')<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>,
-  sass = require('gulp-sass')<% } %><% if(options.cssPreprocessor == 'less'){ %>,
-  less = require('gulp-less')<% } %><% if(options.cssPreprocessor == 'stylus'){ %>,
-  stylus = require('gulp-stylus')<% } %>;
+const gulp = require('gulp');
+const nodemon = require('gulp-nodemon');
+const plumber = require('gulp-plumber');
+const livereload = require('gulp-livereload');<% if(options.cssPreprocessor == 'sass'){ %>
+const sass = require('gulp-ruby-sass');<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>
+const sass = require('gulp-sass');<% } %><% if(options.cssPreprocessor == 'less'){ %>
+const less = require('gulp-less');<% } %><% if(options.cssPreprocessor == 'stylus'){ %>
+const stylus = require('gulp-stylus');<% } %>
 <% if(options.cssPreprocessor == 'sass'){ %>
-gulp.task('sass', function () {
+gulp.task('sass', () => {
   return sass('./public/css/**/*.scss')
     .pipe(gulp.dest('./public/css'))
     .pipe(livereload());
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', () => {
   gulp.watch('./public/css/*.scss', ['sass']);
 });<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>
-gulp.task('sass', function () {
+gulp.task('sass', () => {
   gulp.src('./public/css/*.scss')
     .pipe(plumber())
     .pipe(sass())
@@ -24,10 +24,10 @@ gulp.task('sass', function () {
     .pipe(livereload());
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', () => {
   gulp.watch('./public/css/*.scss', ['sass']);
 });<% } %><% if(options.cssPreprocessor == 'less'){ %>
-gulp.task('less', function () {
+gulp.task('less', () => {
   gulp.src('./public/css/*.less')
     .pipe(plumber())
     .pipe(less())
@@ -35,10 +35,10 @@ gulp.task('less', function () {
     .pipe(livereload());
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', () => {
   gulp.watch('./public/css/*.less', ['less']);
 });<% } %><% if(options.cssPreprocessor == 'stylus'){ %>
-gulp.task('stylus', function () {
+gulp.task('stylus', () => {
   gulp.src('./public/css/*.styl')
     .pipe(plumber())
     .pipe(stylus())
@@ -46,11 +46,11 @@ gulp.task('stylus', function () {
     .pipe(livereload());
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', () => {
   gulp.watch('./public/css/*.styl', ['stylus']);
 });<% } %>
 
-gulp.task('develop', function () {
+gulp.task('develop', () => {
   livereload.listen();
   nodemon({
     script: 'bin/www',
@@ -58,8 +58,8 @@ gulp.task('develop', function () {
     ignore: '*.marko.js',<% } %>
     stdout: false
   }).on('readable', function () {
-    this.stdout.on('data', function (chunk) {
-      if(/^Express server listening on port/.test(chunk)){
+    this.stdout.on('data', (chunk) => {
+      if (/^Express server listening on port/.test(chunk)) {
         livereload.changed(__dirname);
       }
     });

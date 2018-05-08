@@ -9,7 +9,9 @@ compress = require 'compression'
 methodOverride = require 'method-override'<% if(options.viewEngine == 'swig'){ %>
 swig = require 'swig'<% } %><% if(options.viewEngine == 'handlebars'){ %>
 exphbs  = require 'express-handlebars'<% } %><% if(options.viewEngine == 'nunjucks'){ %>
-nunjucks = require 'nunjucks'<% } %>
+nunjucks = require 'nunjucks'<% } %><% if(options.viewEngine == 'marko'){ %>
+require 'marko/node-require'
+markoExpress = require 'marko/express'<% } %>
 
 module.exports = (app, config) ->
   env = process.env.NODE_ENV || 'development'
@@ -40,7 +42,8 @@ module.exports = (app, config) ->
   app.use cookieParser()
   app.use compress()
   app.use express.static config.root + '/public'
-  app.use methodOverride()
+  app.use methodOverride()<% if(options.viewEngine == 'marko'){ %>
+  app.use markoExpress()<% } %>
 
   controllers = glob.sync config.root + '/app/controllers/**/*.coffee'
   controllers.forEach (controller) ->
@@ -56,16 +59,15 @@ module.exports = (app, config) ->
 
   # development error handler
   # will print stacktrace
-  <% if(options.viewEngine == 'marko'){ %>
-  errorTemplate = require('marko').load require.resolve '../app/views/error.marko'<% } %>
   if app.get('env') == 'development'
     app.use (err, req, res) ->
       res.status err.status || 500<% if(options.viewEngine == 'marko'){ %>
-      errorTemplate.render
-        message: err.message,
+      res.marko require('../app/views/error'),
+        $global: locals: req.app.locals
+        message: err.message
         error: err
         title: 'error'
-      , res<% } else { %>
+      <% } else { %>
       res.render 'error',
         message: err.message
         error: err
@@ -75,11 +77,12 @@ module.exports = (app, config) ->
   # no stacktraces leaked to user
   app.use (err, req, res) ->
     res.status err.status || 500<% if(options.viewEngine == 'marko'){ %>
-    errorTemplate.render
-      message: err.message,
+    res.marko require('../app/views/error'),
+      $global: locals: req.app.locals
+      message: err.message
       error: {}
       title: 'error'
-    , res<% } else { %>
+    <% } else { %>
     res.render 'error',
       message: err.message
       error: {}

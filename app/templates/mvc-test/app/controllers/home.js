@@ -1,11 +1,11 @@
 'use strict';
 
-var expect = require('chai').expect;
+const expect = require('chai').expect;
 
-var home = require('../../../app/controllers/home');
+const home = require('../../../app/controllers/home');
 
-describe('home routes', function() {
-  it('should load', function() {
+describe('home routes', () => {
+  it('should load', () => {
     expect(home).to.be.a('function');
   });
 });

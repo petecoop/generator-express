@@ -7,7 +7,7 @@
   "jade": "^1.11.0",
   "ejs": "^2.3.1",
   "swig": "^1.4.2",
-  "marko": "^3.4.2",
+  "marko": "^4.5.1",
   "nunjucks": "^3.0.0",
   "express-handlebars": "^3.0.0",
   "compression": "^1.5.2",
@@ -41,7 +41,7 @@
   "gulp-livereload": "^3.8.0",
   "gulp-plumber": "^1.0.0",
   "coffee-script": "^1.9.1",
-  "mocha": "^3.0.2",
+  "mocha": "^4.0.1",
   "nyc": "^10.0.0",
   "supertest": "^2.0.0"
 }

@@ -1,11 +1,11 @@
 'use strict';
 
-var expect = require('chai').expect;
+const expect = require('chai').expect;
 
-var config = require('../../../config/config');
+const config = require('../../../config/config');
 
-describe('config', function() {
-  it('should load', function() {
+describe('config', () => {
+  it('should load', () => {
     expect(process.env.NODE_ENV).to.eql('test');
 
     expect(config).to.eql({

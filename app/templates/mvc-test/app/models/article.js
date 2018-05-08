@@ -1,11 +1,11 @@
 'use strict';
 
-var expect = require('chai').expect;
+const expect = require('chai').expect;
 
-var article = require('../../../app/models/article');
+const article = require('../../../app/models/article');
 
-describe('article', function() {
-  it('should load', function() {
+describe('article', () => {
+  it('should load', () => {
     expect(article).to.be.a('function');
   });
 });

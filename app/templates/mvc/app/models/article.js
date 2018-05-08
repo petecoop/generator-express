@@ -1,30 +1,28 @@
 // Example model
 <% if(options.database == 'mongodb'){ %>
-var mongoose = require('mongoose'),
-  Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var ArticleSchema = new Schema({
+const ArticleSchema = new Schema({
   title: String,
   url: String,
   text: String
 });
 
 ArticleSchema.virtual('date')
-  .get(function(){
-    return this._id.getTimestamp();
-  });
+  .get(() => this._id.getTimestamp());
 
 mongoose.model('Article', ArticleSchema);<% } %>
 <% if(options.database == 'mysql' || options.database == 'postgresql' || options.database == 'sqlite'){ %>
-module.exports = function (sequelize, DataTypes) {
+module.exports = (sequelize, DataTypes) => {
 
-  var Article = sequelize.define('Article', {
+  const Article = sequelize.define('Article', {
     title: DataTypes.STRING,
     url: DataTypes.STRING,
     text: DataTypes.STRING
   }, {
     classMethods: {
-      associate: function (models) {
+      associate: (models) => {
         // example on how to add relations
         // Article.hasMany(models.Comments);
       }
@@ -43,11 +41,11 @@ function Article (opts) {
 
 module.exports = Article;
 <% } %><% if(options.database == 'rethinkdb'){%>
-var thinky = require('../../config/thinky'),
-  r = thinky.r,
-  type = thinky.type;
+const thinky = require('../../config/thinky');
+const r = thinky.r;
+const type = thinky.type;
 
-var Article = thinky.createModel('Article', {
+const Article = thinky.createModel('Article', {
   title: String,
   url: String,
   text: String

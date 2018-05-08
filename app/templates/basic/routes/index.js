@@ -1,15 +1,12 @@
-var express = require('express');
-var router = express.Router();<% if(options.viewEngine == 'marko'){ %>
-var marko = require('marko');<% } %>
+const express = require('express');
+const router = express.Router();
 
 /* GET home page. */
-<% if(options.viewEngine == 'marko'){ %>
-var indexTemplate = marko.load(require.resolve('../views/index.marko'));<% } %>
-router.get('/', function(req, res) {<% if(options.viewEngine == 'marko'){ %>
-  indexTemplate.render({
+router.get('/', (req, res) => {<% if(options.viewEngine == 'marko'){ %>
+  res.marko(require('../views/index'), {
     $global: {locals: req.app.locals},
     title: 'Express'
-  }, res);<% } else { %>
+  });<% } else { %>
   res.render('index', { title: 'Express' });<% } %>
 });
 

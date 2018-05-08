@@ -1,21 +1,21 @@
 'use strict';
 
-var expect = require('chai').expect;
-var supertest = require('supertest');
+const expect = require('chai').expect;
+const supertest = require('supertest');
 
-var app = require('../../');
+const app = require('../../');
 
-describe('/', function() {
-  it('should load', function() {
+describe('/', () => {
+  it('should load', () => {
     expect(app).to.be.a('function');
   });
 
-  describe('render', function() {
-    it('should render index', function(done) {
+  describe('render', () => {
+    it('should render index', (done) => {
       supertest(app)
         .get('/')
         .expect('Content-Type', 'text/html; charset=utf-8')
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) {
             return done(err);
           }
@@ -23,24 +23,22 @@ describe('/', function() {
           expect(res.status).to.equal(200);
           expect(res.text).to.include('doctype');
           expect(res.text).to.include('<title>Generator-Express MVC</title>');
-
           done();
         });
     });
   });
 
-  describe('errors', function() {
-    it('should handle pages which are not found', function(done) {
+  describe('errors', () => {
+    it('should handle pages which are not found', (done) => {
       supertest(app)
         .get('/notexistant')
         .expect('Content-Type', 'text/html; charset=utf-8')
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) {
             return done(err);
           }
 
           expect(res.status).to.equal(404);
-
           done();
         });
     });

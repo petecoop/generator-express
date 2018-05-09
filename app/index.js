@@ -87,7 +87,7 @@ module.exports = class extends Generator {
       name: 'viewEngine',
       message: 'Select a view engine to use:',
       choices: [
-        'Jade',
+        'Pug',
         'Swig',
         'EJS',
         'Handlebars',

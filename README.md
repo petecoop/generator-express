@@ -13,7 +13,7 @@ An Expressjs generator for Yeoman, based on the express command line tool.
 - Gulp or Grunt build tools with file watching and livereload
 - .editorconfig for consistent coding styles within text editors
 - Support View engines:
-  - [Pug](http://jade-lang.com/)
+  - [Pug](https://pugjs.org/)
   - [Handlebars](http://handlebarsjs.com/)
   - [Swig](http://paularmstrong.github.io/swig/)
   - [EJS](http://ejs.co/)

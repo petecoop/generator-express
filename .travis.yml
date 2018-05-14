@@ -8,6 +8,8 @@ node_js:
   - "7"
   - "8"
 sudo: false
+before_script:
+  - npm install -g yo
 cache:
   directories:
     - node_modules

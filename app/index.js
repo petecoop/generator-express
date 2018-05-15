@@ -169,7 +169,6 @@ module.exports = class extends Generator {
     return this.prompt(prompt).then((response) => {
       this.options.buildTool = response.buildTool.toLowerCase();
     });
-
   }
 
   writing() {
@@ -248,7 +247,6 @@ module.exports = class extends Generator {
     }
 
     mkdirp.sync('public');
-    mkdirp.sync('public/components');
     mkdirp.sync('public/js');
     mkdirp.sync('public/css');
     mkdirp.sync('public/img');
@@ -262,6 +260,6 @@ module.exports = class extends Generator {
   }
 
   install() {
-    if (!this.options['skip-install']) this.installDependencies();
+    if (!this.options['skip-install']) this.installDependencies({ bower: false });
   }
 };

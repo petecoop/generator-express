@@ -5,13 +5,10 @@ const path = require('path');
 const helpers = require('yeoman-test');
 
 const basicExpected = [
-  '.bowerrc',
   '.editorconfig',
   '.gitignore',
-  'bower.json',
   'app.js',
   'public/img',
-  'public/components',
   'public/js',
   'package.json',
   'routes/index.js',
@@ -20,13 +17,10 @@ const basicExpected = [
 ];
 
 const MVCExpected = [
-  '.bowerrc',
   '.editorconfig',
   '.gitignore',
-  'bower.json',
   'app.js',
   'public/img',
-  'public/components',
   'public/js',
   'public/css',
   'package.json',

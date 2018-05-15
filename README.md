@@ -59,7 +59,7 @@ To get going:
 
 - `--skip-install`
 
-  Skips the automatic execution of `bower` and `npm` after
+  Skips the automatic execution of `npm` after
   scaffolding has finished.
 
 ## Testing

@@ -110,10 +110,9 @@ module.exports = class extends Generator {
     const prompt = [{
       type: 'list',
       name: 'cssPreprocessor',
-      message: 'Select a css preprocessor to use (Sass Requires Ruby):' ,
+      message: 'Select a css preprocessor to use:' ,
       choices: [
         'None',
-        'Node-Sass',
         'Sass',
         'less',
         'Stylus',
@@ -228,7 +227,6 @@ module.exports = class extends Generator {
     // css
     let stylesheets = this.options.cssPreprocessor;
     if (stylesheets === 'none') stylesheets = 'css';
-    if (stylesheets === 'node-sass') stylesheets = 'sass';
     this.sourceRoot(path.join(__dirname, 'templates', 'css', stylesheets));
     this.fs.copyTpl(this.templatePath('.'), this.destinationPath('public/css'), this);
 

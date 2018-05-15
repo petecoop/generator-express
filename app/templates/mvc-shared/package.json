@@ -41,7 +41,6 @@
     "debug": "^2.2.0",<% if(options.buildTool == 'grunt'){ %>
     "grunt": "^1.0.1",
     "grunt-develop": "^0.4.0",<% if(options.cssPreprocessor == 'sass'){ %>
-    "grunt-contrib-sass": "^1.0.0",<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>
     "grunt-sass": "2.0.0",<% } %><% if(options.cssPreprocessor == 'less'){ %>
     "grunt-contrib-less": "^1.0.0",<% } %><% if(options.cssPreprocessor == 'stylus'){ %>
     "grunt-contrib-stylus": "^1.0.0",<% } %>
@@ -50,7 +49,6 @@
     "time-grunt": "^1.2.1",
     "load-grunt-tasks": "^3.2.0",<% } %><% if(options.buildTool == 'gulp'){ %>
     "gulp": "^3.9.0",<% if(options.cssPreprocessor == 'sass'){ %>
-    "gulp-ruby-sass": "^2.0.1",<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>
     "gulp-sass": "^3.0.0",<% } %><% if(options.cssPreprocessor == 'less'){ %>
     "gulp-less": "^3.0.1",<% } %><% if(options.cssPreprocessor == 'stylus'){ %>
     "gulp-stylus": "^2.0.0",<% } %>

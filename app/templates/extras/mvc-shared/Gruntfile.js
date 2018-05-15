@@ -24,13 +24,6 @@ module.exports = (grunt) => {
           'public/css/style.css': 'public/css/style.scss'
         }
       }
-    },<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>
-    sass: {
-      dist: {
-        files: {
-          'public/css/style.css': 'public/css/style.scss'
-        }
-      }
     },<% } %><% if(options.cssPreprocessor == 'less'){ %>
     less: {
       dist: {
@@ -62,12 +55,10 @@ module.exports = (grunt) => {
       css: {
         files: [<% if(options.cssPreprocessor == 'none'){ %>
           'public/css/*.css'<% } %><% if(options.cssPreprocessor == 'sass'){ %>
-          'public/css/*.scss'<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>
           'public/css/*.scss'<% } %><% if(options.cssPreprocessor == 'less'){ %>
           'public/css/*.less'<% } %><% if(options.cssPreprocessor == 'stylus'){ %>
           'public/css/*.styl'<% } %>
         ],<% if(options.cssPreprocessor == 'sass'){ %>
-        tasks: ['sass'],<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>
         tasks: ['sass'],<% } %><% if(options.cssPreprocessor == 'less'){ %>
         tasks: ['less'],<% } %><% if(options.cssPreprocessor == 'stylus'){ %>
         tasks: ['stylus'],<% } %>
@@ -105,7 +96,6 @@ module.exports = (grunt) => {
   });
 
   grunt.registerTask('default', [<% if(options.cssPreprocessor == 'sass'){ %>
-    'sass',<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>
     'sass',<% } %><% if(options.cssPreprocessor == 'less'){ %>
     'less',<% } %><% if(options.cssPreprocessor == 'stylus'){ %>
     'stylus',<% } %>

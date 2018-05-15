@@ -2,20 +2,10 @@ const gulp = require('gulp');
 const nodemon = require('gulp-nodemon');
 const plumber = require('gulp-plumber');
 const livereload = require('gulp-livereload');<% if(options.cssPreprocessor == 'sass'){ %>
-const sass = require('gulp-ruby-sass');<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>
 const sass = require('gulp-sass');<% } %><% if(options.cssPreprocessor == 'less'){ %>
 const less = require('gulp-less');<% } %><% if(options.cssPreprocessor == 'stylus'){ %>
 const stylus = require('gulp-stylus');<% } %>
 <% if(options.cssPreprocessor == 'sass'){ %>
-gulp.task('sass', () => {
-  return sass('./public/css/**/*.scss')
-    .pipe(gulp.dest('./public/css'))
-    .pipe(livereload());
-});
-
-gulp.task('watch', () => {
-  gulp.watch('./public/css/*.scss', ['sass']);
-});<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>
 gulp.task('sass', () => {
   gulp.src('./public/css/*.scss')
     .pipe(plumber())
@@ -69,12 +59,10 @@ gulp.task('develop', () => {
 });
 
 gulp.task('default', [<% if(options.cssPreprocessor == 'sass'){ %>
-  'sass',<% } %><% if(options.cssPreprocessor == 'node-sass'){ %>
   'sass',<% } %><% if(options.cssPreprocessor == 'less'){ %>
   'less',<% } %><% if(options.cssPreprocessor == 'stylus'){ %>
   'stylus',<% } %>
   'develop'<% if(options.cssPreprocessor == 'sass' ||
-                options.cssPreprocessor == 'node-sass' ||
                 options.cssPreprocessor == 'less' ||
                 options.cssPreprocessor == 'stylus'){ %>,
   'watch'<% } %>

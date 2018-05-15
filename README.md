@@ -20,7 +20,7 @@ An Expressjs generator for Yeoman, based on the express command line tool.
   - [Marko](http://markojs.com/)
   - [Nunjucks](http://mozilla.github.io/nunjucks/)
 - Supported CSS pre-processors
-  - SASS (both node-sass and ruby sass)
+  - SASS
   - LESS
   - Stylus
 - Supported Databases (with MVC structure):

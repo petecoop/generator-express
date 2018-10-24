@@ -41,10 +41,10 @@
     "yeoman-generator": "^3.1.1"
   },
   "devDependencies": {
-    "eslint": "^4.9.0",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-mocha": "^4.11.0",
+    "eslint": "^5.7.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-mocha": "^5.2.0",
     "mocha": "^5.2.0",
     "yeoman-assert": "^3.1.0",
     "yeoman-test": "^1.7.0"

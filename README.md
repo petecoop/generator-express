@@ -24,11 +24,11 @@ An Expressjs generator for Yeoman, based on the express command line tool.
   - LESS
   - Stylus
 - Supported Databases (with MVC structure):
- - MongoDB
- - MySQL
- - PostgreSQL
- - RethinkDB
- - SQLite
+  - MongoDB
+  - MySQL
+  - PostgreSQL
+  - RethinkDB
+  - SQLite
 
 ## Getting started
 

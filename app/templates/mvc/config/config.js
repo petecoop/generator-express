@@ -40,7 +40,7 @@ const config = {
     db: 'mongodb://localhost/<%= slugify(appname) %>-production'<% } %><% if(options.database == 'mysql'){ %>
     db: 'mysql://localhost/<%= slugify(appname) %>-production'<% } %><% if(options.database == 'sqlite'){ %>
     db: 'sqlite://localhost/<%= slugify(appname) %>-production',
-    storage: rootPath + 'data/<%= slugify(appname) %>-production'<% } %><% if(options.database == 'postgresql'){ %>
+    storage: rootPath + '/data/<%= slugify(appname) %>-production'<% } %><% if(options.database == 'postgresql'){ %>
     db: 'postgres://localhost/<%= slugify(appname) %>-production'<% } %><% if(options.database == 'rethinkdb'){ %>
     db: {db: '<%= slugify(appname) %>_production'}<% } %>
   }

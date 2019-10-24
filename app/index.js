@@ -5,13 +5,6 @@ const Generator = require('yeoman-generator');
 const glob = require('glob');
 const slugify = require('underscore.string/slugify');
 const mkdirp = require('mkdirp');
-const Insight = require('insight');
-const pkg = require('../package.json');
-
-const insight = new Insight({
-  trackingCode: 'UA-27236136-2',
-  pkg,
-});
 
 module.exports = class extends Generator {
   constructor(args, opts) {
@@ -252,10 +245,6 @@ module.exports = class extends Generator {
     mkdirp.sync('public/img');
     if (this.options.database === 'sqlite') {
       mkdirp.sync('data');
-    }
-
-    if (this.options.skipInsights) {
-      insight.track(this.filetype, name, this.options.database, this.options.viewEngine, this.options.cssPreprocessor, this.options.buildTool);
     }
   }
 

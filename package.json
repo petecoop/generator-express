@@ -37,19 +37,19 @@
     "glob": "^7.0.0",
     "mkdirp": "^0.5.0",
     "underscore.string": "^3.0.3",
-    "yeoman-generator": "^3.1.1"
+    "yeoman-generator": "^4.1.0"
   },
   "devDependencies": {
-    "eslint": "^4.9.0",
-    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-mocha": "^4.11.0",
-    "mocha": "^5.2.0",
+    "eslint-plugin-mocha": "^6.2.0",
+    "mocha": "^6.2.2",
     "yeoman-assert": "^3.1.0",
-    "yeoman-test": "^1.7.0"
+    "yeoman-test": "^2.0.0"
   },
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=8.0.0"
   },
   "licenses": [
     {

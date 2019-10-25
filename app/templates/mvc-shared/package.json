@@ -17,15 +17,15 @@
     "cookie-parser": "^1.3.3",
     "body-parser": "^1.13.3",
     "compression": "^1.5.2",
-    "method-override": "^2.3.0",
+    "method-override": "^3.0.0",
     "glob": "^6.0.4"<% if(options.database == 'mongodb'){ %>,
-    "mongoose": "^4.1.2"<% } %><% if(options.database == 'mysql'){ %>,
-    "sequelize": "^3.5.1",
+    "mongoose": "^5.7.7"<% } %><% if(options.database == 'mysql'){ %>,
+    "sequelize": "^5.21.1",
     "mysql": "^2.8.0"<% } %><% if(options.database == 'postgresql'){ %>,
-    "sequelize": "^3.5.1",
-    "pg": "^6.0.1",
-    "pg-hstore": "2.3.2"<% } %><% if(options.database == 'sqlite'){ %>,
-    "sequelize": "^3.5.1",
+    "sequelize": "^5.21.1",
+    "pg": "^7.12.1",
+    "pg-hstore": "2.3.3"<% } %><% if(options.database == 'sqlite'){ %>,
+    "sequelize": "^5.21.1",
     "sqlite3": "^4.1.0"<% } %><% if(options.database == 'rethinkdb'){ %>,
     "thinky": "^2.3.6"<% } %><% if(options.viewEngine == 'pug'){ %>,
     "pug": "^2.0.3"<% } %><% if(options.viewEngine == 'ejs'){ %>,
@@ -38,25 +38,25 @@
   "devDependencies": {
     "chai": "^3.5.0",<% if(options.coffee){ %>
     "coffee-script": "^1.9.1",<% } %>
-    "debug": "^2.2.0",<% if(options.buildTool == 'grunt'){ %>
+    "debug": "^4.1.1",<% if(options.buildTool == 'grunt'){ %>
     "grunt": "^1.0.1",
     "grunt-develop": "^0.4.0",<% if(options.cssPreprocessor == 'sass'){ %>
-    "grunt-sass": "2.0.0",<% } %><% if(options.cssPreprocessor == 'less'){ %>
-    "grunt-contrib-less": "^1.0.0",<% } %><% if(options.cssPreprocessor == 'stylus'){ %>
+    "grunt-sass": "3.1.0",<% } %><% if(options.cssPreprocessor == 'less'){ %>
+    "grunt-contrib-less": "^2.0.0",<% } %><% if(options.cssPreprocessor == 'stylus'){ %>
     "grunt-contrib-stylus": "^1.0.0",<% } %>
     "grunt-contrib-watch": "^1.0.0",
     "request": "^2.60.0",
-    "time-grunt": "^1.2.1",
-    "load-grunt-tasks": "^3.2.0",<% } %><% if(options.buildTool == 'gulp'){ %>
-    "gulp": "^3.9.0",<% if(options.cssPreprocessor == 'sass'){ %>
-    "gulp-sass": "^3.0.0",<% } %><% if(options.cssPreprocessor == 'less'){ %>
-    "gulp-less": "^3.0.1",<% } %><% if(options.cssPreprocessor == 'stylus'){ %>
+    "time-grunt": "^2.0.0",
+    "load-grunt-tasks": "^5.1.0",<% } %><% if(options.buildTool == 'gulp'){ %>
+    "gulp": "^4.0.2",<% if(options.cssPreprocessor == 'sass'){ %>
+    "gulp-sass": "^4.0.2",<% } %><% if(options.cssPreprocessor == 'less'){ %>
+    "gulp-less": "^4.0.1",<% } %><% if(options.cssPreprocessor == 'stylus'){ %>
     "gulp-stylus": "^2.0.0",<% } %>
     "gulp-nodemon": "^2.0.2",
-    "gulp-livereload": "^3.8.0",
+    "gulp-livereload": "^4.0.2",
     "gulp-plumber": "^1.0.0",<% } %>
     "mocha": "^4.0.1",
-    "nyc": "^10.0.0",
-    "supertest": "^2.0.0"
+    "nyc": "^14.1.1",
+    "supertest": "^4.0.2"
   }
 }

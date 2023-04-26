@@ -1,3 +1,7 @@
+## No Longer Maintained
+
+This project has not been maintained since 2015 and is very outdated. Please look for alternatives.
+
 # Generator express
 [![Build Status](https://img.shields.io/travis/petecoop/generator-express.svg)](https://travis-ci.org/petecoop/generator-express)
 [![NPM Version](https://img.shields.io/npm/v/generator-express.svg)](https://www.npmjs.org/package/generator-express)
